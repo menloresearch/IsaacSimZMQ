@@ -1,0 +1,9 @@
+[[dependency]]
+python = "../_build/target-deps/python"
+packages = ["protobuf==3.19.4"]
+target = "../_build/target-deps/pip_prebundle/protobuf"
+
+[[dependency]]
+python = "../_build/target-deps/python"
+packages = ["pyzmq==26.2.1"]
+target = "../_build/target-deps/pip_prebundle/pyzmq"

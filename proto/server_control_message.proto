@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+// Vector3 represents a 3D vector with x, y, z components
+message Vector3 {
+    double x = 1;
+    double y = 2;
+    double z = 3;
+}
+
+// CameraControlCommand represents all camera-related controls
+message CameraControlCommand {
+    Vector3 joints_vel = 1;     // Velocities for camera mount joints (x, y, z axes)
+    double focal_length = 2;    // The focal length value
+}
+
+// SettingsCommand represents general control parameters
+message SettingsCommand {
+    bool adaptive_rate = 1;    // Whether to use adaptive rate
+}
+
+// FrankaCommand represents a command for the Franka robot
+message FrankaCommand {
+    Vector3 effector_pos = 1;  // The effector position
+    bool show_marker = 2;  // Whether to show the marker
+}
+
+// ServerControlMessage is the main message that can contain any of the command types
+message ServerControlMessage {
+    // Only one of these fields will be set
+    oneof command {
+        CameraControlCommand camera_control_command = 1;
+        SettingsCommand settings_command = 2;
+        FrankaCommand franka_command = 3;
+    }
+}

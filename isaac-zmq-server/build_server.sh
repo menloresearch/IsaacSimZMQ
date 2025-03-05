@@ -1,0 +1,1 @@
+docker build -t isaac-zmq-server -f Dockerfile .

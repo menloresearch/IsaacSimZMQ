@@ -1,0 +1,51 @@
+{
+    "OgnIsaacBridgeZMQCamera": {
+        "version": 1,
+        "icon": "icons/isaac-sim.svg",
+        "categories": "function",
+        "description": ["Node to retrive camera extrinsics/intrinsics params"],
+        "language": "c++",
+        "metadata": {
+            "uiName": "Isaac Bridge ZMQ Camera Params"
+        },
+        "inputs": {
+            "execIn": {
+                "type": "execution",
+                "description": "Signal to the graph that this node is ready to be executed."
+            },
+            "cameraPrimPath": {
+                "type": "path",
+                "description": "Path of the camera prim.",
+                "uiName": "Camera Prim Path"
+            },
+            "width": {
+                "type": "uint",
+                "description": "Camera resolution width",
+                "default": 720
+            },
+            "height": {
+                "type": "uint",
+                "description": "Camera resolution height",
+                "default": 720
+            }
+        },
+        "outputs": {
+            "cameraViewTransform" : {
+                "type" : "frame[4]",
+                "description" : "",
+                "uiName" : "Camera View Transform in ROS world"
+            },
+            "cameraIntrinsics" : {
+                "type" : "matrixd[3]",
+                "description" : "",
+                "uiName" : "Camera Intrinsitcs Matrix"
+            },
+            "cameraWorldScale" : {
+                "type" : "double[3]",
+                "description" : "",
+                "uiName" : "Camera World Scale"
+            }
+        }
+
+    }
+}

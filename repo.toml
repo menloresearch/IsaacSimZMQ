@@ -1,0 +1,39 @@
+########################################################################################################################
+# Repo tool base settings
+########################################################################################################################
+
+[repo]
+
+# Use the Kit Template repo configuration as a base. Only override things specific to the repo.
+import_configs = ["${root}/_repo/deps/repo_kit_tools/kit-template/repo.toml"]
+
+# Repository Name
+name = "IsaacSimZMQ"
+
+[repo_build]
+msbuild.vs_version = "vs2019"
+post_build.commands = []
+
+[repo_build.docker]
+enabled = false
+
+[repo_precache_exts]
+registries = [
+    { name = "kit/default", url = "https://ovextensionsprod.blob.core.windows.net/exts/kit/prod/106/shared" },
+    { name = "kit/sdk", url = "https://ovextensionsprod.blob.core.windows.net/exts/kit/prod/sdk/${kit_version_short}/${kit_git_hash}" },
+]
+
+ext_folders = [
+  "${root}/exts",
+  "${root}/exts/apps",
+]
+
+[repo_symstore]
+enabled = false
+
+[repo_build.fetch.pip]
+ignore_pip_cache_failure = true
+licensing_enabled = false
+
+[repo_build.licensing]
+enabled = false

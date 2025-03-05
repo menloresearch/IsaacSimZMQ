@@ -1,0 +1,57 @@
+[package]
+version = "1.0.0"
+title = "isaac sim zmq bridge omnigraph nodes"
+description = "An Omnigraph node to communicate data in/out from Omniverse via zMQ"
+category = "Sample"
+keywords = ["bridge","example", "zmq", "cpp", "nodes", "omnigraph"]
+icon = "data/icon.png"
+preview_image = "data/preview.png"
+changelog = "docs/CHANGELOG.md"
+readme = "docs/README.md"
+authors = ["Lior Ben Horin <lbenhorin@nvidia.com>"]
+repository="https://github.com/isaac-sim/IsaacSimZMQ"
+
+[dependencies]
+"omni.graph.core" = {}
+"omni.graph.tools" = {}
+
+[[python.module]]
+name = "isaacsim.zmq.bridge"
+
+[[native.plugin]]
+path = "bin/*.plugin"
+
+
+# Order of linkins is critical!
+# [[native.library]]
+# path = "bin/lib/libsodium.so.23"
+[[native.library]]
+path = "bin/lib/libsodium.so.18"
+[[native.library]]
+path = "bin/lib/libpgm-5.2.so.0"
+[[native.library]]
+path = "bin/lib/libnorm.so.1"
+[[native.library]]
+path = "bin/lib/libzmq.so.5"
+# [[native.library]]
+# path = "bin/lib/libzmq.so"
+
+[documentation]
+pages = [
+    "docs/CHANGELOG.md",
+]
+
+[python.pipapi]
+# Commands passed to pip install before extension gets enabled. Can also contain flags, like `--upgrade`, `--no--index`, etc.
+# Refer to: https://pip.pypa.io/en/stable/reference/requirements-file-format/
+requirements = [
+    "zmq",
+]
+
+# Optional list of modules to import before (check) and after pip install if different from packages in requirements.
+modules = [
+    "zmq"
+]
+
+# Allow going to online index. Required to be set to true for pip install call.
+use_online_index = true

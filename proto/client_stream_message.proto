@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+// BBox2DType represents a single bounding box with semantic information
+message BBox2DType {
+    uint32 semanticId = 1;      // Unique identifier for the semantic class
+    int32 xMin = 2;             // Left coordinate of the bounding box
+    int32 yMin = 3;             // Top coordinate of the bounding box
+    int32 xMax = 4;             // Right coordinate of the bounding box
+    int32 yMax = 5;             // Bottom coordinate of the bounding box
+    float occlusionRatio = 6;   // Ratio indicating how much of the object is occluded (0-1)
+}
+
+// BBox2DInfo contains metadata for a collection of bounding boxes
+message BBox2DInfo {
+    map<string, string> idToLabels = 1;  // Maps semantic IDs to human-readable labels
+    repeated int32 bboxIds = 2;          // List of bounding box identifiers
+}
+
+// BBox2D represents a complete set of bounding boxes with their metadata
+message BBox2D {
+    repeated BBox2DType data = 1;  // Collection of bounding boxes
+    BBox2DInfo info = 2;           // Metadata for the bounding boxes
+}
+
+// Clock contains timing information for synchronization
+message Clock {
+    double sim_dt = 1;     // Simulation delta time (seconds)
+    double sys_dt = 2;     // System delta time (seconds)
+    double sim_time = 3;   // Current simulation time (seconds)
+    double sys_time = 4;   // Current system time (seconds)
+}
+
+// Camera contains camera parameters and transformation matrices
+message Camera {
+    repeated double view_matrix_ros = 1;    // Flattened 4x4 matrix (size 16) for camera pose in ROS format
+    repeated double camera_scale = 2;       // Size 3 vector for camera scaling factors
+    repeated double intrinsics_matrix = 3;  // Flattened 3x3 matrix (size 9) for camera intrinsics
+}
+
+// ClientStreamMessage is the main message containing all data transmitted
+message ClientStreamMessage {
+    BBox2D bbox2d = 1;        // Bounding box data
+    Clock clock = 2;          // Timing information
+    Camera camera = 3;        // Camera parameters
+    bytes color_image = 4;    // RGB image data (encoded)
+    bytes depth_image = 5;    // Depth image data (encoded)
+}

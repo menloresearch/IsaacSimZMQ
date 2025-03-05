@@ -1,0 +1,34 @@
+[package]
+version = "1.0.0"
+authors = ["Lior Ben Horin <lbenhorin@nvidia.com>"]
+title = "isaacsim zmq bridge examples"
+description="Extention to facilitate communication between Isaac SIM and External application via ZMQ"
+readme  = "docs/README.md"
+repository="https://github.com/isaac-sim/IsaacSimZMQ"
+category = "Sample"
+keywords = ["bridge","example", "zmq"]
+changelog="docs/CHANGELOG.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+
+# Use omni.ui to build simple UI
+[dependencies]
+"omni.kit.uiapp" = {}
+"isaacsim.zmq.bridge" = {}
+
+# Main python module this extension provides, it will be publicly available as "import lbenhorin.nvidia.vision_pipeline".
+[[python.module]]
+name = "isaacsim.zmq.bridge.examples"
+
+[[test]]
+# Extra dependencies only to be used during test run
+dependencies = [
+    "omni.kit.ui_test" # UI testing extension
+]
+
+# Add python dependencies to the extension (we have fetched them during build time)
+[[python.module]]
+path = "pip_prebundle/pyzmq"
+
+[[python.module]]
+path = "pip_prebundle/protobuf"

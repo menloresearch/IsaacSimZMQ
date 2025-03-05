@@ -1,0 +1,111 @@
+{
+    "OgnIsaacBridgeZMQNode": {
+        "version": 1,
+        "uiName": "ZMQ Client Node",
+        "icon": "icons/isaac-sim.svg",
+        "description": [
+            "This is a ZMQ Client responsible for sending out sensory data"
+        ],
+        "categories": ["function"],
+        "language": "c++",
+        "scheduling": "pure",
+        "inputs": {
+            "execIn": {
+                "type": "execution",
+                "description": "The input execution port."
+            },
+            "port": {
+                "type": "uint",
+                "description": "ZMQ server port",
+                "default": 5561
+            },
+            "ip": {
+                "type": "string",
+                "description": "ZMQ server ip",
+                "default": "localhost"
+            },
+            "deltaSimulationTime": {
+                "type": "double",
+                "description": "simulation delta time"
+            },
+            "deltaSystemTime": {
+                "type": "double",
+                "description": "system delta time"
+            },
+            "simulationTime": {
+                "type": "double",
+                "description": "simulation time"
+            },
+            "systemTime": {
+                "type": "double",
+                "description": "system time"
+            },
+            "bufferSizeColor": {
+                "type": "uint64",
+                "description": "Size (in bytes) of the buffer (0 if the input is a texture)"
+            },
+            "dataPtrColor": {
+                "type": "uint64",
+                "description": "Pointer to the raw data (cuda device pointer or host pointer)",
+                "default": 0
+            },
+            "bufferSizeDepth": {
+                "type": "uint64",
+                "description": "Size (in bytes) of the buffer (0 if the input is a texture)"
+            },
+            "dataPtrDepth": {
+                "type": "uint64",
+                "description": "Pointer to the raw data (cuda device pointer or host pointer)",
+                "default": 0
+            },
+            "bboxIdsBBox2d" : {
+                "type": "uint[]",
+                "description": "."
+            },
+            "bufferSizeBBox2d" : {
+                "type": "uint",
+                "description": ""
+            },
+            "dataBBox2d" : {
+                "type": "uchar[]",
+                "description": ""
+            },
+            "heightBBox2d" : {
+                "type": "uint",
+                "description": ""
+            },
+            "widthBBox2d" : {
+                "type": "uint",
+                "description": ""
+            },
+            "primPathsBBox2d" : {
+                "type": "token[]",
+                "description": ""
+            },
+            "labelsBBox2d" : {
+                "type": "token[]",
+                "description": ""
+            },
+            "idsBBox2d" : {
+                "type": "uint[]",
+                "description": ""
+            },
+            "cameraViewTransform" : {
+                "type" : "frame[4]",
+                "description" : "",
+                "uiName" : "Camera View Transform in ROS world"
+            },
+            "cameraIntrinsics" : {
+                "type" : "matrixd[3]",
+                "description" : "",
+                "uiName" : "Camera Intrinsitcs Matrix"
+            },
+            "cameraWorldScale" : {
+                "type" : "double[3]",
+                "description" : "",
+                "uiName" : "Camera World Scale"
+            }
+        },
+        "outputs": {}
+    }
+}
