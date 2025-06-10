@@ -1,15 +1,24 @@
 syntax = "proto3";
 
-// Vector3 represents a 3D vector with x, y, z components
-message Vector3 {
+message SVector3 {
     double x = 1;
     double y = 2;
     double z = 3;
 }
 
+message Dex31HandJoinsAct {
+    double thumb_0 = 1;
+    double thumb_1 = 2;
+    double thumb_2 = 3;
+    double index_0 = 4;
+    double index_1 = 5;
+    double middle_0 = 6;
+    double middle_1 = 7;
+}
+
 // CameraControlCommand represents all camera-related controls
 message CameraControlCommand {
-    Vector3 joints_vel = 1;     // Velocities for camera mount joints (x, y, z axes)
+    SVector3 joints_vel = 1;     // Velocities for camera mount joints (x, y, z axes)
     double focal_length = 2;    // The focal length value
 }
 
@@ -20,7 +29,7 @@ message SettingsCommand {
 
 // FrankaCommand represents a command for the Franka robot
 message FrankaCommand {
-    Vector3 effector_pos = 1;  // The effector position
+    SVector3 effector_pos = 1;  // The effector position
     bool show_marker = 2;  // Whether to show the marker
 }
 
@@ -32,4 +41,15 @@ message ServerControlMessage {
         SettingsCommand settings_command = 2;
         FrankaCommand franka_command = 3;
     }
+}
+
+message G1ActionCommand {
+    SVector3 left_shoulder_angle = 1;  // [pitch, roll, yaw]
+    SVector3 right_shoulder_angle = 2;  // [pitch, roll, yaw]
+    SVector3 left_wrist_angle = 3;  // [pitch, roll, yaw]
+    SVector3 right_wrist_angle = 4;  // [pitch, roll, yaw]
+    double left_elbow = 5;
+    double right_elbow = 6;
+    Dex31HandJoinsAct left_hand = 7;
+    Dex31HandJoinsAct right_hand = 8;
 }

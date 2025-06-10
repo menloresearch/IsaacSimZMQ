@@ -14,10 +14,13 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1b\x63lient_stream_message.proto\"p\n\nBBox2DType\x12\x12\n\nsemanticId\x18\x01 \x01(\r\x12\x0c\n\x04xMin\x18\x02 \x01(\x05\x12\x0c\n\x04yMin\x18\x03 \x01(\x05\x12\x0c\n\x04xMax\x18\x04 \x01(\x05\x12\x0c\n\x04yMax\x18\x05 \x01(\x05\x12\x16\n\x0eocclusionRatio\x18\x06 \x01(\x02\"\x81\x01\n\nBBox2DInfo\x12/\n\nidToLabels\x18\x01 \x03(\x0b\x32\x1b.BBox2DInfo.IdToLabelsEntry\x12\x0f\n\x07\x62\x62oxIds\x18\x02 \x03(\x05\x1a\x31\n\x0fIdToLabelsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\">\n\x06\x42\x42ox2D\x12\x19\n\x04\x64\x61ta\x18\x01 \x03(\x0b\x32\x0b.BBox2DType\x12\x19\n\x04info\x18\x02 \x01(\x0b\x32\x0b.BBox2DInfo\"K\n\x05\x43lock\x12\x0e\n\x06sim_dt\x18\x01 \x01(\x01\x12\x0e\n\x06sys_dt\x18\x02 \x01(\x01\x12\x10\n\x08sim_time\x18\x03 \x01(\x01\x12\x10\n\x08sys_time\x18\x04 \x01(\x01\"R\n\x06\x43\x61mera\x12\x17\n\x0fview_matrix_ros\x18\x01 \x03(\x01\x12\x14\n\x0c\x63\x61mera_scale\x18\x02 \x03(\x01\x12\x19\n\x11intrinsics_matrix\x18\x03 \x03(\x01\"\x88\x01\n\x13\x43lientStreamMessage\x12\x17\n\x06\x62\x62ox2d\x18\x01 \x01(\x0b\x32\x07.BBox2D\x12\x15\n\x05\x63lock\x18\x02 \x01(\x0b\x32\x06.Clock\x12\x17\n\x06\x63\x61mera\x18\x03 \x01(\x0b\x32\x07.Camera\x12\x13\n\x0b\x63olor_image\x18\x04 \x01(\x0c\x12\x13\n\x0b\x64\x65pth_image\x18\x05 \x01(\x0c\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1b\x63lient_stream_message.proto\"*\n\x07Vector3\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\"\x89\x01\n\x0e\x44\x65x31HandJoins\x12\x0f\n\x07thumb_0\x18\x01 \x01(\x01\x12\x0f\n\x07thumb_1\x18\x02 \x01(\x01\x12\x0f\n\x07thumb_2\x18\x03 \x01(\x01\x12\x0f\n\x07index_0\x18\x04 \x01(\x01\x12\x0f\n\x07index_1\x18\x05 \x01(\x01\x12\x10\n\x08middle_0\x18\x06 \x01(\x01\x12\x10\n\x08middle_1\x18\x07 \x01(\x01\"\x97\x02\n\x0bG1JoinState\x12%\n\x13left_shoulder_angle\x18\x01 \x01(\x0b\x32\x08.Vector3\x12&\n\x14right_shoulder_angle\x18\x02 \x01(\x0b\x32\x08.Vector3\x12\"\n\x10left_wrist_angle\x18\x03 \x01(\x0b\x32\x08.Vector3\x12#\n\x11right_wrist_angle\x18\x04 \x01(\x0b\x32\x08.Vector3\x12\x12\n\nleft_elbow\x18\x05 \x01(\x01\x12\x13\n\x0bright_elbow\x18\x06 \x01(\x01\x12\"\n\tleft_hand\x18\x07 \x01(\x0b\x32\x0f.Dex31HandJoins\x12#\n\nright_hand\x18\x08 \x01(\x0b\x32\x0f.Dex31HandJoins\"p\n\nBBox2DType\x12\x12\n\nsemanticId\x18\x01 \x01(\r\x12\x0c\n\x04xMin\x18\x02 \x01(\x05\x12\x0c\n\x04yMin\x18\x03 \x01(\x05\x12\x0c\n\x04xMax\x18\x04 \x01(\x05\x12\x0c\n\x04yMax\x18\x05 \x01(\x05\x12\x16\n\x0eocclusionRatio\x18\x06 \x01(\x02\"\x81\x01\n\nBBox2DInfo\x12/\n\nidToLabels\x18\x01 \x03(\x0b\x32\x1b.BBox2DInfo.IdToLabelsEntry\x12\x0f\n\x07\x62\x62oxIds\x18\x02 \x03(\x05\x1a\x31\n\x0fIdToLabelsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\">\n\x06\x42\x42ox2D\x12\x19\n\x04\x64\x61ta\x18\x01 \x03(\x0b\x32\x0b.BBox2DType\x12\x19\n\x04info\x18\x02 \x01(\x0b\x32\x0b.BBox2DInfo\"K\n\x05\x43lock\x12\x0e\n\x06sim_dt\x18\x01 \x01(\x01\x12\x0e\n\x06sys_dt\x18\x02 \x01(\x01\x12\x10\n\x08sim_time\x18\x03 \x01(\x01\x12\x10\n\x08sys_time\x18\x04 \x01(\x01\"R\n\x06\x43\x61mera\x12\x17\n\x0fview_matrix_ros\x18\x01 \x03(\x01\x12\x14\n\x0c\x63\x61mera_scale\x18\x02 \x03(\x01\x12\x19\n\x11intrinsics_matrix\x18\x03 \x03(\x01\"\x88\x01\n\x13\x43lientStreamMessage\x12\x17\n\x06\x62\x62ox2d\x18\x01 \x01(\x0b\x32\x07.BBox2D\x12\x15\n\x05\x63lock\x18\x02 \x01(\x0b\x32\x06.Clock\x12\x17\n\x06\x63\x61mera\x18\x03 \x01(\x0b\x32\x07.Camera\x12\x13\n\x0b\x63olor_image\x18\x04 \x01(\x0c\x12\x13\n\x0b\x64\x65pth_image\x18\x05 \x01(\x0c\"~\n\x15G1ClientStreamMessage\x12 \n\njoin_state\x18\x01 \x01(\x0b\x32\x0c.G1JoinState\x12\x15\n\x05\x63lock\x18\x02 \x01(\x0b\x32\x06.Clock\x12\x17\n\x06\x63\x61mera\x18\x03 \x01(\x0b\x32\x07.Camera\x12\x13\n\x0b\x63olor_image\x18\x04 \x01(\x0c\x62\x06proto3')
 
 
 
+_VECTOR3 = DESCRIPTOR.message_types_by_name['Vector3']
+_DEX31HANDJOINS = DESCRIPTOR.message_types_by_name['Dex31HandJoins']
+_G1JOINSTATE = DESCRIPTOR.message_types_by_name['G1JoinState']
 _BBOX2DTYPE = DESCRIPTOR.message_types_by_name['BBox2DType']
 _BBOX2DINFO = DESCRIPTOR.message_types_by_name['BBox2DInfo']
 _BBOX2DINFO_IDTOLABELSENTRY = _BBOX2DINFO.nested_types_by_name['IdToLabelsEntry']
@@ -25,6 +28,28 @@ _BBOX2D = DESCRIPTOR.message_types_by_name['BBox2D']
 _CLOCK = DESCRIPTOR.message_types_by_name['Clock']
 _CAMERA = DESCRIPTOR.message_types_by_name['Camera']
 _CLIENTSTREAMMESSAGE = DESCRIPTOR.message_types_by_name['ClientStreamMessage']
+_G1CLIENTSTREAMMESSAGE = DESCRIPTOR.message_types_by_name['G1ClientStreamMessage']
+Vector3 = _reflection.GeneratedProtocolMessageType('Vector3', (_message.Message,), {
+  'DESCRIPTOR' : _VECTOR3,
+  '__module__' : 'client_stream_message_pb2'
+  # @@protoc_insertion_point(class_scope:Vector3)
+  })
+_sym_db.RegisterMessage(Vector3)
+
+Dex31HandJoins = _reflection.GeneratedProtocolMessageType('Dex31HandJoins', (_message.Message,), {
+  'DESCRIPTOR' : _DEX31HANDJOINS,
+  '__module__' : 'client_stream_message_pb2'
+  # @@protoc_insertion_point(class_scope:Dex31HandJoins)
+  })
+_sym_db.RegisterMessage(Dex31HandJoins)
+
+G1JoinState = _reflection.GeneratedProtocolMessageType('G1JoinState', (_message.Message,), {
+  'DESCRIPTOR' : _G1JOINSTATE,
+  '__module__' : 'client_stream_message_pb2'
+  # @@protoc_insertion_point(class_scope:G1JoinState)
+  })
+_sym_db.RegisterMessage(G1JoinState)
+
 BBox2DType = _reflection.GeneratedProtocolMessageType('BBox2DType', (_message.Message,), {
   'DESCRIPTOR' : _BBOX2DTYPE,
   '__module__' : 'client_stream_message_pb2'
@@ -75,23 +100,38 @@ ClientStreamMessage = _reflection.GeneratedProtocolMessageType('ClientStreamMess
   })
 _sym_db.RegisterMessage(ClientStreamMessage)
 
+G1ClientStreamMessage = _reflection.GeneratedProtocolMessageType('G1ClientStreamMessage', (_message.Message,), {
+  'DESCRIPTOR' : _G1CLIENTSTREAMMESSAGE,
+  '__module__' : 'client_stream_message_pb2'
+  # @@protoc_insertion_point(class_scope:G1ClientStreamMessage)
+  })
+_sym_db.RegisterMessage(G1ClientStreamMessage)
+
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   _BBOX2DINFO_IDTOLABELSENTRY._options = None
   _BBOX2DINFO_IDTOLABELSENTRY._serialized_options = b'8\001'
-  _BBOX2DTYPE._serialized_start=31
-  _BBOX2DTYPE._serialized_end=143
-  _BBOX2DINFO._serialized_start=146
-  _BBOX2DINFO._serialized_end=275
-  _BBOX2DINFO_IDTOLABELSENTRY._serialized_start=226
-  _BBOX2DINFO_IDTOLABELSENTRY._serialized_end=275
-  _BBOX2D._serialized_start=277
-  _BBOX2D._serialized_end=339
-  _CLOCK._serialized_start=341
-  _CLOCK._serialized_end=416
-  _CAMERA._serialized_start=418
-  _CAMERA._serialized_end=500
-  _CLIENTSTREAMMESSAGE._serialized_start=503
-  _CLIENTSTREAMMESSAGE._serialized_end=639
+  _VECTOR3._serialized_start=31
+  _VECTOR3._serialized_end=73
+  _DEX31HANDJOINS._serialized_start=76
+  _DEX31HANDJOINS._serialized_end=213
+  _G1JOINSTATE._serialized_start=216
+  _G1JOINSTATE._serialized_end=495
+  _BBOX2DTYPE._serialized_start=497
+  _BBOX2DTYPE._serialized_end=609
+  _BBOX2DINFO._serialized_start=612
+  _BBOX2DINFO._serialized_end=741
+  _BBOX2DINFO_IDTOLABELSENTRY._serialized_start=692
+  _BBOX2DINFO_IDTOLABELSENTRY._serialized_end=741
+  _BBOX2D._serialized_start=743
+  _BBOX2D._serialized_end=805
+  _CLOCK._serialized_start=807
+  _CLOCK._serialized_end=882
+  _CAMERA._serialized_start=884
+  _CAMERA._serialized_end=966
+  _CLIENTSTREAMMESSAGE._serialized_start=969
+  _CLIENTSTREAMMESSAGE._serialized_end=1105
+  _G1CLIENTSTREAMMESSAGE._serialized_start=1107
+  _G1CLIENTSTREAMMESSAGE._serialized_end=1233
 # @@protoc_insertion_point(module_scope)

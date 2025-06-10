@@ -49,7 +49,7 @@ struct TableStruct_client_5fstream_5fmessage_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[7]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[11]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -77,6 +77,18 @@ extern ClientStreamMessageDefaultTypeInternal _ClientStreamMessage_default_insta
 class Clock;
 struct ClockDefaultTypeInternal;
 extern ClockDefaultTypeInternal _Clock_default_instance_;
+class Dex31HandJoins;
+struct Dex31HandJoinsDefaultTypeInternal;
+extern Dex31HandJoinsDefaultTypeInternal _Dex31HandJoins_default_instance_;
+class G1ClientStreamMessage;
+struct G1ClientStreamMessageDefaultTypeInternal;
+extern G1ClientStreamMessageDefaultTypeInternal _G1ClientStreamMessage_default_instance_;
+class G1JoinState;
+struct G1JoinStateDefaultTypeInternal;
+extern G1JoinStateDefaultTypeInternal _G1JoinState_default_instance_;
+class Vector3;
+struct Vector3DefaultTypeInternal;
+extern Vector3DefaultTypeInternal _Vector3_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::BBox2D* Arena::CreateMaybeMessage<::BBox2D>(Arena*);
 template<> ::BBox2DInfo* Arena::CreateMaybeMessage<::BBox2DInfo>(Arena*);
@@ -85,9 +97,670 @@ template<> ::BBox2DType* Arena::CreateMaybeMessage<::BBox2DType>(Arena*);
 template<> ::Camera* Arena::CreateMaybeMessage<::Camera>(Arena*);
 template<> ::ClientStreamMessage* Arena::CreateMaybeMessage<::ClientStreamMessage>(Arena*);
 template<> ::Clock* Arena::CreateMaybeMessage<::Clock>(Arena*);
+template<> ::Dex31HandJoins* Arena::CreateMaybeMessage<::Dex31HandJoins>(Arena*);
+template<> ::G1ClientStreamMessage* Arena::CreateMaybeMessage<::G1ClientStreamMessage>(Arena*);
+template<> ::G1JoinState* Arena::CreateMaybeMessage<::G1JoinState>(Arena*);
+template<> ::Vector3* Arena::CreateMaybeMessage<::Vector3>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 
 // ===================================================================
+
+class Vector3 final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Vector3) */ {
+ public:
+  inline Vector3() : Vector3(nullptr) {}
+  ~Vector3() override;
+  explicit constexpr Vector3(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Vector3(const Vector3& from);
+  Vector3(Vector3&& from) noexcept
+    : Vector3() {
+    *this = ::std::move(from);
+  }
+
+  inline Vector3& operator=(const Vector3& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Vector3& operator=(Vector3&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Vector3& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Vector3* internal_default_instance() {
+    return reinterpret_cast<const Vector3*>(
+               &_Vector3_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    0;
+
+  friend void swap(Vector3& a, Vector3& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Vector3* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Vector3* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Vector3* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Vector3>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const Vector3& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const Vector3& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Vector3* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Vector3";
+  }
+  protected:
+  explicit Vector3(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kXFieldNumber = 1,
+    kYFieldNumber = 2,
+    kZFieldNumber = 3,
+  };
+  // double x = 1;
+  void clear_x();
+  double x() const;
+  void set_x(double value);
+  private:
+  double _internal_x() const;
+  void _internal_set_x(double value);
+  public:
+
+  // double y = 2;
+  void clear_y();
+  double y() const;
+  void set_y(double value);
+  private:
+  double _internal_y() const;
+  void _internal_set_y(double value);
+  public:
+
+  // double z = 3;
+  void clear_z();
+  double z() const;
+  void set_z(double value);
+  private:
+  double _internal_z() const;
+  void _internal_set_z(double value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Vector3)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  double x_;
+  double y_;
+  double z_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_client_5fstream_5fmessage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Dex31HandJoins final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Dex31HandJoins) */ {
+ public:
+  inline Dex31HandJoins() : Dex31HandJoins(nullptr) {}
+  ~Dex31HandJoins() override;
+  explicit constexpr Dex31HandJoins(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Dex31HandJoins(const Dex31HandJoins& from);
+  Dex31HandJoins(Dex31HandJoins&& from) noexcept
+    : Dex31HandJoins() {
+    *this = ::std::move(from);
+  }
+
+  inline Dex31HandJoins& operator=(const Dex31HandJoins& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Dex31HandJoins& operator=(Dex31HandJoins&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Dex31HandJoins& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Dex31HandJoins* internal_default_instance() {
+    return reinterpret_cast<const Dex31HandJoins*>(
+               &_Dex31HandJoins_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(Dex31HandJoins& a, Dex31HandJoins& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Dex31HandJoins* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Dex31HandJoins* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Dex31HandJoins* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Dex31HandJoins>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const Dex31HandJoins& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const Dex31HandJoins& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Dex31HandJoins* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Dex31HandJoins";
+  }
+  protected:
+  explicit Dex31HandJoins(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kThumb0FieldNumber = 1,
+    kThumb1FieldNumber = 2,
+    kThumb2FieldNumber = 3,
+    kIndex0FieldNumber = 4,
+    kIndex1FieldNumber = 5,
+    kMiddle0FieldNumber = 6,
+    kMiddle1FieldNumber = 7,
+  };
+  // double thumb_0 = 1;
+  void clear_thumb_0();
+  double thumb_0() const;
+  void set_thumb_0(double value);
+  private:
+  double _internal_thumb_0() const;
+  void _internal_set_thumb_0(double value);
+  public:
+
+  // double thumb_1 = 2;
+  void clear_thumb_1();
+  double thumb_1() const;
+  void set_thumb_1(double value);
+  private:
+  double _internal_thumb_1() const;
+  void _internal_set_thumb_1(double value);
+  public:
+
+  // double thumb_2 = 3;
+  void clear_thumb_2();
+  double thumb_2() const;
+  void set_thumb_2(double value);
+  private:
+  double _internal_thumb_2() const;
+  void _internal_set_thumb_2(double value);
+  public:
+
+  // double index_0 = 4;
+  void clear_index_0();
+  double index_0() const;
+  void set_index_0(double value);
+  private:
+  double _internal_index_0() const;
+  void _internal_set_index_0(double value);
+  public:
+
+  // double index_1 = 5;
+  void clear_index_1();
+  double index_1() const;
+  void set_index_1(double value);
+  private:
+  double _internal_index_1() const;
+  void _internal_set_index_1(double value);
+  public:
+
+  // double middle_0 = 6;
+  void clear_middle_0();
+  double middle_0() const;
+  void set_middle_0(double value);
+  private:
+  double _internal_middle_0() const;
+  void _internal_set_middle_0(double value);
+  public:
+
+  // double middle_1 = 7;
+  void clear_middle_1();
+  double middle_1() const;
+  void set_middle_1(double value);
+  private:
+  double _internal_middle_1() const;
+  void _internal_set_middle_1(double value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Dex31HandJoins)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  double thumb_0_;
+  double thumb_1_;
+  double thumb_2_;
+  double index_0_;
+  double index_1_;
+  double middle_0_;
+  double middle_1_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_client_5fstream_5fmessage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class G1JoinState final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:G1JoinState) */ {
+ public:
+  inline G1JoinState() : G1JoinState(nullptr) {}
+  ~G1JoinState() override;
+  explicit constexpr G1JoinState(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  G1JoinState(const G1JoinState& from);
+  G1JoinState(G1JoinState&& from) noexcept
+    : G1JoinState() {
+    *this = ::std::move(from);
+  }
+
+  inline G1JoinState& operator=(const G1JoinState& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline G1JoinState& operator=(G1JoinState&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const G1JoinState& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const G1JoinState* internal_default_instance() {
+    return reinterpret_cast<const G1JoinState*>(
+               &_G1JoinState_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(G1JoinState& a, G1JoinState& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(G1JoinState* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(G1JoinState* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  G1JoinState* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<G1JoinState>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const G1JoinState& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const G1JoinState& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(G1JoinState* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "G1JoinState";
+  }
+  protected:
+  explicit G1JoinState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kLeftShoulderAngleFieldNumber = 1,
+    kRightShoulderAngleFieldNumber = 2,
+    kLeftWristAngleFieldNumber = 3,
+    kRightWristAngleFieldNumber = 4,
+    kLeftHandFieldNumber = 7,
+    kRightHandFieldNumber = 8,
+    kLeftElbowFieldNumber = 5,
+    kRightElbowFieldNumber = 6,
+  };
+  // .Vector3 left_shoulder_angle = 1;
+  bool has_left_shoulder_angle() const;
+  private:
+  bool _internal_has_left_shoulder_angle() const;
+  public:
+  void clear_left_shoulder_angle();
+  const ::Vector3& left_shoulder_angle() const;
+  PROTOBUF_NODISCARD ::Vector3* release_left_shoulder_angle();
+  ::Vector3* mutable_left_shoulder_angle();
+  void set_allocated_left_shoulder_angle(::Vector3* left_shoulder_angle);
+  private:
+  const ::Vector3& _internal_left_shoulder_angle() const;
+  ::Vector3* _internal_mutable_left_shoulder_angle();
+  public:
+  void unsafe_arena_set_allocated_left_shoulder_angle(
+      ::Vector3* left_shoulder_angle);
+  ::Vector3* unsafe_arena_release_left_shoulder_angle();
+
+  // .Vector3 right_shoulder_angle = 2;
+  bool has_right_shoulder_angle() const;
+  private:
+  bool _internal_has_right_shoulder_angle() const;
+  public:
+  void clear_right_shoulder_angle();
+  const ::Vector3& right_shoulder_angle() const;
+  PROTOBUF_NODISCARD ::Vector3* release_right_shoulder_angle();
+  ::Vector3* mutable_right_shoulder_angle();
+  void set_allocated_right_shoulder_angle(::Vector3* right_shoulder_angle);
+  private:
+  const ::Vector3& _internal_right_shoulder_angle() const;
+  ::Vector3* _internal_mutable_right_shoulder_angle();
+  public:
+  void unsafe_arena_set_allocated_right_shoulder_angle(
+      ::Vector3* right_shoulder_angle);
+  ::Vector3* unsafe_arena_release_right_shoulder_angle();
+
+  // .Vector3 left_wrist_angle = 3;
+  bool has_left_wrist_angle() const;
+  private:
+  bool _internal_has_left_wrist_angle() const;
+  public:
+  void clear_left_wrist_angle();
+  const ::Vector3& left_wrist_angle() const;
+  PROTOBUF_NODISCARD ::Vector3* release_left_wrist_angle();
+  ::Vector3* mutable_left_wrist_angle();
+  void set_allocated_left_wrist_angle(::Vector3* left_wrist_angle);
+  private:
+  const ::Vector3& _internal_left_wrist_angle() const;
+  ::Vector3* _internal_mutable_left_wrist_angle();
+  public:
+  void unsafe_arena_set_allocated_left_wrist_angle(
+      ::Vector3* left_wrist_angle);
+  ::Vector3* unsafe_arena_release_left_wrist_angle();
+
+  // .Vector3 right_wrist_angle = 4;
+  bool has_right_wrist_angle() const;
+  private:
+  bool _internal_has_right_wrist_angle() const;
+  public:
+  void clear_right_wrist_angle();
+  const ::Vector3& right_wrist_angle() const;
+  PROTOBUF_NODISCARD ::Vector3* release_right_wrist_angle();
+  ::Vector3* mutable_right_wrist_angle();
+  void set_allocated_right_wrist_angle(::Vector3* right_wrist_angle);
+  private:
+  const ::Vector3& _internal_right_wrist_angle() const;
+  ::Vector3* _internal_mutable_right_wrist_angle();
+  public:
+  void unsafe_arena_set_allocated_right_wrist_angle(
+      ::Vector3* right_wrist_angle);
+  ::Vector3* unsafe_arena_release_right_wrist_angle();
+
+  // .Dex31HandJoins left_hand = 7;
+  bool has_left_hand() const;
+  private:
+  bool _internal_has_left_hand() const;
+  public:
+  void clear_left_hand();
+  const ::Dex31HandJoins& left_hand() const;
+  PROTOBUF_NODISCARD ::Dex31HandJoins* release_left_hand();
+  ::Dex31HandJoins* mutable_left_hand();
+  void set_allocated_left_hand(::Dex31HandJoins* left_hand);
+  private:
+  const ::Dex31HandJoins& _internal_left_hand() const;
+  ::Dex31HandJoins* _internal_mutable_left_hand();
+  public:
+  void unsafe_arena_set_allocated_left_hand(
+      ::Dex31HandJoins* left_hand);
+  ::Dex31HandJoins* unsafe_arena_release_left_hand();
+
+  // .Dex31HandJoins right_hand = 8;
+  bool has_right_hand() const;
+  private:
+  bool _internal_has_right_hand() const;
+  public:
+  void clear_right_hand();
+  const ::Dex31HandJoins& right_hand() const;
+  PROTOBUF_NODISCARD ::Dex31HandJoins* release_right_hand();
+  ::Dex31HandJoins* mutable_right_hand();
+  void set_allocated_right_hand(::Dex31HandJoins* right_hand);
+  private:
+  const ::Dex31HandJoins& _internal_right_hand() const;
+  ::Dex31HandJoins* _internal_mutable_right_hand();
+  public:
+  void unsafe_arena_set_allocated_right_hand(
+      ::Dex31HandJoins* right_hand);
+  ::Dex31HandJoins* unsafe_arena_release_right_hand();
+
+  // double left_elbow = 5;
+  void clear_left_elbow();
+  double left_elbow() const;
+  void set_left_elbow(double value);
+  private:
+  double _internal_left_elbow() const;
+  void _internal_set_left_elbow(double value);
+  public:
+
+  // double right_elbow = 6;
+  void clear_right_elbow();
+  double right_elbow() const;
+  void set_right_elbow(double value);
+  private:
+  double _internal_right_elbow() const;
+  void _internal_set_right_elbow(double value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:G1JoinState)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::Vector3* left_shoulder_angle_;
+  ::Vector3* right_shoulder_angle_;
+  ::Vector3* left_wrist_angle_;
+  ::Vector3* right_wrist_angle_;
+  ::Dex31HandJoins* left_hand_;
+  ::Dex31HandJoins* right_hand_;
+  double left_elbow_;
+  double right_elbow_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_client_5fstream_5fmessage_2eproto;
+};
+// -------------------------------------------------------------------
 
 class BBox2DType final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:BBox2DType) */ {
@@ -137,7 +810,7 @@ class BBox2DType final :
                &_BBox2DType_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    0;
+    3;
 
   friend void swap(BBox2DType& a, BBox2DType& b) {
     a.Swap(&b);
@@ -365,7 +1038,7 @@ class BBox2DInfo final :
                &_BBox2DInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    5;
 
   friend void swap(BBox2DInfo& a, BBox2DInfo& b) {
     a.Swap(&b);
@@ -549,7 +1222,7 @@ class BBox2D final :
                &_BBox2D_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    6;
 
   friend void swap(BBox2D& a, BBox2D& b) {
     a.Swap(&b);
@@ -724,7 +1397,7 @@ class Clock final :
                &_Clock_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    7;
 
   friend void swap(Clock& a, Clock& b) {
     a.Swap(&b);
@@ -903,7 +1576,7 @@ class Camera final :
                &_Camera_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    8;
 
   friend void swap(Camera& a, Camera& b) {
     a.Swap(&b);
@@ -1110,7 +1783,7 @@ class ClientStreamMessage final :
                &_ClientStreamMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    9;
 
   friend void swap(ClientStreamMessage& a, ClientStreamMessage& b) {
     a.Swap(&b);
@@ -1287,6 +1960,217 @@ class ClientStreamMessage final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_client_5fstream_5fmessage_2eproto;
 };
+// -------------------------------------------------------------------
+
+class G1ClientStreamMessage final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:G1ClientStreamMessage) */ {
+ public:
+  inline G1ClientStreamMessage() : G1ClientStreamMessage(nullptr) {}
+  ~G1ClientStreamMessage() override;
+  explicit constexpr G1ClientStreamMessage(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  G1ClientStreamMessage(const G1ClientStreamMessage& from);
+  G1ClientStreamMessage(G1ClientStreamMessage&& from) noexcept
+    : G1ClientStreamMessage() {
+    *this = ::std::move(from);
+  }
+
+  inline G1ClientStreamMessage& operator=(const G1ClientStreamMessage& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline G1ClientStreamMessage& operator=(G1ClientStreamMessage&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const G1ClientStreamMessage& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const G1ClientStreamMessage* internal_default_instance() {
+    return reinterpret_cast<const G1ClientStreamMessage*>(
+               &_G1ClientStreamMessage_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    10;
+
+  friend void swap(G1ClientStreamMessage& a, G1ClientStreamMessage& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(G1ClientStreamMessage* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(G1ClientStreamMessage* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  G1ClientStreamMessage* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<G1ClientStreamMessage>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const G1ClientStreamMessage& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const G1ClientStreamMessage& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(G1ClientStreamMessage* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "G1ClientStreamMessage";
+  }
+  protected:
+  explicit G1ClientStreamMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kColorImageFieldNumber = 4,
+    kJoinStateFieldNumber = 1,
+    kClockFieldNumber = 2,
+    kCameraFieldNumber = 3,
+  };
+  // bytes color_image = 4;
+  void clear_color_image();
+  const std::string& color_image() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_color_image(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_color_image();
+  PROTOBUF_NODISCARD std::string* release_color_image();
+  void set_allocated_color_image(std::string* color_image);
+  private:
+  const std::string& _internal_color_image() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_color_image(const std::string& value);
+  std::string* _internal_mutable_color_image();
+  public:
+
+  // .G1JoinState join_state = 1;
+  bool has_join_state() const;
+  private:
+  bool _internal_has_join_state() const;
+  public:
+  void clear_join_state();
+  const ::G1JoinState& join_state() const;
+  PROTOBUF_NODISCARD ::G1JoinState* release_join_state();
+  ::G1JoinState* mutable_join_state();
+  void set_allocated_join_state(::G1JoinState* join_state);
+  private:
+  const ::G1JoinState& _internal_join_state() const;
+  ::G1JoinState* _internal_mutable_join_state();
+  public:
+  void unsafe_arena_set_allocated_join_state(
+      ::G1JoinState* join_state);
+  ::G1JoinState* unsafe_arena_release_join_state();
+
+  // .Clock clock = 2;
+  bool has_clock() const;
+  private:
+  bool _internal_has_clock() const;
+  public:
+  void clear_clock();
+  const ::Clock& clock() const;
+  PROTOBUF_NODISCARD ::Clock* release_clock();
+  ::Clock* mutable_clock();
+  void set_allocated_clock(::Clock* clock);
+  private:
+  const ::Clock& _internal_clock() const;
+  ::Clock* _internal_mutable_clock();
+  public:
+  void unsafe_arena_set_allocated_clock(
+      ::Clock* clock);
+  ::Clock* unsafe_arena_release_clock();
+
+  // .Camera camera = 3;
+  bool has_camera() const;
+  private:
+  bool _internal_has_camera() const;
+  public:
+  void clear_camera();
+  const ::Camera& camera() const;
+  PROTOBUF_NODISCARD ::Camera* release_camera();
+  ::Camera* mutable_camera();
+  void set_allocated_camera(::Camera* camera);
+  private:
+  const ::Camera& _internal_camera() const;
+  ::Camera* _internal_mutable_camera();
+  public:
+  void unsafe_arena_set_allocated_camera(
+      ::Camera* camera);
+  ::Camera* unsafe_arena_release_camera();
+
+  // @@protoc_insertion_point(class_scope:G1ClientStreamMessage)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr color_image_;
+  ::G1JoinState* join_state_;
+  ::Clock* clock_;
+  ::Camera* camera_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_client_5fstream_5fmessage_2eproto;
+};
 // ===================================================================
 
 
@@ -1296,6 +2180,798 @@ class ClientStreamMessage final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// Vector3
+
+// double x = 1;
+inline void Vector3::clear_x() {
+  x_ = 0;
+}
+inline double Vector3::_internal_x() const {
+  return x_;
+}
+inline double Vector3::x() const {
+  // @@protoc_insertion_point(field_get:Vector3.x)
+  return _internal_x();
+}
+inline void Vector3::_internal_set_x(double value) {
+  
+  x_ = value;
+}
+inline void Vector3::set_x(double value) {
+  _internal_set_x(value);
+  // @@protoc_insertion_point(field_set:Vector3.x)
+}
+
+// double y = 2;
+inline void Vector3::clear_y() {
+  y_ = 0;
+}
+inline double Vector3::_internal_y() const {
+  return y_;
+}
+inline double Vector3::y() const {
+  // @@protoc_insertion_point(field_get:Vector3.y)
+  return _internal_y();
+}
+inline void Vector3::_internal_set_y(double value) {
+  
+  y_ = value;
+}
+inline void Vector3::set_y(double value) {
+  _internal_set_y(value);
+  // @@protoc_insertion_point(field_set:Vector3.y)
+}
+
+// double z = 3;
+inline void Vector3::clear_z() {
+  z_ = 0;
+}
+inline double Vector3::_internal_z() const {
+  return z_;
+}
+inline double Vector3::z() const {
+  // @@protoc_insertion_point(field_get:Vector3.z)
+  return _internal_z();
+}
+inline void Vector3::_internal_set_z(double value) {
+  
+  z_ = value;
+}
+inline void Vector3::set_z(double value) {
+  _internal_set_z(value);
+  // @@protoc_insertion_point(field_set:Vector3.z)
+}
+
+// -------------------------------------------------------------------
+
+// Dex31HandJoins
+
+// double thumb_0 = 1;
+inline void Dex31HandJoins::clear_thumb_0() {
+  thumb_0_ = 0;
+}
+inline double Dex31HandJoins::_internal_thumb_0() const {
+  return thumb_0_;
+}
+inline double Dex31HandJoins::thumb_0() const {
+  // @@protoc_insertion_point(field_get:Dex31HandJoins.thumb_0)
+  return _internal_thumb_0();
+}
+inline void Dex31HandJoins::_internal_set_thumb_0(double value) {
+  
+  thumb_0_ = value;
+}
+inline void Dex31HandJoins::set_thumb_0(double value) {
+  _internal_set_thumb_0(value);
+  // @@protoc_insertion_point(field_set:Dex31HandJoins.thumb_0)
+}
+
+// double thumb_1 = 2;
+inline void Dex31HandJoins::clear_thumb_1() {
+  thumb_1_ = 0;
+}
+inline double Dex31HandJoins::_internal_thumb_1() const {
+  return thumb_1_;
+}
+inline double Dex31HandJoins::thumb_1() const {
+  // @@protoc_insertion_point(field_get:Dex31HandJoins.thumb_1)
+  return _internal_thumb_1();
+}
+inline void Dex31HandJoins::_internal_set_thumb_1(double value) {
+  
+  thumb_1_ = value;
+}
+inline void Dex31HandJoins::set_thumb_1(double value) {
+  _internal_set_thumb_1(value);
+  // @@protoc_insertion_point(field_set:Dex31HandJoins.thumb_1)
+}
+
+// double thumb_2 = 3;
+inline void Dex31HandJoins::clear_thumb_2() {
+  thumb_2_ = 0;
+}
+inline double Dex31HandJoins::_internal_thumb_2() const {
+  return thumb_2_;
+}
+inline double Dex31HandJoins::thumb_2() const {
+  // @@protoc_insertion_point(field_get:Dex31HandJoins.thumb_2)
+  return _internal_thumb_2();
+}
+inline void Dex31HandJoins::_internal_set_thumb_2(double value) {
+  
+  thumb_2_ = value;
+}
+inline void Dex31HandJoins::set_thumb_2(double value) {
+  _internal_set_thumb_2(value);
+  // @@protoc_insertion_point(field_set:Dex31HandJoins.thumb_2)
+}
+
+// double index_0 = 4;
+inline void Dex31HandJoins::clear_index_0() {
+  index_0_ = 0;
+}
+inline double Dex31HandJoins::_internal_index_0() const {
+  return index_0_;
+}
+inline double Dex31HandJoins::index_0() const {
+  // @@protoc_insertion_point(field_get:Dex31HandJoins.index_0)
+  return _internal_index_0();
+}
+inline void Dex31HandJoins::_internal_set_index_0(double value) {
+  
+  index_0_ = value;
+}
+inline void Dex31HandJoins::set_index_0(double value) {
+  _internal_set_index_0(value);
+  // @@protoc_insertion_point(field_set:Dex31HandJoins.index_0)
+}
+
+// double index_1 = 5;
+inline void Dex31HandJoins::clear_index_1() {
+  index_1_ = 0;
+}
+inline double Dex31HandJoins::_internal_index_1() const {
+  return index_1_;
+}
+inline double Dex31HandJoins::index_1() const {
+  // @@protoc_insertion_point(field_get:Dex31HandJoins.index_1)
+  return _internal_index_1();
+}
+inline void Dex31HandJoins::_internal_set_index_1(double value) {
+  
+  index_1_ = value;
+}
+inline void Dex31HandJoins::set_index_1(double value) {
+  _internal_set_index_1(value);
+  // @@protoc_insertion_point(field_set:Dex31HandJoins.index_1)
+}
+
+// double middle_0 = 6;
+inline void Dex31HandJoins::clear_middle_0() {
+  middle_0_ = 0;
+}
+inline double Dex31HandJoins::_internal_middle_0() const {
+  return middle_0_;
+}
+inline double Dex31HandJoins::middle_0() const {
+  // @@protoc_insertion_point(field_get:Dex31HandJoins.middle_0)
+  return _internal_middle_0();
+}
+inline void Dex31HandJoins::_internal_set_middle_0(double value) {
+  
+  middle_0_ = value;
+}
+inline void Dex31HandJoins::set_middle_0(double value) {
+  _internal_set_middle_0(value);
+  // @@protoc_insertion_point(field_set:Dex31HandJoins.middle_0)
+}
+
+// double middle_1 = 7;
+inline void Dex31HandJoins::clear_middle_1() {
+  middle_1_ = 0;
+}
+inline double Dex31HandJoins::_internal_middle_1() const {
+  return middle_1_;
+}
+inline double Dex31HandJoins::middle_1() const {
+  // @@protoc_insertion_point(field_get:Dex31HandJoins.middle_1)
+  return _internal_middle_1();
+}
+inline void Dex31HandJoins::_internal_set_middle_1(double value) {
+  
+  middle_1_ = value;
+}
+inline void Dex31HandJoins::set_middle_1(double value) {
+  _internal_set_middle_1(value);
+  // @@protoc_insertion_point(field_set:Dex31HandJoins.middle_1)
+}
+
+// -------------------------------------------------------------------
+
+// G1JoinState
+
+// .Vector3 left_shoulder_angle = 1;
+inline bool G1JoinState::_internal_has_left_shoulder_angle() const {
+  return this != internal_default_instance() && left_shoulder_angle_ != nullptr;
+}
+inline bool G1JoinState::has_left_shoulder_angle() const {
+  return _internal_has_left_shoulder_angle();
+}
+inline void G1JoinState::clear_left_shoulder_angle() {
+  if (GetArenaForAllocation() == nullptr && left_shoulder_angle_ != nullptr) {
+    delete left_shoulder_angle_;
+  }
+  left_shoulder_angle_ = nullptr;
+}
+inline const ::Vector3& G1JoinState::_internal_left_shoulder_angle() const {
+  const ::Vector3* p = left_shoulder_angle_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Vector3&>(
+      ::_Vector3_default_instance_);
+}
+inline const ::Vector3& G1JoinState::left_shoulder_angle() const {
+  // @@protoc_insertion_point(field_get:G1JoinState.left_shoulder_angle)
+  return _internal_left_shoulder_angle();
+}
+inline void G1JoinState::unsafe_arena_set_allocated_left_shoulder_angle(
+    ::Vector3* left_shoulder_angle) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(left_shoulder_angle_);
+  }
+  left_shoulder_angle_ = left_shoulder_angle;
+  if (left_shoulder_angle) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:G1JoinState.left_shoulder_angle)
+}
+inline ::Vector3* G1JoinState::release_left_shoulder_angle() {
+  
+  ::Vector3* temp = left_shoulder_angle_;
+  left_shoulder_angle_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Vector3* G1JoinState::unsafe_arena_release_left_shoulder_angle() {
+  // @@protoc_insertion_point(field_release:G1JoinState.left_shoulder_angle)
+  
+  ::Vector3* temp = left_shoulder_angle_;
+  left_shoulder_angle_ = nullptr;
+  return temp;
+}
+inline ::Vector3* G1JoinState::_internal_mutable_left_shoulder_angle() {
+  
+  if (left_shoulder_angle_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Vector3>(GetArenaForAllocation());
+    left_shoulder_angle_ = p;
+  }
+  return left_shoulder_angle_;
+}
+inline ::Vector3* G1JoinState::mutable_left_shoulder_angle() {
+  ::Vector3* _msg = _internal_mutable_left_shoulder_angle();
+  // @@protoc_insertion_point(field_mutable:G1JoinState.left_shoulder_angle)
+  return _msg;
+}
+inline void G1JoinState::set_allocated_left_shoulder_angle(::Vector3* left_shoulder_angle) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete left_shoulder_angle_;
+  }
+  if (left_shoulder_angle) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Vector3>::GetOwningArena(left_shoulder_angle);
+    if (message_arena != submessage_arena) {
+      left_shoulder_angle = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, left_shoulder_angle, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  left_shoulder_angle_ = left_shoulder_angle;
+  // @@protoc_insertion_point(field_set_allocated:G1JoinState.left_shoulder_angle)
+}
+
+// .Vector3 right_shoulder_angle = 2;
+inline bool G1JoinState::_internal_has_right_shoulder_angle() const {
+  return this != internal_default_instance() && right_shoulder_angle_ != nullptr;
+}
+inline bool G1JoinState::has_right_shoulder_angle() const {
+  return _internal_has_right_shoulder_angle();
+}
+inline void G1JoinState::clear_right_shoulder_angle() {
+  if (GetArenaForAllocation() == nullptr && right_shoulder_angle_ != nullptr) {
+    delete right_shoulder_angle_;
+  }
+  right_shoulder_angle_ = nullptr;
+}
+inline const ::Vector3& G1JoinState::_internal_right_shoulder_angle() const {
+  const ::Vector3* p = right_shoulder_angle_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Vector3&>(
+      ::_Vector3_default_instance_);
+}
+inline const ::Vector3& G1JoinState::right_shoulder_angle() const {
+  // @@protoc_insertion_point(field_get:G1JoinState.right_shoulder_angle)
+  return _internal_right_shoulder_angle();
+}
+inline void G1JoinState::unsafe_arena_set_allocated_right_shoulder_angle(
+    ::Vector3* right_shoulder_angle) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(right_shoulder_angle_);
+  }
+  right_shoulder_angle_ = right_shoulder_angle;
+  if (right_shoulder_angle) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:G1JoinState.right_shoulder_angle)
+}
+inline ::Vector3* G1JoinState::release_right_shoulder_angle() {
+  
+  ::Vector3* temp = right_shoulder_angle_;
+  right_shoulder_angle_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Vector3* G1JoinState::unsafe_arena_release_right_shoulder_angle() {
+  // @@protoc_insertion_point(field_release:G1JoinState.right_shoulder_angle)
+  
+  ::Vector3* temp = right_shoulder_angle_;
+  right_shoulder_angle_ = nullptr;
+  return temp;
+}
+inline ::Vector3* G1JoinState::_internal_mutable_right_shoulder_angle() {
+  
+  if (right_shoulder_angle_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Vector3>(GetArenaForAllocation());
+    right_shoulder_angle_ = p;
+  }
+  return right_shoulder_angle_;
+}
+inline ::Vector3* G1JoinState::mutable_right_shoulder_angle() {
+  ::Vector3* _msg = _internal_mutable_right_shoulder_angle();
+  // @@protoc_insertion_point(field_mutable:G1JoinState.right_shoulder_angle)
+  return _msg;
+}
+inline void G1JoinState::set_allocated_right_shoulder_angle(::Vector3* right_shoulder_angle) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete right_shoulder_angle_;
+  }
+  if (right_shoulder_angle) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Vector3>::GetOwningArena(right_shoulder_angle);
+    if (message_arena != submessage_arena) {
+      right_shoulder_angle = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, right_shoulder_angle, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  right_shoulder_angle_ = right_shoulder_angle;
+  // @@protoc_insertion_point(field_set_allocated:G1JoinState.right_shoulder_angle)
+}
+
+// .Vector3 left_wrist_angle = 3;
+inline bool G1JoinState::_internal_has_left_wrist_angle() const {
+  return this != internal_default_instance() && left_wrist_angle_ != nullptr;
+}
+inline bool G1JoinState::has_left_wrist_angle() const {
+  return _internal_has_left_wrist_angle();
+}
+inline void G1JoinState::clear_left_wrist_angle() {
+  if (GetArenaForAllocation() == nullptr && left_wrist_angle_ != nullptr) {
+    delete left_wrist_angle_;
+  }
+  left_wrist_angle_ = nullptr;
+}
+inline const ::Vector3& G1JoinState::_internal_left_wrist_angle() const {
+  const ::Vector3* p = left_wrist_angle_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Vector3&>(
+      ::_Vector3_default_instance_);
+}
+inline const ::Vector3& G1JoinState::left_wrist_angle() const {
+  // @@protoc_insertion_point(field_get:G1JoinState.left_wrist_angle)
+  return _internal_left_wrist_angle();
+}
+inline void G1JoinState::unsafe_arena_set_allocated_left_wrist_angle(
+    ::Vector3* left_wrist_angle) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(left_wrist_angle_);
+  }
+  left_wrist_angle_ = left_wrist_angle;
+  if (left_wrist_angle) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:G1JoinState.left_wrist_angle)
+}
+inline ::Vector3* G1JoinState::release_left_wrist_angle() {
+  
+  ::Vector3* temp = left_wrist_angle_;
+  left_wrist_angle_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Vector3* G1JoinState::unsafe_arena_release_left_wrist_angle() {
+  // @@protoc_insertion_point(field_release:G1JoinState.left_wrist_angle)
+  
+  ::Vector3* temp = left_wrist_angle_;
+  left_wrist_angle_ = nullptr;
+  return temp;
+}
+inline ::Vector3* G1JoinState::_internal_mutable_left_wrist_angle() {
+  
+  if (left_wrist_angle_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Vector3>(GetArenaForAllocation());
+    left_wrist_angle_ = p;
+  }
+  return left_wrist_angle_;
+}
+inline ::Vector3* G1JoinState::mutable_left_wrist_angle() {
+  ::Vector3* _msg = _internal_mutable_left_wrist_angle();
+  // @@protoc_insertion_point(field_mutable:G1JoinState.left_wrist_angle)
+  return _msg;
+}
+inline void G1JoinState::set_allocated_left_wrist_angle(::Vector3* left_wrist_angle) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete left_wrist_angle_;
+  }
+  if (left_wrist_angle) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Vector3>::GetOwningArena(left_wrist_angle);
+    if (message_arena != submessage_arena) {
+      left_wrist_angle = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, left_wrist_angle, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  left_wrist_angle_ = left_wrist_angle;
+  // @@protoc_insertion_point(field_set_allocated:G1JoinState.left_wrist_angle)
+}
+
+// .Vector3 right_wrist_angle = 4;
+inline bool G1JoinState::_internal_has_right_wrist_angle() const {
+  return this != internal_default_instance() && right_wrist_angle_ != nullptr;
+}
+inline bool G1JoinState::has_right_wrist_angle() const {
+  return _internal_has_right_wrist_angle();
+}
+inline void G1JoinState::clear_right_wrist_angle() {
+  if (GetArenaForAllocation() == nullptr && right_wrist_angle_ != nullptr) {
+    delete right_wrist_angle_;
+  }
+  right_wrist_angle_ = nullptr;
+}
+inline const ::Vector3& G1JoinState::_internal_right_wrist_angle() const {
+  const ::Vector3* p = right_wrist_angle_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Vector3&>(
+      ::_Vector3_default_instance_);
+}
+inline const ::Vector3& G1JoinState::right_wrist_angle() const {
+  // @@protoc_insertion_point(field_get:G1JoinState.right_wrist_angle)
+  return _internal_right_wrist_angle();
+}
+inline void G1JoinState::unsafe_arena_set_allocated_right_wrist_angle(
+    ::Vector3* right_wrist_angle) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(right_wrist_angle_);
+  }
+  right_wrist_angle_ = right_wrist_angle;
+  if (right_wrist_angle) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:G1JoinState.right_wrist_angle)
+}
+inline ::Vector3* G1JoinState::release_right_wrist_angle() {
+  
+  ::Vector3* temp = right_wrist_angle_;
+  right_wrist_angle_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Vector3* G1JoinState::unsafe_arena_release_right_wrist_angle() {
+  // @@protoc_insertion_point(field_release:G1JoinState.right_wrist_angle)
+  
+  ::Vector3* temp = right_wrist_angle_;
+  right_wrist_angle_ = nullptr;
+  return temp;
+}
+inline ::Vector3* G1JoinState::_internal_mutable_right_wrist_angle() {
+  
+  if (right_wrist_angle_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Vector3>(GetArenaForAllocation());
+    right_wrist_angle_ = p;
+  }
+  return right_wrist_angle_;
+}
+inline ::Vector3* G1JoinState::mutable_right_wrist_angle() {
+  ::Vector3* _msg = _internal_mutable_right_wrist_angle();
+  // @@protoc_insertion_point(field_mutable:G1JoinState.right_wrist_angle)
+  return _msg;
+}
+inline void G1JoinState::set_allocated_right_wrist_angle(::Vector3* right_wrist_angle) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete right_wrist_angle_;
+  }
+  if (right_wrist_angle) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Vector3>::GetOwningArena(right_wrist_angle);
+    if (message_arena != submessage_arena) {
+      right_wrist_angle = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, right_wrist_angle, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  right_wrist_angle_ = right_wrist_angle;
+  // @@protoc_insertion_point(field_set_allocated:G1JoinState.right_wrist_angle)
+}
+
+// double left_elbow = 5;
+inline void G1JoinState::clear_left_elbow() {
+  left_elbow_ = 0;
+}
+inline double G1JoinState::_internal_left_elbow() const {
+  return left_elbow_;
+}
+inline double G1JoinState::left_elbow() const {
+  // @@protoc_insertion_point(field_get:G1JoinState.left_elbow)
+  return _internal_left_elbow();
+}
+inline void G1JoinState::_internal_set_left_elbow(double value) {
+  
+  left_elbow_ = value;
+}
+inline void G1JoinState::set_left_elbow(double value) {
+  _internal_set_left_elbow(value);
+  // @@protoc_insertion_point(field_set:G1JoinState.left_elbow)
+}
+
+// double right_elbow = 6;
+inline void G1JoinState::clear_right_elbow() {
+  right_elbow_ = 0;
+}
+inline double G1JoinState::_internal_right_elbow() const {
+  return right_elbow_;
+}
+inline double G1JoinState::right_elbow() const {
+  // @@protoc_insertion_point(field_get:G1JoinState.right_elbow)
+  return _internal_right_elbow();
+}
+inline void G1JoinState::_internal_set_right_elbow(double value) {
+  
+  right_elbow_ = value;
+}
+inline void G1JoinState::set_right_elbow(double value) {
+  _internal_set_right_elbow(value);
+  // @@protoc_insertion_point(field_set:G1JoinState.right_elbow)
+}
+
+// .Dex31HandJoins left_hand = 7;
+inline bool G1JoinState::_internal_has_left_hand() const {
+  return this != internal_default_instance() && left_hand_ != nullptr;
+}
+inline bool G1JoinState::has_left_hand() const {
+  return _internal_has_left_hand();
+}
+inline void G1JoinState::clear_left_hand() {
+  if (GetArenaForAllocation() == nullptr && left_hand_ != nullptr) {
+    delete left_hand_;
+  }
+  left_hand_ = nullptr;
+}
+inline const ::Dex31HandJoins& G1JoinState::_internal_left_hand() const {
+  const ::Dex31HandJoins* p = left_hand_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Dex31HandJoins&>(
+      ::_Dex31HandJoins_default_instance_);
+}
+inline const ::Dex31HandJoins& G1JoinState::left_hand() const {
+  // @@protoc_insertion_point(field_get:G1JoinState.left_hand)
+  return _internal_left_hand();
+}
+inline void G1JoinState::unsafe_arena_set_allocated_left_hand(
+    ::Dex31HandJoins* left_hand) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(left_hand_);
+  }
+  left_hand_ = left_hand;
+  if (left_hand) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:G1JoinState.left_hand)
+}
+inline ::Dex31HandJoins* G1JoinState::release_left_hand() {
+  
+  ::Dex31HandJoins* temp = left_hand_;
+  left_hand_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Dex31HandJoins* G1JoinState::unsafe_arena_release_left_hand() {
+  // @@protoc_insertion_point(field_release:G1JoinState.left_hand)
+  
+  ::Dex31HandJoins* temp = left_hand_;
+  left_hand_ = nullptr;
+  return temp;
+}
+inline ::Dex31HandJoins* G1JoinState::_internal_mutable_left_hand() {
+  
+  if (left_hand_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Dex31HandJoins>(GetArenaForAllocation());
+    left_hand_ = p;
+  }
+  return left_hand_;
+}
+inline ::Dex31HandJoins* G1JoinState::mutable_left_hand() {
+  ::Dex31HandJoins* _msg = _internal_mutable_left_hand();
+  // @@protoc_insertion_point(field_mutable:G1JoinState.left_hand)
+  return _msg;
+}
+inline void G1JoinState::set_allocated_left_hand(::Dex31HandJoins* left_hand) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete left_hand_;
+  }
+  if (left_hand) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Dex31HandJoins>::GetOwningArena(left_hand);
+    if (message_arena != submessage_arena) {
+      left_hand = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, left_hand, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  left_hand_ = left_hand;
+  // @@protoc_insertion_point(field_set_allocated:G1JoinState.left_hand)
+}
+
+// .Dex31HandJoins right_hand = 8;
+inline bool G1JoinState::_internal_has_right_hand() const {
+  return this != internal_default_instance() && right_hand_ != nullptr;
+}
+inline bool G1JoinState::has_right_hand() const {
+  return _internal_has_right_hand();
+}
+inline void G1JoinState::clear_right_hand() {
+  if (GetArenaForAllocation() == nullptr && right_hand_ != nullptr) {
+    delete right_hand_;
+  }
+  right_hand_ = nullptr;
+}
+inline const ::Dex31HandJoins& G1JoinState::_internal_right_hand() const {
+  const ::Dex31HandJoins* p = right_hand_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Dex31HandJoins&>(
+      ::_Dex31HandJoins_default_instance_);
+}
+inline const ::Dex31HandJoins& G1JoinState::right_hand() const {
+  // @@protoc_insertion_point(field_get:G1JoinState.right_hand)
+  return _internal_right_hand();
+}
+inline void G1JoinState::unsafe_arena_set_allocated_right_hand(
+    ::Dex31HandJoins* right_hand) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(right_hand_);
+  }
+  right_hand_ = right_hand;
+  if (right_hand) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:G1JoinState.right_hand)
+}
+inline ::Dex31HandJoins* G1JoinState::release_right_hand() {
+  
+  ::Dex31HandJoins* temp = right_hand_;
+  right_hand_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Dex31HandJoins* G1JoinState::unsafe_arena_release_right_hand() {
+  // @@protoc_insertion_point(field_release:G1JoinState.right_hand)
+  
+  ::Dex31HandJoins* temp = right_hand_;
+  right_hand_ = nullptr;
+  return temp;
+}
+inline ::Dex31HandJoins* G1JoinState::_internal_mutable_right_hand() {
+  
+  if (right_hand_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Dex31HandJoins>(GetArenaForAllocation());
+    right_hand_ = p;
+  }
+  return right_hand_;
+}
+inline ::Dex31HandJoins* G1JoinState::mutable_right_hand() {
+  ::Dex31HandJoins* _msg = _internal_mutable_right_hand();
+  // @@protoc_insertion_point(field_mutable:G1JoinState.right_hand)
+  return _msg;
+}
+inline void G1JoinState::set_allocated_right_hand(::Dex31HandJoins* right_hand) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete right_hand_;
+  }
+  if (right_hand) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Dex31HandJoins>::GetOwningArena(right_hand);
+    if (message_arena != submessage_arena) {
+      right_hand = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, right_hand, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  right_hand_ = right_hand;
+  // @@protoc_insertion_point(field_set_allocated:G1JoinState.right_hand)
+}
+
+// -------------------------------------------------------------------
+
 // BBox2DType
 
 // uint32 semanticId = 1;
@@ -2239,9 +3915,342 @@ inline void ClientStreamMessage::set_allocated_depth_image(std::string* depth_im
   // @@protoc_insertion_point(field_set_allocated:ClientStreamMessage.depth_image)
 }
 
+// -------------------------------------------------------------------
+
+// G1ClientStreamMessage
+
+// .G1JoinState join_state = 1;
+inline bool G1ClientStreamMessage::_internal_has_join_state() const {
+  return this != internal_default_instance() && join_state_ != nullptr;
+}
+inline bool G1ClientStreamMessage::has_join_state() const {
+  return _internal_has_join_state();
+}
+inline void G1ClientStreamMessage::clear_join_state() {
+  if (GetArenaForAllocation() == nullptr && join_state_ != nullptr) {
+    delete join_state_;
+  }
+  join_state_ = nullptr;
+}
+inline const ::G1JoinState& G1ClientStreamMessage::_internal_join_state() const {
+  const ::G1JoinState* p = join_state_;
+  return p != nullptr ? *p : reinterpret_cast<const ::G1JoinState&>(
+      ::_G1JoinState_default_instance_);
+}
+inline const ::G1JoinState& G1ClientStreamMessage::join_state() const {
+  // @@protoc_insertion_point(field_get:G1ClientStreamMessage.join_state)
+  return _internal_join_state();
+}
+inline void G1ClientStreamMessage::unsafe_arena_set_allocated_join_state(
+    ::G1JoinState* join_state) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(join_state_);
+  }
+  join_state_ = join_state;
+  if (join_state) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:G1ClientStreamMessage.join_state)
+}
+inline ::G1JoinState* G1ClientStreamMessage::release_join_state() {
+  
+  ::G1JoinState* temp = join_state_;
+  join_state_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::G1JoinState* G1ClientStreamMessage::unsafe_arena_release_join_state() {
+  // @@protoc_insertion_point(field_release:G1ClientStreamMessage.join_state)
+  
+  ::G1JoinState* temp = join_state_;
+  join_state_ = nullptr;
+  return temp;
+}
+inline ::G1JoinState* G1ClientStreamMessage::_internal_mutable_join_state() {
+  
+  if (join_state_ == nullptr) {
+    auto* p = CreateMaybeMessage<::G1JoinState>(GetArenaForAllocation());
+    join_state_ = p;
+  }
+  return join_state_;
+}
+inline ::G1JoinState* G1ClientStreamMessage::mutable_join_state() {
+  ::G1JoinState* _msg = _internal_mutable_join_state();
+  // @@protoc_insertion_point(field_mutable:G1ClientStreamMessage.join_state)
+  return _msg;
+}
+inline void G1ClientStreamMessage::set_allocated_join_state(::G1JoinState* join_state) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete join_state_;
+  }
+  if (join_state) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::G1JoinState>::GetOwningArena(join_state);
+    if (message_arena != submessage_arena) {
+      join_state = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, join_state, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  join_state_ = join_state;
+  // @@protoc_insertion_point(field_set_allocated:G1ClientStreamMessage.join_state)
+}
+
+// .Clock clock = 2;
+inline bool G1ClientStreamMessage::_internal_has_clock() const {
+  return this != internal_default_instance() && clock_ != nullptr;
+}
+inline bool G1ClientStreamMessage::has_clock() const {
+  return _internal_has_clock();
+}
+inline void G1ClientStreamMessage::clear_clock() {
+  if (GetArenaForAllocation() == nullptr && clock_ != nullptr) {
+    delete clock_;
+  }
+  clock_ = nullptr;
+}
+inline const ::Clock& G1ClientStreamMessage::_internal_clock() const {
+  const ::Clock* p = clock_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Clock&>(
+      ::_Clock_default_instance_);
+}
+inline const ::Clock& G1ClientStreamMessage::clock() const {
+  // @@protoc_insertion_point(field_get:G1ClientStreamMessage.clock)
+  return _internal_clock();
+}
+inline void G1ClientStreamMessage::unsafe_arena_set_allocated_clock(
+    ::Clock* clock) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(clock_);
+  }
+  clock_ = clock;
+  if (clock) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:G1ClientStreamMessage.clock)
+}
+inline ::Clock* G1ClientStreamMessage::release_clock() {
+  
+  ::Clock* temp = clock_;
+  clock_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Clock* G1ClientStreamMessage::unsafe_arena_release_clock() {
+  // @@protoc_insertion_point(field_release:G1ClientStreamMessage.clock)
+  
+  ::Clock* temp = clock_;
+  clock_ = nullptr;
+  return temp;
+}
+inline ::Clock* G1ClientStreamMessage::_internal_mutable_clock() {
+  
+  if (clock_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Clock>(GetArenaForAllocation());
+    clock_ = p;
+  }
+  return clock_;
+}
+inline ::Clock* G1ClientStreamMessage::mutable_clock() {
+  ::Clock* _msg = _internal_mutable_clock();
+  // @@protoc_insertion_point(field_mutable:G1ClientStreamMessage.clock)
+  return _msg;
+}
+inline void G1ClientStreamMessage::set_allocated_clock(::Clock* clock) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete clock_;
+  }
+  if (clock) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Clock>::GetOwningArena(clock);
+    if (message_arena != submessage_arena) {
+      clock = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, clock, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  clock_ = clock;
+  // @@protoc_insertion_point(field_set_allocated:G1ClientStreamMessage.clock)
+}
+
+// .Camera camera = 3;
+inline bool G1ClientStreamMessage::_internal_has_camera() const {
+  return this != internal_default_instance() && camera_ != nullptr;
+}
+inline bool G1ClientStreamMessage::has_camera() const {
+  return _internal_has_camera();
+}
+inline void G1ClientStreamMessage::clear_camera() {
+  if (GetArenaForAllocation() == nullptr && camera_ != nullptr) {
+    delete camera_;
+  }
+  camera_ = nullptr;
+}
+inline const ::Camera& G1ClientStreamMessage::_internal_camera() const {
+  const ::Camera* p = camera_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Camera&>(
+      ::_Camera_default_instance_);
+}
+inline const ::Camera& G1ClientStreamMessage::camera() const {
+  // @@protoc_insertion_point(field_get:G1ClientStreamMessage.camera)
+  return _internal_camera();
+}
+inline void G1ClientStreamMessage::unsafe_arena_set_allocated_camera(
+    ::Camera* camera) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(camera_);
+  }
+  camera_ = camera;
+  if (camera) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:G1ClientStreamMessage.camera)
+}
+inline ::Camera* G1ClientStreamMessage::release_camera() {
+  
+  ::Camera* temp = camera_;
+  camera_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Camera* G1ClientStreamMessage::unsafe_arena_release_camera() {
+  // @@protoc_insertion_point(field_release:G1ClientStreamMessage.camera)
+  
+  ::Camera* temp = camera_;
+  camera_ = nullptr;
+  return temp;
+}
+inline ::Camera* G1ClientStreamMessage::_internal_mutable_camera() {
+  
+  if (camera_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Camera>(GetArenaForAllocation());
+    camera_ = p;
+  }
+  return camera_;
+}
+inline ::Camera* G1ClientStreamMessage::mutable_camera() {
+  ::Camera* _msg = _internal_mutable_camera();
+  // @@protoc_insertion_point(field_mutable:G1ClientStreamMessage.camera)
+  return _msg;
+}
+inline void G1ClientStreamMessage::set_allocated_camera(::Camera* camera) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete camera_;
+  }
+  if (camera) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Camera>::GetOwningArena(camera);
+    if (message_arena != submessage_arena) {
+      camera = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, camera, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  camera_ = camera;
+  // @@protoc_insertion_point(field_set_allocated:G1ClientStreamMessage.camera)
+}
+
+// bytes color_image = 4;
+inline void G1ClientStreamMessage::clear_color_image() {
+  color_image_.ClearToEmpty();
+}
+inline const std::string& G1ClientStreamMessage::color_image() const {
+  // @@protoc_insertion_point(field_get:G1ClientStreamMessage.color_image)
+  return _internal_color_image();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void G1ClientStreamMessage::set_color_image(ArgT0&& arg0, ArgT... args) {
+ 
+ color_image_.SetBytes(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:G1ClientStreamMessage.color_image)
+}
+inline std::string* G1ClientStreamMessage::mutable_color_image() {
+  std::string* _s = _internal_mutable_color_image();
+  // @@protoc_insertion_point(field_mutable:G1ClientStreamMessage.color_image)
+  return _s;
+}
+inline const std::string& G1ClientStreamMessage::_internal_color_image() const {
+  return color_image_.Get();
+}
+inline void G1ClientStreamMessage::_internal_set_color_image(const std::string& value) {
+  
+  color_image_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* G1ClientStreamMessage::_internal_mutable_color_image() {
+  
+  return color_image_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* G1ClientStreamMessage::release_color_image() {
+  // @@protoc_insertion_point(field_release:G1ClientStreamMessage.color_image)
+  return color_image_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void G1ClientStreamMessage::set_allocated_color_image(std::string* color_image) {
+  if (color_image != nullptr) {
+    
+  } else {
+    
+  }
+  color_image_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), color_image,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (color_image_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    color_image_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:G1ClientStreamMessage.color_image)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

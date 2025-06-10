@@ -1,5 +1,33 @@
 syntax = "proto3";
 
+message Vector3 {
+    double x = 1;
+    double y = 2;
+    double z = 3;
+}
+
+message Dex31HandJoins {
+    double thumb_0 = 1;
+    double thumb_1 = 2;
+    double thumb_2 = 3;
+    double index_0 = 4;
+    double index_1 = 5;
+    double middle_0 = 6;
+    double middle_1 = 7;
+}
+
+
+message G1JoinState {
+    Vector3 left_shoulder_angle = 1;  // [pitch, roll, yaw]
+    Vector3 right_shoulder_angle = 2;  // [pitch, roll, yaw]
+    Vector3 left_wrist_angle = 3;  // [pitch, roll, yaw]
+    Vector3 right_wrist_angle = 4;  // [pitch, roll, yaw]
+    double left_elbow = 5;
+    double right_elbow = 6;
+    Dex31HandJoins left_hand = 7;
+    Dex31HandJoins right_hand = 8;
+}
+
 // BBox2DType represents a single bounding box with semantic information
 message BBox2DType {
     uint32 semanticId = 1;      // Unique identifier for the semantic class
@@ -44,4 +72,12 @@ message ClientStreamMessage {
     Camera camera = 3;        // Camera parameters
     bytes color_image = 4;    // RGB image data (encoded)
     bytes depth_image = 5;    // Depth image data (encoded)
+}
+
+message G1ClientStreamMessage {
+    G1JoinState join_state = 1;
+    Clock clock = 2;          // Timing information
+    Camera camera = 3;        // Camera parameters
+    bytes color_image = 4;    // RGB image data (encoded)
+    // bytes depth_image = 5;    // Depth image data (encoded)
 }

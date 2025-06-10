@@ -16,6 +16,57 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+constexpr Vector3::Vector3(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : x_(0)
+  , y_(0)
+  , z_(0){}
+struct Vector3DefaultTypeInternal {
+  constexpr Vector3DefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~Vector3DefaultTypeInternal() {}
+  union {
+    Vector3 _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT Vector3DefaultTypeInternal _Vector3_default_instance_;
+constexpr Dex31HandJoins::Dex31HandJoins(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : thumb_0_(0)
+  , thumb_1_(0)
+  , thumb_2_(0)
+  , index_0_(0)
+  , index_1_(0)
+  , middle_0_(0)
+  , middle_1_(0){}
+struct Dex31HandJoinsDefaultTypeInternal {
+  constexpr Dex31HandJoinsDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~Dex31HandJoinsDefaultTypeInternal() {}
+  union {
+    Dex31HandJoins _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT Dex31HandJoinsDefaultTypeInternal _Dex31HandJoins_default_instance_;
+constexpr G1JoinState::G1JoinState(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : left_shoulder_angle_(nullptr)
+  , right_shoulder_angle_(nullptr)
+  , left_wrist_angle_(nullptr)
+  , right_wrist_angle_(nullptr)
+  , left_hand_(nullptr)
+  , right_hand_(nullptr)
+  , left_elbow_(0)
+  , right_elbow_(0){}
+struct G1JoinStateDefaultTypeInternal {
+  constexpr G1JoinStateDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~G1JoinStateDefaultTypeInternal() {}
+  union {
+    G1JoinState _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT G1JoinStateDefaultTypeInternal _G1JoinState_default_instance_;
 constexpr BBox2DType::BBox2DType(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : semanticid_(0u)
@@ -116,11 +167,62 @@ struct ClientStreamMessageDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ClientStreamMessageDefaultTypeInternal _ClientStreamMessage_default_instance_;
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_client_5fstream_5fmessage_2eproto[7];
+constexpr G1ClientStreamMessage::G1ClientStreamMessage(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : color_image_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , join_state_(nullptr)
+  , clock_(nullptr)
+  , camera_(nullptr){}
+struct G1ClientStreamMessageDefaultTypeInternal {
+  constexpr G1ClientStreamMessageDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~G1ClientStreamMessageDefaultTypeInternal() {}
+  union {
+    G1ClientStreamMessage _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT G1ClientStreamMessageDefaultTypeInternal _G1ClientStreamMessage_default_instance_;
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_client_5fstream_5fmessage_2eproto[11];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_client_5fstream_5fmessage_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_client_5fstream_5fmessage_2eproto = nullptr;
 
 const uint32_t TableStruct_client_5fstream_5fmessage_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Vector3, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Vector3, x_),
+  PROTOBUF_FIELD_OFFSET(::Vector3, y_),
+  PROTOBUF_FIELD_OFFSET(::Vector3, z_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Dex31HandJoins, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Dex31HandJoins, thumb_0_),
+  PROTOBUF_FIELD_OFFSET(::Dex31HandJoins, thumb_1_),
+  PROTOBUF_FIELD_OFFSET(::Dex31HandJoins, thumb_2_),
+  PROTOBUF_FIELD_OFFSET(::Dex31HandJoins, index_0_),
+  PROTOBUF_FIELD_OFFSET(::Dex31HandJoins, index_1_),
+  PROTOBUF_FIELD_OFFSET(::Dex31HandJoins, middle_0_),
+  PROTOBUF_FIELD_OFFSET(::Dex31HandJoins, middle_1_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::G1JoinState, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::G1JoinState, left_shoulder_angle_),
+  PROTOBUF_FIELD_OFFSET(::G1JoinState, right_shoulder_angle_),
+  PROTOBUF_FIELD_OFFSET(::G1JoinState, left_wrist_angle_),
+  PROTOBUF_FIELD_OFFSET(::G1JoinState, right_wrist_angle_),
+  PROTOBUF_FIELD_OFFSET(::G1JoinState, left_elbow_),
+  PROTOBUF_FIELD_OFFSET(::G1JoinState, right_elbow_),
+  PROTOBUF_FIELD_OFFSET(::G1JoinState, left_hand_),
+  PROTOBUF_FIELD_OFFSET(::G1JoinState, right_hand_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::BBox2DType, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -189,18 +291,35 @@ const uint32_t TableStruct_client_5fstream_5fmessage_2eproto::offsets[] PROTOBUF
   PROTOBUF_FIELD_OFFSET(::ClientStreamMessage, camera_),
   PROTOBUF_FIELD_OFFSET(::ClientStreamMessage, color_image_),
   PROTOBUF_FIELD_OFFSET(::ClientStreamMessage, depth_image_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::G1ClientStreamMessage, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::G1ClientStreamMessage, join_state_),
+  PROTOBUF_FIELD_OFFSET(::G1ClientStreamMessage, clock_),
+  PROTOBUF_FIELD_OFFSET(::G1ClientStreamMessage, camera_),
+  PROTOBUF_FIELD_OFFSET(::G1ClientStreamMessage, color_image_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, -1, sizeof(::BBox2DType)},
-  { 12, 20, -1, sizeof(::BBox2DInfo_IdToLabelsEntry_DoNotUse)},
-  { 22, -1, -1, sizeof(::BBox2DInfo)},
-  { 30, -1, -1, sizeof(::BBox2D)},
-  { 38, -1, -1, sizeof(::Clock)},
-  { 48, -1, -1, sizeof(::Camera)},
-  { 57, -1, -1, sizeof(::ClientStreamMessage)},
+  { 0, -1, -1, sizeof(::Vector3)},
+  { 9, -1, -1, sizeof(::Dex31HandJoins)},
+  { 22, -1, -1, sizeof(::G1JoinState)},
+  { 36, -1, -1, sizeof(::BBox2DType)},
+  { 48, 56, -1, sizeof(::BBox2DInfo_IdToLabelsEntry_DoNotUse)},
+  { 58, -1, -1, sizeof(::BBox2DInfo)},
+  { 66, -1, -1, sizeof(::BBox2D)},
+  { 74, -1, -1, sizeof(::Clock)},
+  { 84, -1, -1, sizeof(::Camera)},
+  { 93, -1, -1, sizeof(::ClientStreamMessage)},
+  { 104, -1, -1, sizeof(::G1ClientStreamMessage)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_Vector3_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_Dex31HandJoins_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_G1JoinState_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_BBox2DType_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_BBox2DInfo_IdToLabelsEntry_DoNotUse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_BBox2DInfo_default_instance_),
@@ -208,31 +327,47 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_Clock_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_Camera_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_ClientStreamMessage_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_G1ClientStreamMessage_default_instance_),
 };
 
 const char descriptor_table_protodef_client_5fstream_5fmessage_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\033client_stream_message.proto\"p\n\nBBox2DT"
-  "ype\022\022\n\nsemanticId\030\001 \001(\r\022\014\n\004xMin\030\002 \001(\005\022\014\n"
-  "\004yMin\030\003 \001(\005\022\014\n\004xMax\030\004 \001(\005\022\014\n\004yMax\030\005 \001(\005\022"
-  "\026\n\016occlusionRatio\030\006 \001(\002\"\201\001\n\nBBox2DInfo\022/"
-  "\n\nidToLabels\030\001 \003(\0132\033.BBox2DInfo.IdToLabe"
-  "lsEntry\022\017\n\007bboxIds\030\002 \003(\005\0321\n\017IdToLabelsEn"
-  "try\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\">\n\006B"
-  "Box2D\022\031\n\004data\030\001 \003(\0132\013.BBox2DType\022\031\n\004info"
-  "\030\002 \001(\0132\013.BBox2DInfo\"K\n\005Clock\022\016\n\006sim_dt\030\001"
-  " \001(\001\022\016\n\006sys_dt\030\002 \001(\001\022\020\n\010sim_time\030\003 \001(\001\022\020"
-  "\n\010sys_time\030\004 \001(\001\"R\n\006Camera\022\027\n\017view_matri"
-  "x_ros\030\001 \003(\001\022\024\n\014camera_scale\030\002 \003(\001\022\031\n\021int"
-  "rinsics_matrix\030\003 \003(\001\"\210\001\n\023ClientStreamMes"
-  "sage\022\027\n\006bbox2d\030\001 \001(\0132\007.BBox2D\022\025\n\005clock\030\002"
-  " \001(\0132\006.Clock\022\027\n\006camera\030\003 \001(\0132\007.Camera\022\023\n"
-  "\013color_image\030\004 \001(\014\022\023\n\013depth_image\030\005 \001(\014b"
-  "\006proto3"
+  "\n\033client_stream_message.proto\"*\n\007Vector3"
+  "\022\t\n\001x\030\001 \001(\001\022\t\n\001y\030\002 \001(\001\022\t\n\001z\030\003 \001(\001\"\211\001\n\016De"
+  "x31HandJoins\022\017\n\007thumb_0\030\001 \001(\001\022\017\n\007thumb_1"
+  "\030\002 \001(\001\022\017\n\007thumb_2\030\003 \001(\001\022\017\n\007index_0\030\004 \001(\001"
+  "\022\017\n\007index_1\030\005 \001(\001\022\020\n\010middle_0\030\006 \001(\001\022\020\n\010m"
+  "iddle_1\030\007 \001(\001\"\227\002\n\013G1JoinState\022%\n\023left_sh"
+  "oulder_angle\030\001 \001(\0132\010.Vector3\022&\n\024right_sh"
+  "oulder_angle\030\002 \001(\0132\010.Vector3\022\"\n\020left_wri"
+  "st_angle\030\003 \001(\0132\010.Vector3\022#\n\021right_wrist_"
+  "angle\030\004 \001(\0132\010.Vector3\022\022\n\nleft_elbow\030\005 \001("
+  "\001\022\023\n\013right_elbow\030\006 \001(\001\022\"\n\tleft_hand\030\007 \001("
+  "\0132\017.Dex31HandJoins\022#\n\nright_hand\030\010 \001(\0132\017"
+  ".Dex31HandJoins\"p\n\nBBox2DType\022\022\n\nsemanti"
+  "cId\030\001 \001(\r\022\014\n\004xMin\030\002 \001(\005\022\014\n\004yMin\030\003 \001(\005\022\014\n"
+  "\004xMax\030\004 \001(\005\022\014\n\004yMax\030\005 \001(\005\022\026\n\016occlusionRa"
+  "tio\030\006 \001(\002\"\201\001\n\nBBox2DInfo\022/\n\nidToLabels\030\001"
+  " \003(\0132\033.BBox2DInfo.IdToLabelsEntry\022\017\n\007bbo"
+  "xIds\030\002 \003(\005\0321\n\017IdToLabelsEntry\022\013\n\003key\030\001 \001"
+  "(\t\022\r\n\005value\030\002 \001(\t:\0028\001\">\n\006BBox2D\022\031\n\004data\030"
+  "\001 \003(\0132\013.BBox2DType\022\031\n\004info\030\002 \001(\0132\013.BBox2"
+  "DInfo\"K\n\005Clock\022\016\n\006sim_dt\030\001 \001(\001\022\016\n\006sys_dt"
+  "\030\002 \001(\001\022\020\n\010sim_time\030\003 \001(\001\022\020\n\010sys_time\030\004 \001"
+  "(\001\"R\n\006Camera\022\027\n\017view_matrix_ros\030\001 \003(\001\022\024\n"
+  "\014camera_scale\030\002 \003(\001\022\031\n\021intrinsics_matrix"
+  "\030\003 \003(\001\"\210\001\n\023ClientStreamMessage\022\027\n\006bbox2d"
+  "\030\001 \001(\0132\007.BBox2D\022\025\n\005clock\030\002 \001(\0132\006.Clock\022\027"
+  "\n\006camera\030\003 \001(\0132\007.Camera\022\023\n\013color_image\030\004"
+  " \001(\014\022\023\n\013depth_image\030\005 \001(\014\"~\n\025G1ClientStr"
+  "eamMessage\022 \n\njoin_state\030\001 \001(\0132\014.G1JoinS"
+  "tate\022\025\n\005clock\030\002 \001(\0132\006.Clock\022\027\n\006camera\030\003 "
+  "\001(\0132\007.Camera\022\023\n\013color_image\030\004 \001(\014b\006proto"
+  "3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_client_5fstream_5fmessage_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_client_5fstream_5fmessage_2eproto = {
-  false, false, 647, descriptor_table_protodef_client_5fstream_5fmessage_2eproto, "client_stream_message.proto", 
-  &descriptor_table_client_5fstream_5fmessage_2eproto_once, nullptr, 0, 7,
+  false, false, 1241, descriptor_table_protodef_client_5fstream_5fmessage_2eproto, "client_stream_message.proto", 
+  &descriptor_table_client_5fstream_5fmessage_2eproto_once, nullptr, 0, 11,
   schemas, file_default_instances, TableStruct_client_5fstream_5fmessage_2eproto::offsets,
   file_level_metadata_client_5fstream_5fmessage_2eproto, file_level_enum_descriptors_client_5fstream_5fmessage_2eproto, file_level_service_descriptors_client_5fstream_5fmessage_2eproto,
 };
@@ -242,6 +377,1164 @@ PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
 
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_client_5fstream_5fmessage_2eproto(&descriptor_table_client_5fstream_5fmessage_2eproto);
+
+// ===================================================================
+
+class Vector3::_Internal {
+ public:
+};
+
+Vector3::Vector3(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:Vector3)
+}
+Vector3::Vector3(const Vector3& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&x_, &from.x_,
+    static_cast<size_t>(reinterpret_cast<char*>(&z_) -
+    reinterpret_cast<char*>(&x_)) + sizeof(z_));
+  // @@protoc_insertion_point(copy_constructor:Vector3)
+}
+
+inline void Vector3::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&x_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&z_) -
+    reinterpret_cast<char*>(&x_)) + sizeof(z_));
+}
+
+Vector3::~Vector3() {
+  // @@protoc_insertion_point(destructor:Vector3)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+inline void Vector3::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void Vector3::ArenaDtor(void* object) {
+  Vector3* _this = reinterpret_cast< Vector3* >(object);
+  (void)_this;
+}
+void Vector3::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void Vector3::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void Vector3::Clear() {
+// @@protoc_insertion_point(message_clear_start:Vector3)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&x_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&z_) -
+      reinterpret_cast<char*>(&x_)) + sizeof(z_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* Vector3::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // double x = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 9)) {
+          x_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // double y = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 17)) {
+          y_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // double z = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 25)) {
+          z_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* Vector3::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Vector3)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // double x = 1;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_x = this->_internal_x();
+  uint64_t raw_x;
+  memcpy(&raw_x, &tmp_x, sizeof(tmp_x));
+  if (raw_x != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(1, this->_internal_x(), target);
+  }
+
+  // double y = 2;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_y = this->_internal_y();
+  uint64_t raw_y;
+  memcpy(&raw_y, &tmp_y, sizeof(tmp_y));
+  if (raw_y != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_y(), target);
+  }
+
+  // double z = 3;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_z = this->_internal_z();
+  uint64_t raw_z;
+  memcpy(&raw_z, &tmp_z, sizeof(tmp_z));
+  if (raw_z != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(3, this->_internal_z(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Vector3)
+  return target;
+}
+
+size_t Vector3::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Vector3)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // double x = 1;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_x = this->_internal_x();
+  uint64_t raw_x;
+  memcpy(&raw_x, &tmp_x, sizeof(tmp_x));
+  if (raw_x != 0) {
+    total_size += 1 + 8;
+  }
+
+  // double y = 2;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_y = this->_internal_y();
+  uint64_t raw_y;
+  memcpy(&raw_y, &tmp_y, sizeof(tmp_y));
+  if (raw_y != 0) {
+    total_size += 1 + 8;
+  }
+
+  // double z = 3;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_z = this->_internal_z();
+  uint64_t raw_z;
+  memcpy(&raw_z, &tmp_z, sizeof(tmp_z));
+  if (raw_z != 0) {
+    total_size += 1 + 8;
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Vector3::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    Vector3::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Vector3::GetClassData() const { return &_class_data_; }
+
+void Vector3::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<Vector3 *>(to)->MergeFrom(
+      static_cast<const Vector3 &>(from));
+}
+
+
+void Vector3::MergeFrom(const Vector3& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:Vector3)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_x = from._internal_x();
+  uint64_t raw_x;
+  memcpy(&raw_x, &tmp_x, sizeof(tmp_x));
+  if (raw_x != 0) {
+    _internal_set_x(from._internal_x());
+  }
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_y = from._internal_y();
+  uint64_t raw_y;
+  memcpy(&raw_y, &tmp_y, sizeof(tmp_y));
+  if (raw_y != 0) {
+    _internal_set_y(from._internal_y());
+  }
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_z = from._internal_z();
+  uint64_t raw_z;
+  memcpy(&raw_z, &tmp_z, sizeof(tmp_z));
+  if (raw_z != 0) {
+    _internal_set_z(from._internal_z());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Vector3::CopyFrom(const Vector3& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Vector3)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Vector3::IsInitialized() const {
+  return true;
+}
+
+void Vector3::InternalSwap(Vector3* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(Vector3, z_)
+      + sizeof(Vector3::z_)
+      - PROTOBUF_FIELD_OFFSET(Vector3, x_)>(
+          reinterpret_cast<char*>(&x_),
+          reinterpret_cast<char*>(&other->x_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata Vector3::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_client_5fstream_5fmessage_2eproto_getter, &descriptor_table_client_5fstream_5fmessage_2eproto_once,
+      file_level_metadata_client_5fstream_5fmessage_2eproto[0]);
+}
+
+// ===================================================================
+
+class Dex31HandJoins::_Internal {
+ public:
+};
+
+Dex31HandJoins::Dex31HandJoins(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:Dex31HandJoins)
+}
+Dex31HandJoins::Dex31HandJoins(const Dex31HandJoins& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&thumb_0_, &from.thumb_0_,
+    static_cast<size_t>(reinterpret_cast<char*>(&middle_1_) -
+    reinterpret_cast<char*>(&thumb_0_)) + sizeof(middle_1_));
+  // @@protoc_insertion_point(copy_constructor:Dex31HandJoins)
+}
+
+inline void Dex31HandJoins::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&thumb_0_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&middle_1_) -
+    reinterpret_cast<char*>(&thumb_0_)) + sizeof(middle_1_));
+}
+
+Dex31HandJoins::~Dex31HandJoins() {
+  // @@protoc_insertion_point(destructor:Dex31HandJoins)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+inline void Dex31HandJoins::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void Dex31HandJoins::ArenaDtor(void* object) {
+  Dex31HandJoins* _this = reinterpret_cast< Dex31HandJoins* >(object);
+  (void)_this;
+}
+void Dex31HandJoins::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void Dex31HandJoins::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void Dex31HandJoins::Clear() {
+// @@protoc_insertion_point(message_clear_start:Dex31HandJoins)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&thumb_0_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&middle_1_) -
+      reinterpret_cast<char*>(&thumb_0_)) + sizeof(middle_1_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* Dex31HandJoins::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // double thumb_0 = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 9)) {
+          thumb_0_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // double thumb_1 = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 17)) {
+          thumb_1_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // double thumb_2 = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 25)) {
+          thumb_2_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // double index_0 = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 33)) {
+          index_0_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // double index_1 = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 41)) {
+          index_1_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // double middle_0 = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 49)) {
+          middle_0_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // double middle_1 = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 57)) {
+          middle_1_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* Dex31HandJoins::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Dex31HandJoins)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // double thumb_0 = 1;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_thumb_0 = this->_internal_thumb_0();
+  uint64_t raw_thumb_0;
+  memcpy(&raw_thumb_0, &tmp_thumb_0, sizeof(tmp_thumb_0));
+  if (raw_thumb_0 != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(1, this->_internal_thumb_0(), target);
+  }
+
+  // double thumb_1 = 2;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_thumb_1 = this->_internal_thumb_1();
+  uint64_t raw_thumb_1;
+  memcpy(&raw_thumb_1, &tmp_thumb_1, sizeof(tmp_thumb_1));
+  if (raw_thumb_1 != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_thumb_1(), target);
+  }
+
+  // double thumb_2 = 3;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_thumb_2 = this->_internal_thumb_2();
+  uint64_t raw_thumb_2;
+  memcpy(&raw_thumb_2, &tmp_thumb_2, sizeof(tmp_thumb_2));
+  if (raw_thumb_2 != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(3, this->_internal_thumb_2(), target);
+  }
+
+  // double index_0 = 4;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_index_0 = this->_internal_index_0();
+  uint64_t raw_index_0;
+  memcpy(&raw_index_0, &tmp_index_0, sizeof(tmp_index_0));
+  if (raw_index_0 != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(4, this->_internal_index_0(), target);
+  }
+
+  // double index_1 = 5;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_index_1 = this->_internal_index_1();
+  uint64_t raw_index_1;
+  memcpy(&raw_index_1, &tmp_index_1, sizeof(tmp_index_1));
+  if (raw_index_1 != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(5, this->_internal_index_1(), target);
+  }
+
+  // double middle_0 = 6;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_middle_0 = this->_internal_middle_0();
+  uint64_t raw_middle_0;
+  memcpy(&raw_middle_0, &tmp_middle_0, sizeof(tmp_middle_0));
+  if (raw_middle_0 != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(6, this->_internal_middle_0(), target);
+  }
+
+  // double middle_1 = 7;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_middle_1 = this->_internal_middle_1();
+  uint64_t raw_middle_1;
+  memcpy(&raw_middle_1, &tmp_middle_1, sizeof(tmp_middle_1));
+  if (raw_middle_1 != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(7, this->_internal_middle_1(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Dex31HandJoins)
+  return target;
+}
+
+size_t Dex31HandJoins::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Dex31HandJoins)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // double thumb_0 = 1;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_thumb_0 = this->_internal_thumb_0();
+  uint64_t raw_thumb_0;
+  memcpy(&raw_thumb_0, &tmp_thumb_0, sizeof(tmp_thumb_0));
+  if (raw_thumb_0 != 0) {
+    total_size += 1 + 8;
+  }
+
+  // double thumb_1 = 2;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_thumb_1 = this->_internal_thumb_1();
+  uint64_t raw_thumb_1;
+  memcpy(&raw_thumb_1, &tmp_thumb_1, sizeof(tmp_thumb_1));
+  if (raw_thumb_1 != 0) {
+    total_size += 1 + 8;
+  }
+
+  // double thumb_2 = 3;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_thumb_2 = this->_internal_thumb_2();
+  uint64_t raw_thumb_2;
+  memcpy(&raw_thumb_2, &tmp_thumb_2, sizeof(tmp_thumb_2));
+  if (raw_thumb_2 != 0) {
+    total_size += 1 + 8;
+  }
+
+  // double index_0 = 4;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_index_0 = this->_internal_index_0();
+  uint64_t raw_index_0;
+  memcpy(&raw_index_0, &tmp_index_0, sizeof(tmp_index_0));
+  if (raw_index_0 != 0) {
+    total_size += 1 + 8;
+  }
+
+  // double index_1 = 5;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_index_1 = this->_internal_index_1();
+  uint64_t raw_index_1;
+  memcpy(&raw_index_1, &tmp_index_1, sizeof(tmp_index_1));
+  if (raw_index_1 != 0) {
+    total_size += 1 + 8;
+  }
+
+  // double middle_0 = 6;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_middle_0 = this->_internal_middle_0();
+  uint64_t raw_middle_0;
+  memcpy(&raw_middle_0, &tmp_middle_0, sizeof(tmp_middle_0));
+  if (raw_middle_0 != 0) {
+    total_size += 1 + 8;
+  }
+
+  // double middle_1 = 7;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_middle_1 = this->_internal_middle_1();
+  uint64_t raw_middle_1;
+  memcpy(&raw_middle_1, &tmp_middle_1, sizeof(tmp_middle_1));
+  if (raw_middle_1 != 0) {
+    total_size += 1 + 8;
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Dex31HandJoins::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    Dex31HandJoins::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Dex31HandJoins::GetClassData() const { return &_class_data_; }
+
+void Dex31HandJoins::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<Dex31HandJoins *>(to)->MergeFrom(
+      static_cast<const Dex31HandJoins &>(from));
+}
+
+
+void Dex31HandJoins::MergeFrom(const Dex31HandJoins& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:Dex31HandJoins)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_thumb_0 = from._internal_thumb_0();
+  uint64_t raw_thumb_0;
+  memcpy(&raw_thumb_0, &tmp_thumb_0, sizeof(tmp_thumb_0));
+  if (raw_thumb_0 != 0) {
+    _internal_set_thumb_0(from._internal_thumb_0());
+  }
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_thumb_1 = from._internal_thumb_1();
+  uint64_t raw_thumb_1;
+  memcpy(&raw_thumb_1, &tmp_thumb_1, sizeof(tmp_thumb_1));
+  if (raw_thumb_1 != 0) {
+    _internal_set_thumb_1(from._internal_thumb_1());
+  }
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_thumb_2 = from._internal_thumb_2();
+  uint64_t raw_thumb_2;
+  memcpy(&raw_thumb_2, &tmp_thumb_2, sizeof(tmp_thumb_2));
+  if (raw_thumb_2 != 0) {
+    _internal_set_thumb_2(from._internal_thumb_2());
+  }
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_index_0 = from._internal_index_0();
+  uint64_t raw_index_0;
+  memcpy(&raw_index_0, &tmp_index_0, sizeof(tmp_index_0));
+  if (raw_index_0 != 0) {
+    _internal_set_index_0(from._internal_index_0());
+  }
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_index_1 = from._internal_index_1();
+  uint64_t raw_index_1;
+  memcpy(&raw_index_1, &tmp_index_1, sizeof(tmp_index_1));
+  if (raw_index_1 != 0) {
+    _internal_set_index_1(from._internal_index_1());
+  }
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_middle_0 = from._internal_middle_0();
+  uint64_t raw_middle_0;
+  memcpy(&raw_middle_0, &tmp_middle_0, sizeof(tmp_middle_0));
+  if (raw_middle_0 != 0) {
+    _internal_set_middle_0(from._internal_middle_0());
+  }
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_middle_1 = from._internal_middle_1();
+  uint64_t raw_middle_1;
+  memcpy(&raw_middle_1, &tmp_middle_1, sizeof(tmp_middle_1));
+  if (raw_middle_1 != 0) {
+    _internal_set_middle_1(from._internal_middle_1());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Dex31HandJoins::CopyFrom(const Dex31HandJoins& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Dex31HandJoins)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Dex31HandJoins::IsInitialized() const {
+  return true;
+}
+
+void Dex31HandJoins::InternalSwap(Dex31HandJoins* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(Dex31HandJoins, middle_1_)
+      + sizeof(Dex31HandJoins::middle_1_)
+      - PROTOBUF_FIELD_OFFSET(Dex31HandJoins, thumb_0_)>(
+          reinterpret_cast<char*>(&thumb_0_),
+          reinterpret_cast<char*>(&other->thumb_0_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata Dex31HandJoins::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_client_5fstream_5fmessage_2eproto_getter, &descriptor_table_client_5fstream_5fmessage_2eproto_once,
+      file_level_metadata_client_5fstream_5fmessage_2eproto[1]);
+}
+
+// ===================================================================
+
+class G1JoinState::_Internal {
+ public:
+  static const ::Vector3& left_shoulder_angle(const G1JoinState* msg);
+  static const ::Vector3& right_shoulder_angle(const G1JoinState* msg);
+  static const ::Vector3& left_wrist_angle(const G1JoinState* msg);
+  static const ::Vector3& right_wrist_angle(const G1JoinState* msg);
+  static const ::Dex31HandJoins& left_hand(const G1JoinState* msg);
+  static const ::Dex31HandJoins& right_hand(const G1JoinState* msg);
+};
+
+const ::Vector3&
+G1JoinState::_Internal::left_shoulder_angle(const G1JoinState* msg) {
+  return *msg->left_shoulder_angle_;
+}
+const ::Vector3&
+G1JoinState::_Internal::right_shoulder_angle(const G1JoinState* msg) {
+  return *msg->right_shoulder_angle_;
+}
+const ::Vector3&
+G1JoinState::_Internal::left_wrist_angle(const G1JoinState* msg) {
+  return *msg->left_wrist_angle_;
+}
+const ::Vector3&
+G1JoinState::_Internal::right_wrist_angle(const G1JoinState* msg) {
+  return *msg->right_wrist_angle_;
+}
+const ::Dex31HandJoins&
+G1JoinState::_Internal::left_hand(const G1JoinState* msg) {
+  return *msg->left_hand_;
+}
+const ::Dex31HandJoins&
+G1JoinState::_Internal::right_hand(const G1JoinState* msg) {
+  return *msg->right_hand_;
+}
+G1JoinState::G1JoinState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:G1JoinState)
+}
+G1JoinState::G1JoinState(const G1JoinState& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_left_shoulder_angle()) {
+    left_shoulder_angle_ = new ::Vector3(*from.left_shoulder_angle_);
+  } else {
+    left_shoulder_angle_ = nullptr;
+  }
+  if (from._internal_has_right_shoulder_angle()) {
+    right_shoulder_angle_ = new ::Vector3(*from.right_shoulder_angle_);
+  } else {
+    right_shoulder_angle_ = nullptr;
+  }
+  if (from._internal_has_left_wrist_angle()) {
+    left_wrist_angle_ = new ::Vector3(*from.left_wrist_angle_);
+  } else {
+    left_wrist_angle_ = nullptr;
+  }
+  if (from._internal_has_right_wrist_angle()) {
+    right_wrist_angle_ = new ::Vector3(*from.right_wrist_angle_);
+  } else {
+    right_wrist_angle_ = nullptr;
+  }
+  if (from._internal_has_left_hand()) {
+    left_hand_ = new ::Dex31HandJoins(*from.left_hand_);
+  } else {
+    left_hand_ = nullptr;
+  }
+  if (from._internal_has_right_hand()) {
+    right_hand_ = new ::Dex31HandJoins(*from.right_hand_);
+  } else {
+    right_hand_ = nullptr;
+  }
+  ::memcpy(&left_elbow_, &from.left_elbow_,
+    static_cast<size_t>(reinterpret_cast<char*>(&right_elbow_) -
+    reinterpret_cast<char*>(&left_elbow_)) + sizeof(right_elbow_));
+  // @@protoc_insertion_point(copy_constructor:G1JoinState)
+}
+
+inline void G1JoinState::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&left_shoulder_angle_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&right_elbow_) -
+    reinterpret_cast<char*>(&left_shoulder_angle_)) + sizeof(right_elbow_));
+}
+
+G1JoinState::~G1JoinState() {
+  // @@protoc_insertion_point(destructor:G1JoinState)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+inline void G1JoinState::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete left_shoulder_angle_;
+  if (this != internal_default_instance()) delete right_shoulder_angle_;
+  if (this != internal_default_instance()) delete left_wrist_angle_;
+  if (this != internal_default_instance()) delete right_wrist_angle_;
+  if (this != internal_default_instance()) delete left_hand_;
+  if (this != internal_default_instance()) delete right_hand_;
+}
+
+void G1JoinState::ArenaDtor(void* object) {
+  G1JoinState* _this = reinterpret_cast< G1JoinState* >(object);
+  (void)_this;
+}
+void G1JoinState::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void G1JoinState::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void G1JoinState::Clear() {
+// @@protoc_insertion_point(message_clear_start:G1JoinState)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && left_shoulder_angle_ != nullptr) {
+    delete left_shoulder_angle_;
+  }
+  left_shoulder_angle_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && right_shoulder_angle_ != nullptr) {
+    delete right_shoulder_angle_;
+  }
+  right_shoulder_angle_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && left_wrist_angle_ != nullptr) {
+    delete left_wrist_angle_;
+  }
+  left_wrist_angle_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && right_wrist_angle_ != nullptr) {
+    delete right_wrist_angle_;
+  }
+  right_wrist_angle_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && left_hand_ != nullptr) {
+    delete left_hand_;
+  }
+  left_hand_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && right_hand_ != nullptr) {
+    delete right_hand_;
+  }
+  right_hand_ = nullptr;
+  ::memset(&left_elbow_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&right_elbow_) -
+      reinterpret_cast<char*>(&left_elbow_)) + sizeof(right_elbow_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* G1JoinState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .Vector3 left_shoulder_angle = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_left_shoulder_angle(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Vector3 right_shoulder_angle = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_right_shoulder_angle(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Vector3 left_wrist_angle = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_left_wrist_angle(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Vector3 right_wrist_angle = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_right_wrist_angle(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // double left_elbow = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 41)) {
+          left_elbow_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // double right_elbow = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 49)) {
+          right_elbow_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Dex31HandJoins left_hand = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+          ptr = ctx->ParseMessage(_internal_mutable_left_hand(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Dex31HandJoins right_hand = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+          ptr = ctx->ParseMessage(_internal_mutable_right_hand(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* G1JoinState::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:G1JoinState)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .Vector3 left_shoulder_angle = 1;
+  if (this->_internal_has_left_shoulder_angle()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        1, _Internal::left_shoulder_angle(this), target, stream);
+  }
+
+  // .Vector3 right_shoulder_angle = 2;
+  if (this->_internal_has_right_shoulder_angle()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        2, _Internal::right_shoulder_angle(this), target, stream);
+  }
+
+  // .Vector3 left_wrist_angle = 3;
+  if (this->_internal_has_left_wrist_angle()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        3, _Internal::left_wrist_angle(this), target, stream);
+  }
+
+  // .Vector3 right_wrist_angle = 4;
+  if (this->_internal_has_right_wrist_angle()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        4, _Internal::right_wrist_angle(this), target, stream);
+  }
+
+  // double left_elbow = 5;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_left_elbow = this->_internal_left_elbow();
+  uint64_t raw_left_elbow;
+  memcpy(&raw_left_elbow, &tmp_left_elbow, sizeof(tmp_left_elbow));
+  if (raw_left_elbow != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(5, this->_internal_left_elbow(), target);
+  }
+
+  // double right_elbow = 6;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_right_elbow = this->_internal_right_elbow();
+  uint64_t raw_right_elbow;
+  memcpy(&raw_right_elbow, &tmp_right_elbow, sizeof(tmp_right_elbow));
+  if (raw_right_elbow != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(6, this->_internal_right_elbow(), target);
+  }
+
+  // .Dex31HandJoins left_hand = 7;
+  if (this->_internal_has_left_hand()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        7, _Internal::left_hand(this), target, stream);
+  }
+
+  // .Dex31HandJoins right_hand = 8;
+  if (this->_internal_has_right_hand()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        8, _Internal::right_hand(this), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:G1JoinState)
+  return target;
+}
+
+size_t G1JoinState::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:G1JoinState)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .Vector3 left_shoulder_angle = 1;
+  if (this->_internal_has_left_shoulder_angle()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *left_shoulder_angle_);
+  }
+
+  // .Vector3 right_shoulder_angle = 2;
+  if (this->_internal_has_right_shoulder_angle()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *right_shoulder_angle_);
+  }
+
+  // .Vector3 left_wrist_angle = 3;
+  if (this->_internal_has_left_wrist_angle()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *left_wrist_angle_);
+  }
+
+  // .Vector3 right_wrist_angle = 4;
+  if (this->_internal_has_right_wrist_angle()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *right_wrist_angle_);
+  }
+
+  // .Dex31HandJoins left_hand = 7;
+  if (this->_internal_has_left_hand()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *left_hand_);
+  }
+
+  // .Dex31HandJoins right_hand = 8;
+  if (this->_internal_has_right_hand()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *right_hand_);
+  }
+
+  // double left_elbow = 5;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_left_elbow = this->_internal_left_elbow();
+  uint64_t raw_left_elbow;
+  memcpy(&raw_left_elbow, &tmp_left_elbow, sizeof(tmp_left_elbow));
+  if (raw_left_elbow != 0) {
+    total_size += 1 + 8;
+  }
+
+  // double right_elbow = 6;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_right_elbow = this->_internal_right_elbow();
+  uint64_t raw_right_elbow;
+  memcpy(&raw_right_elbow, &tmp_right_elbow, sizeof(tmp_right_elbow));
+  if (raw_right_elbow != 0) {
+    total_size += 1 + 8;
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData G1JoinState::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    G1JoinState::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*G1JoinState::GetClassData() const { return &_class_data_; }
+
+void G1JoinState::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<G1JoinState *>(to)->MergeFrom(
+      static_cast<const G1JoinState &>(from));
+}
+
+
+void G1JoinState::MergeFrom(const G1JoinState& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:G1JoinState)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_left_shoulder_angle()) {
+    _internal_mutable_left_shoulder_angle()->::Vector3::MergeFrom(from._internal_left_shoulder_angle());
+  }
+  if (from._internal_has_right_shoulder_angle()) {
+    _internal_mutable_right_shoulder_angle()->::Vector3::MergeFrom(from._internal_right_shoulder_angle());
+  }
+  if (from._internal_has_left_wrist_angle()) {
+    _internal_mutable_left_wrist_angle()->::Vector3::MergeFrom(from._internal_left_wrist_angle());
+  }
+  if (from._internal_has_right_wrist_angle()) {
+    _internal_mutable_right_wrist_angle()->::Vector3::MergeFrom(from._internal_right_wrist_angle());
+  }
+  if (from._internal_has_left_hand()) {
+    _internal_mutable_left_hand()->::Dex31HandJoins::MergeFrom(from._internal_left_hand());
+  }
+  if (from._internal_has_right_hand()) {
+    _internal_mutable_right_hand()->::Dex31HandJoins::MergeFrom(from._internal_right_hand());
+  }
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_left_elbow = from._internal_left_elbow();
+  uint64_t raw_left_elbow;
+  memcpy(&raw_left_elbow, &tmp_left_elbow, sizeof(tmp_left_elbow));
+  if (raw_left_elbow != 0) {
+    _internal_set_left_elbow(from._internal_left_elbow());
+  }
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_right_elbow = from._internal_right_elbow();
+  uint64_t raw_right_elbow;
+  memcpy(&raw_right_elbow, &tmp_right_elbow, sizeof(tmp_right_elbow));
+  if (raw_right_elbow != 0) {
+    _internal_set_right_elbow(from._internal_right_elbow());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void G1JoinState::CopyFrom(const G1JoinState& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:G1JoinState)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool G1JoinState::IsInitialized() const {
+  return true;
+}
+
+void G1JoinState::InternalSwap(G1JoinState* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(G1JoinState, right_elbow_)
+      + sizeof(G1JoinState::right_elbow_)
+      - PROTOBUF_FIELD_OFFSET(G1JoinState, left_shoulder_angle_)>(
+          reinterpret_cast<char*>(&left_shoulder_angle_),
+          reinterpret_cast<char*>(&other->left_shoulder_angle_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata G1JoinState::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_client_5fstream_5fmessage_2eproto_getter, &descriptor_table_client_5fstream_5fmessage_2eproto_once,
+      file_level_metadata_client_5fstream_5fmessage_2eproto[2]);
+}
 
 // ===================================================================
 
@@ -552,7 +1845,7 @@ void BBox2DType::InternalSwap(BBox2DType* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata BBox2DType::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_client_5fstream_5fmessage_2eproto_getter, &descriptor_table_client_5fstream_5fmessage_2eproto_once,
-      file_level_metadata_client_5fstream_5fmessage_2eproto[0]);
+      file_level_metadata_client_5fstream_5fmessage_2eproto[3]);
 }
 
 // ===================================================================
@@ -566,7 +1859,7 @@ void BBox2DInfo_IdToLabelsEntry_DoNotUse::MergeFrom(const BBox2DInfo_IdToLabelsE
 ::PROTOBUF_NAMESPACE_ID::Metadata BBox2DInfo_IdToLabelsEntry_DoNotUse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_client_5fstream_5fmessage_2eproto_getter, &descriptor_table_client_5fstream_5fmessage_2eproto_once,
-      file_level_metadata_client_5fstream_5fmessage_2eproto[1]);
+      file_level_metadata_client_5fstream_5fmessage_2eproto[4]);
 }
 
 // ===================================================================
@@ -835,7 +2128,7 @@ void BBox2DInfo::InternalSwap(BBox2DInfo* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata BBox2DInfo::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_client_5fstream_5fmessage_2eproto_getter, &descriptor_table_client_5fstream_5fmessage_2eproto_once,
-      file_level_metadata_client_5fstream_5fmessage_2eproto[2]);
+      file_level_metadata_client_5fstream_5fmessage_2eproto[5]);
 }
 
 // ===================================================================
@@ -1063,7 +2356,7 @@ void BBox2D::InternalSwap(BBox2D* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata BBox2D::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_client_5fstream_5fmessage_2eproto_getter, &descriptor_table_client_5fstream_5fmessage_2eproto_once,
-      file_level_metadata_client_5fstream_5fmessage_2eproto[3]);
+      file_level_metadata_client_5fstream_5fmessage_2eproto[6]);
 }
 
 // ===================================================================
@@ -1367,7 +2660,7 @@ void Clock::InternalSwap(Clock* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Clock::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_client_5fstream_5fmessage_2eproto_getter, &descriptor_table_client_5fstream_5fmessage_2eproto_once,
-      file_level_metadata_client_5fstream_5fmessage_2eproto[4]);
+      file_level_metadata_client_5fstream_5fmessage_2eproto[7]);
 }
 
 // ===================================================================
@@ -1618,7 +2911,7 @@ void Camera::InternalSwap(Camera* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Camera::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_client_5fstream_5fmessage_2eproto_getter, &descriptor_table_client_5fstream_5fmessage_2eproto_once,
-      file_level_metadata_client_5fstream_5fmessage_2eproto[5]);
+      file_level_metadata_client_5fstream_5fmessage_2eproto[8]);
 }
 
 // ===================================================================
@@ -1993,11 +3286,351 @@ void ClientStreamMessage::InternalSwap(ClientStreamMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata ClientStreamMessage::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_client_5fstream_5fmessage_2eproto_getter, &descriptor_table_client_5fstream_5fmessage_2eproto_once,
-      file_level_metadata_client_5fstream_5fmessage_2eproto[6]);
+      file_level_metadata_client_5fstream_5fmessage_2eproto[9]);
+}
+
+// ===================================================================
+
+class G1ClientStreamMessage::_Internal {
+ public:
+  static const ::G1JoinState& join_state(const G1ClientStreamMessage* msg);
+  static const ::Clock& clock(const G1ClientStreamMessage* msg);
+  static const ::Camera& camera(const G1ClientStreamMessage* msg);
+};
+
+const ::G1JoinState&
+G1ClientStreamMessage::_Internal::join_state(const G1ClientStreamMessage* msg) {
+  return *msg->join_state_;
+}
+const ::Clock&
+G1ClientStreamMessage::_Internal::clock(const G1ClientStreamMessage* msg) {
+  return *msg->clock_;
+}
+const ::Camera&
+G1ClientStreamMessage::_Internal::camera(const G1ClientStreamMessage* msg) {
+  return *msg->camera_;
+}
+G1ClientStreamMessage::G1ClientStreamMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:G1ClientStreamMessage)
+}
+G1ClientStreamMessage::G1ClientStreamMessage(const G1ClientStreamMessage& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  color_image_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    color_image_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_color_image().empty()) {
+    color_image_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_color_image(), 
+      GetArenaForAllocation());
+  }
+  if (from._internal_has_join_state()) {
+    join_state_ = new ::G1JoinState(*from.join_state_);
+  } else {
+    join_state_ = nullptr;
+  }
+  if (from._internal_has_clock()) {
+    clock_ = new ::Clock(*from.clock_);
+  } else {
+    clock_ = nullptr;
+  }
+  if (from._internal_has_camera()) {
+    camera_ = new ::Camera(*from.camera_);
+  } else {
+    camera_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:G1ClientStreamMessage)
+}
+
+inline void G1ClientStreamMessage::SharedCtor() {
+color_image_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  color_image_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&join_state_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&camera_) -
+    reinterpret_cast<char*>(&join_state_)) + sizeof(camera_));
+}
+
+G1ClientStreamMessage::~G1ClientStreamMessage() {
+  // @@protoc_insertion_point(destructor:G1ClientStreamMessage)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+inline void G1ClientStreamMessage::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  color_image_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (this != internal_default_instance()) delete join_state_;
+  if (this != internal_default_instance()) delete clock_;
+  if (this != internal_default_instance()) delete camera_;
+}
+
+void G1ClientStreamMessage::ArenaDtor(void* object) {
+  G1ClientStreamMessage* _this = reinterpret_cast< G1ClientStreamMessage* >(object);
+  (void)_this;
+}
+void G1ClientStreamMessage::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void G1ClientStreamMessage::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void G1ClientStreamMessage::Clear() {
+// @@protoc_insertion_point(message_clear_start:G1ClientStreamMessage)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  color_image_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && join_state_ != nullptr) {
+    delete join_state_;
+  }
+  join_state_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && clock_ != nullptr) {
+    delete clock_;
+  }
+  clock_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && camera_ != nullptr) {
+    delete camera_;
+  }
+  camera_ = nullptr;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* G1ClientStreamMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .G1JoinState join_state = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_join_state(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Clock clock = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_clock(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Camera camera = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_camera(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bytes color_image = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_color_image();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* G1ClientStreamMessage::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:G1ClientStreamMessage)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .G1JoinState join_state = 1;
+  if (this->_internal_has_join_state()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        1, _Internal::join_state(this), target, stream);
+  }
+
+  // .Clock clock = 2;
+  if (this->_internal_has_clock()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        2, _Internal::clock(this), target, stream);
+  }
+
+  // .Camera camera = 3;
+  if (this->_internal_has_camera()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        3, _Internal::camera(this), target, stream);
+  }
+
+  // bytes color_image = 4;
+  if (!this->_internal_color_image().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        4, this->_internal_color_image(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:G1ClientStreamMessage)
+  return target;
+}
+
+size_t G1ClientStreamMessage::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:G1ClientStreamMessage)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // bytes color_image = 4;
+  if (!this->_internal_color_image().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_color_image());
+  }
+
+  // .G1JoinState join_state = 1;
+  if (this->_internal_has_join_state()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *join_state_);
+  }
+
+  // .Clock clock = 2;
+  if (this->_internal_has_clock()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *clock_);
+  }
+
+  // .Camera camera = 3;
+  if (this->_internal_has_camera()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *camera_);
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData G1ClientStreamMessage::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    G1ClientStreamMessage::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*G1ClientStreamMessage::GetClassData() const { return &_class_data_; }
+
+void G1ClientStreamMessage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<G1ClientStreamMessage *>(to)->MergeFrom(
+      static_cast<const G1ClientStreamMessage &>(from));
+}
+
+
+void G1ClientStreamMessage::MergeFrom(const G1ClientStreamMessage& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:G1ClientStreamMessage)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_color_image().empty()) {
+    _internal_set_color_image(from._internal_color_image());
+  }
+  if (from._internal_has_join_state()) {
+    _internal_mutable_join_state()->::G1JoinState::MergeFrom(from._internal_join_state());
+  }
+  if (from._internal_has_clock()) {
+    _internal_mutable_clock()->::Clock::MergeFrom(from._internal_clock());
+  }
+  if (from._internal_has_camera()) {
+    _internal_mutable_camera()->::Camera::MergeFrom(from._internal_camera());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void G1ClientStreamMessage::CopyFrom(const G1ClientStreamMessage& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:G1ClientStreamMessage)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool G1ClientStreamMessage::IsInitialized() const {
+  return true;
+}
+
+void G1ClientStreamMessage::InternalSwap(G1ClientStreamMessage* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &color_image_, lhs_arena,
+      &other->color_image_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(G1ClientStreamMessage, camera_)
+      + sizeof(G1ClientStreamMessage::camera_)
+      - PROTOBUF_FIELD_OFFSET(G1ClientStreamMessage, join_state_)>(
+          reinterpret_cast<char*>(&join_state_),
+          reinterpret_cast<char*>(&other->join_state_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata G1ClientStreamMessage::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_client_5fstream_5fmessage_2eproto_getter, &descriptor_table_client_5fstream_5fmessage_2eproto_once,
+      file_level_metadata_client_5fstream_5fmessage_2eproto[10]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
 PROTOBUF_NAMESPACE_OPEN
+template<> PROTOBUF_NOINLINE ::Vector3* Arena::CreateMaybeMessage< ::Vector3 >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Vector3 >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Dex31HandJoins* Arena::CreateMaybeMessage< ::Dex31HandJoins >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Dex31HandJoins >(arena);
+}
+template<> PROTOBUF_NOINLINE ::G1JoinState* Arena::CreateMaybeMessage< ::G1JoinState >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::G1JoinState >(arena);
+}
 template<> PROTOBUF_NOINLINE ::BBox2DType* Arena::CreateMaybeMessage< ::BBox2DType >(Arena* arena) {
   return Arena::CreateMessageInternal< ::BBox2DType >(arena);
 }
@@ -2018,6 +3651,9 @@ template<> PROTOBUF_NOINLINE ::Camera* Arena::CreateMaybeMessage< ::Camera >(Are
 }
 template<> PROTOBUF_NOINLINE ::ClientStreamMessage* Arena::CreateMaybeMessage< ::ClientStreamMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::ClientStreamMessage >(arena);
+}
+template<> PROTOBUF_NOINLINE ::G1ClientStreamMessage* Arena::CreateMaybeMessage< ::G1ClientStreamMessage >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::G1ClientStreamMessage >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

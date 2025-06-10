@@ -14,21 +14,30 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1cserver_control_message.proto\"*\n\x07Vector3\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\"J\n\x14\x43\x61meraControlCommand\x12\x1c\n\njoints_vel\x18\x01 \x01(\x0b\x32\x08.Vector3\x12\x14\n\x0c\x66ocal_length\x18\x02 \x01(\x01\"(\n\x0fSettingsCommand\x12\x15\n\radaptive_rate\x18\x01 \x01(\x08\"D\n\rFrankaCommand\x12\x1e\n\x0c\x65\x66\x66\x65\x63tor_pos\x18\x01 \x01(\x0b\x32\x08.Vector3\x12\x13\n\x0bshow_marker\x18\x02 \x01(\x08\"\xb2\x01\n\x14ServerControlMessage\x12\x37\n\x16\x63\x61mera_control_command\x18\x01 \x01(\x0b\x32\x15.CameraControlCommandH\x00\x12,\n\x10settings_command\x18\x02 \x01(\x0b\x32\x10.SettingsCommandH\x00\x12(\n\x0e\x66ranka_command\x18\x03 \x01(\x0b\x32\x0e.FrankaCommandH\x00\x42\t\n\x07\x63ommandb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1cserver_control_message.proto\"+\n\x08SVector3\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\"\x8c\x01\n\x11\x44\x65x31HandJoinsAct\x12\x0f\n\x07thumb_0\x18\x01 \x01(\x01\x12\x0f\n\x07thumb_1\x18\x02 \x01(\x01\x12\x0f\n\x07thumb_2\x18\x03 \x01(\x01\x12\x0f\n\x07index_0\x18\x04 \x01(\x01\x12\x0f\n\x07index_1\x18\x05 \x01(\x01\x12\x10\n\x08middle_0\x18\x06 \x01(\x01\x12\x10\n\x08middle_1\x18\x07 \x01(\x01\"K\n\x14\x43\x61meraControlCommand\x12\x1d\n\njoints_vel\x18\x01 \x01(\x0b\x32\t.SVector3\x12\x14\n\x0c\x66ocal_length\x18\x02 \x01(\x01\"(\n\x0fSettingsCommand\x12\x15\n\radaptive_rate\x18\x01 \x01(\x08\"E\n\rFrankaCommand\x12\x1f\n\x0c\x65\x66\x66\x65\x63tor_pos\x18\x01 \x01(\x0b\x32\t.SVector3\x12\x13\n\x0bshow_marker\x18\x02 \x01(\x08\"\xb2\x01\n\x14ServerControlMessage\x12\x37\n\x16\x63\x61mera_control_command\x18\x01 \x01(\x0b\x32\x15.CameraControlCommandH\x00\x12,\n\x10settings_command\x18\x02 \x01(\x0b\x32\x10.SettingsCommandH\x00\x12(\n\x0e\x66ranka_command\x18\x03 \x01(\x0b\x32\x0e.FrankaCommandH\x00\x42\t\n\x07\x63ommand\"\xa5\x02\n\x0fG1ActionCommand\x12&\n\x13left_shoulder_angle\x18\x01 \x01(\x0b\x32\t.SVector3\x12\'\n\x14right_shoulder_angle\x18\x02 \x01(\x0b\x32\t.SVector3\x12#\n\x10left_wrist_angle\x18\x03 \x01(\x0b\x32\t.SVector3\x12$\n\x11right_wrist_angle\x18\x04 \x01(\x0b\x32\t.SVector3\x12\x12\n\nleft_elbow\x18\x05 \x01(\x01\x12\x13\n\x0bright_elbow\x18\x06 \x01(\x01\x12%\n\tleft_hand\x18\x07 \x01(\x0b\x32\x12.Dex31HandJoinsAct\x12&\n\nright_hand\x18\x08 \x01(\x0b\x32\x12.Dex31HandJoinsActb\x06proto3')
 
 
 
-_VECTOR3 = DESCRIPTOR.message_types_by_name['Vector3']
+_SVECTOR3 = DESCRIPTOR.message_types_by_name['SVector3']
+_DEX31HANDJOINSACT = DESCRIPTOR.message_types_by_name['Dex31HandJoinsAct']
 _CAMERACONTROLCOMMAND = DESCRIPTOR.message_types_by_name['CameraControlCommand']
 _SETTINGSCOMMAND = DESCRIPTOR.message_types_by_name['SettingsCommand']
 _FRANKACOMMAND = DESCRIPTOR.message_types_by_name['FrankaCommand']
 _SERVERCONTROLMESSAGE = DESCRIPTOR.message_types_by_name['ServerControlMessage']
-Vector3 = _reflection.GeneratedProtocolMessageType('Vector3', (_message.Message,), {
-  'DESCRIPTOR' : _VECTOR3,
+_G1ACTIONCOMMAND = DESCRIPTOR.message_types_by_name['G1ActionCommand']
+SVector3 = _reflection.GeneratedProtocolMessageType('SVector3', (_message.Message,), {
+  'DESCRIPTOR' : _SVECTOR3,
   '__module__' : 'server_control_message_pb2'
-  # @@protoc_insertion_point(class_scope:Vector3)
+  # @@protoc_insertion_point(class_scope:SVector3)
   })
-_sym_db.RegisterMessage(Vector3)
+_sym_db.RegisterMessage(SVector3)
+
+Dex31HandJoinsAct = _reflection.GeneratedProtocolMessageType('Dex31HandJoinsAct', (_message.Message,), {
+  'DESCRIPTOR' : _DEX31HANDJOINSACT,
+  '__module__' : 'server_control_message_pb2'
+  # @@protoc_insertion_point(class_scope:Dex31HandJoinsAct)
+  })
+_sym_db.RegisterMessage(Dex31HandJoinsAct)
 
 CameraControlCommand = _reflection.GeneratedProtocolMessageType('CameraControlCommand', (_message.Message,), {
   'DESCRIPTOR' : _CAMERACONTROLCOMMAND,
@@ -58,17 +67,28 @@ ServerControlMessage = _reflection.GeneratedProtocolMessageType('ServerControlMe
   })
 _sym_db.RegisterMessage(ServerControlMessage)
 
+G1ActionCommand = _reflection.GeneratedProtocolMessageType('G1ActionCommand', (_message.Message,), {
+  'DESCRIPTOR' : _G1ACTIONCOMMAND,
+  '__module__' : 'server_control_message_pb2'
+  # @@protoc_insertion_point(class_scope:G1ActionCommand)
+  })
+_sym_db.RegisterMessage(G1ActionCommand)
+
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _VECTOR3._serialized_start=32
-  _VECTOR3._serialized_end=74
-  _CAMERACONTROLCOMMAND._serialized_start=76
-  _CAMERACONTROLCOMMAND._serialized_end=150
-  _SETTINGSCOMMAND._serialized_start=152
-  _SETTINGSCOMMAND._serialized_end=192
-  _FRANKACOMMAND._serialized_start=194
-  _FRANKACOMMAND._serialized_end=262
-  _SERVERCONTROLMESSAGE._serialized_start=265
-  _SERVERCONTROLMESSAGE._serialized_end=443
+  _SVECTOR3._serialized_start=32
+  _SVECTOR3._serialized_end=75
+  _DEX31HANDJOINSACT._serialized_start=78
+  _DEX31HANDJOINSACT._serialized_end=218
+  _CAMERACONTROLCOMMAND._serialized_start=220
+  _CAMERACONTROLCOMMAND._serialized_end=295
+  _SETTINGSCOMMAND._serialized_start=297
+  _SETTINGSCOMMAND._serialized_end=337
+  _FRANKACOMMAND._serialized_start=339
+  _FRANKACOMMAND._serialized_end=408
+  _SERVERCONTROLMESSAGE._serialized_start=411
+  _SERVERCONTROLMESSAGE._serialized_end=589
+  _G1ACTIONCOMMAND._serialized_start=592
+  _G1ACTIONCOMMAND._serialized_end=885
 # @@protoc_insertion_point(module_scope)
