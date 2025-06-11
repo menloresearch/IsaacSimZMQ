@@ -1,0 +1,307 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (5, 0, 0)
+                double radius = 5
+            }
+            dictionary Perspective = {
+                double3 position = (0.09318430737631024, 2.2090252661095953, 0.7481878685031184)
+                double3 target = (0.480613616511916, 0.814031768756518, 0.5120380189368934)
+            }
+            dictionary Right = {
+                double3 position = (0, -5, 0)
+                double radius = 5
+            }
+            dictionary Top = {
+                double3 position = (0, 0, 5)
+                double radius = 5
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary omni_layer = {
+            string authoring_layer = "./franka_world.usda"
+            dictionary locked = {
+                bool "./props/camera.usda" = 1
+                bool "./props/looks.usd" = 1
+                bool "./props/model.usd" = 1
+                bool "./props/physics.usd" = 1
+                bool "./props/scale.usd" = 1
+                bool "./props/sensor.usd" = 1
+            }
+        }
+        dictionary physicsSettings = {
+            int "/persistent/simulation/minFrameRate" = 60
+        }
+        dictionary renderSettings = {
+        }
+    }
+    defaultPrim = "World"
+    endTimeCode = 1000000
+    metersPerUnit = 1
+    startTimeCode = 0
+    subLayers = [
+        @./props/camera.usda@
+    ]
+    timeCodesPerSecond = 60
+    upAxis = "Z"
+)
+
+def Xform "World"
+{
+    custom string cmd_path = ""
+
+    def Xform "GroundPlane"
+    {
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Mesh "CollisionMesh"
+        {
+            uniform bool doubleSided = 0
+            int[] faceVertexCounts = [4]
+            int[] faceVertexIndices = [0, 1, 2, 3]
+            normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1)]
+            point3f[] points = [(-25, -25, 0), (25, -25, 0), (25, 25, 0), (-25, 25, 0)]
+            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+            bool primvars:isMatteObject = 1
+            texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1)] (
+                interpolation = "varying"
+            )
+        }
+
+        def Plane "CollisionPlane" (
+            prepend apiSchemas = ["PhysicsCollisionAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            bool primvars:isMatteObject = 1
+            uniform token purpose = "guide"
+        }
+    }
+
+    over "base_link"
+    {
+        quatd xformOp:orient = (0.25881904510252074, 0, 0, 0.9659258262890683)
+        float3 xformOp:scale = (0.01, 0.01, 0.01)
+        double3 xformOp:translate = (0.8, 1.3, 0.7)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        over "base_link_grp"
+        {
+        }
+
+        over "z_link"
+        {
+        }
+
+        over "y_link"
+        {
+            float3 xformOp:rotateXYZ = (80, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 5.099616262901772, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+
+            over "Camera"
+            {
+                custom token cameraProjectionType (
+                    allowedTokens = ["pinhole", "fisheyeOrthographic", "fisheyeEquidistant", "fisheyeEquisolid", "fisheyePolynomial", "fisheyeSpherical", "fisheyeKannalaBrandtK3", "fisheyeRadTanThinPrism", "omniDirectionalStereo"]
+                )
+                float focalLength = 20
+                custom float fthetaCx
+                custom float fthetaCy
+                custom float fthetaHeight
+                custom float fthetaMaxFov
+                custom float fthetaPolyA
+                custom float fthetaPolyB
+                custom float fthetaPolyC
+                custom float fthetaPolyD
+                custom float fthetaPolyE
+                custom float fthetaWidth
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (-0.0000010778094292618334, 0, -4.5)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+
+        over "joints"
+        {
+            over "j3_Y_RevoluteJoint"
+            {
+                point3f physics:localPos0 = (-1.1809998e-14, 7.922471e-7, 0)
+                point3f physics:localPos1 = (6.0810575e-15, 3.9612354e-7, -6.861061e-7)
+                quatf physics:localRot0 = (0.76604444, 0.64278764, 0, 0)
+                quatf physics:localRot1 = (1, 0, 0, 0)
+            }
+        }
+
+        over "x_link"
+        {
+        }
+    }
+
+    over "nova_carter"
+    {
+        quatd xformOp:orient = (0.7071067811865476, 0, 0, 0.7071067811865475)
+        double3 xformOp:scale = (2, 2, 2)
+        double3 xformOp:translate = (-9.5, -0.25, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        over "chassis_link"
+        {
+        }
+
+        over "caster_frame_base"
+        {
+        }
+
+        over "caster_swivel_left"
+        {
+        }
+
+        over "caster_wheel_left"
+        {
+        }
+
+        over "caster_swivel_right"
+        {
+        }
+
+        over "caster_wheel_right"
+        {
+        }
+
+        over "wheel_left"
+        {
+        }
+
+        over "wheel_right"
+        {
+        }
+
+        over "dummy_link"
+        {
+        }
+
+        over "dummy_link_2"
+        {
+        }
+    }
+
+    def Mesh "Target" (
+        prepend apiSchemas = ["SemanticsAPI:Semantics_1Vc4", "MaterialBindingAPI"]
+    )
+    {
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [0, 1, 3, 2, 4, 6, 7, 5, 6, 2, 3, 7, 4, 5, 1, 0, 4, 0, 2, 6, 5, 7, 3, 1]
+        rel material:binding = </World/Looks/OmniPBR> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0)] (
+            interpolation = "faceVarying"
+        )
+        point3f[] points = [(-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (0.5, 0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5)]
+        texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0), (0, 1), (0, 0), (1, 0), (1, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0)] (
+            interpolation = "faceVarying"
+        )
+        string semantic:Semantics_1Vc4:params:semanticData = "object"
+        string semantic:Semantics_1Vc4:params:semanticType = "class"
+        uniform token subdivisionScheme = "none"
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.05, 0.05, 0.05)
+        double3 xformOp:translate = (0.4, 0, 0.025)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def RectLight "RectLight" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float3[] extent = [(-50, -50, -0), (50, 50, 0)]
+        float inputs:exposure = 0
+        float inputs:height = 100
+        float inputs:intensity = 8000
+        bool inputs:normalize = 1
+        float inputs:shaping:cone:angle = 180
+        float inputs:shaping:cone:softness
+        float inputs:shaping:focus
+        color3f inputs:shaping:focusTint
+        asset inputs:shaping:ies:file
+        float inputs:width = 100
+        bool visibleInPrimaryRay = 0
+        quatd xformOp:orient = (0.7071067811865476, 0, 0, 0.7071067811865475)
+        double3 xformOp:scale = (0.0007000000000030127, 0.0007000000000030127, 0.0007000000000030127)
+        double3 xformOp:translate = (0.9131000543134977, -9.084533137818426e-15, 1.553758659902226)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    over "Looks"
+    {
+        def Material "OmniPBR"
+        {
+            token outputs:mdl:displacement.connect = </World/Looks/OmniPBR/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </World/Looks/OmniPBR/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </World/Looks/OmniPBR/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @OmniPBR.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "OmniPBR"
+                color3f inputs:diffuse_color_constant = (0.4627451, 0.7254902, 0)
+                token outputs:out (
+                    renderType = "material"
+                )
+            }
+        }
+    }
+}
+
+def Xform "Environment"
+{
+    quatd xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+    def DomeLight "sky" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float inputs:exposure = -1
+        float inputs:intensity = 1000
+        float inputs:shaping:cone:angle = 180
+        float inputs:shaping:cone:softness
+        float inputs:shaping:focus
+        color3f inputs:shaping:focusTint
+        asset inputs:shaping:ies:file
+        float inputs:specular = 1
+        asset inputs:texture:file = @https://omniverse-content-production.s3.us-west-2.amazonaws.com/Environments/2023_1/DomeLights/Indoor/ZetoCGcom_ExhibitionHall_Interior1.hdr@
+        token inputs:texture:format = "latlong"
+        token visibility = "inherited"
+        bool visibleInPrimaryRay = 1
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+}
+
+def PhysicsScene "physicsScene" (
+    prepend apiSchemas = ["PhysxSceneAPI"]
+)
+{
+    vector3f physics:gravityDirection = (0, 0, -1)
+    float physics:gravityMagnitude = 9.81
+    uniform token physxScene:broadphaseType = "MBP"
+    bool physxScene:enableCCD = 1
+    bool physxScene:enableGPUDynamics = 0
+    bool physxScene:enableStabilization = 1
+    uniform token physxScene:solverType = "TGS"
+    uint physxScene:timeStepsPerSecond = 60
+}
+

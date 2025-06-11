@@ -14,6 +14,7 @@ from omni.kit.widget.toolbar import get_instance
 
 from . import EXT_NAME
 from .example_missions import FrankaMultiVisionMission, FrankaVisionMission
+from .g1_missions import G1StackBlockMission
 from .ui import ZMQClientButtonGroup
 
 
@@ -43,12 +44,21 @@ class IsaacSimZMQBridgeExamples(omni.ext.IExt):
             glyph="plug.svg",
             onclick_fn=FrankaMultiVisionMission.load_mission_async,
         )
+        self._g1_mission_menu = MenuItemDescription(
+            name="G1 Stacking Blocks",
+            glyph="plug.svg",
+            onclick_fn=G1StackBlockMission.load_mission_async,
+        )
 
         self._menu_items = [
             MenuItemDescription(
                 name="Isaac ZMQ Examples",
                 glyph="plug.svg",
-                sub_menu=[self._franka_mission_menu, self._franka_multi_mission_menu],
+                sub_menu=[
+                    self._franka_mission_menu,
+                    self._franka_multi_mission_menu,
+                    self._g1_mission_menu,
+                ],
             )
         ]
         add_menu_items(self._menu_items, "Create")
@@ -84,6 +94,8 @@ class IsaacSimZMQBridgeExamples(omni.ext.IExt):
             self._set_mission(FrankaVisionMission, "FrankaVisionMission")
         elif usd_path.endswith(FrankaMultiVisionMission.world_usd_path):
             self._set_mission(FrankaMultiVisionMission, "FrankaMultiVisionMission")
+        elif usd_path.endswith(G1StackBlockMission.world_usd_path):
+            self._set_mission(G1StackBlockMission, "G1StackBlockMission")
         else:
             self._clear_mission()
         return
