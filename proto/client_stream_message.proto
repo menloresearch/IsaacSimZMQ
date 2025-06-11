@@ -75,9 +75,10 @@ message ClientStreamMessage {
 }
 
 message G1ClientStreamMessage {
-    G1JoinState join_state = 1;
+    BBox2D bbox2d = 1;        // Bounding box data
     Clock clock = 2;          // Timing information
     Camera camera = 3;        // Camera parameters
     bytes color_image = 4;    // RGB image data (encoded)
-    // bytes depth_image = 5;    // Depth image data (encoded)
+    bytes depth_image = 5;    // Depth image data (encoded)
+    G1JoinState join_state = 6;
 }

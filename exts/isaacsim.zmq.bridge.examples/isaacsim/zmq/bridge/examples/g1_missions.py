@@ -8,7 +8,7 @@ import carb
 import numpy as np
 import omni.usd
 from isaacsim.core.api.robots import Robot
-from isaacsim.core.prims import XFormPrim
+from isaacsim.core.prims import XFormPrim, Articulation
 from isaacsim.core.utils.rotations import euler_angles_to_quat
 from isaacsim.core.utils.types import ArticulationAction
 from isaacsim.robot.manipulators.examples.franka import Franka
@@ -20,7 +20,7 @@ from isaacsim.storage.native import get_assets_root_path
 from isaacsim.util.debug_draw import _debug_draw
 from pxr import Gf, Sdf, Tf, Usd, UsdGeom, UsdPhysics, UsdShade
 
-from . import EXT_NAME, ZMQAnnotator
+from . import EXT_NAME, G1Annotator
 from .mission import Mission
 
 # The omni.__proto__ namespace is created by this extention
@@ -63,7 +63,7 @@ class G1StackBlockMission(Mission):
         self.camera_annotator = None
         self.camera_annotators = []
 
-        self.use_ogn_nodes = True  # True > use OGN C++ node, False > use Python
+        self.use_ogn_nodes = False  # True > use OGN C++ node, False > use Python
 
         # Target position randomization
         self.last_trigger_time = 0
@@ -103,12 +103,14 @@ class G1StackBlockMission(Mission):
         self.receive_commands = True
 
         # Create camera annotator for streaming camera data
-        self.camera_annotator = ZMQAnnotator(
+        self.camera_annotator = G1Annotator(
             self._camera_path,
             (self.dimension, self.dimension),
+            self.franka,
             use_ogn_nodes=self.use_ogn_nodes,
             server_ip=self.server_ip,
             port=self.ports["camera_annotator"],
+            bbox=False,
         )
         self.camera_annotators.append(self.camera_annotator)
 
@@ -137,6 +139,11 @@ class G1StackBlockMission(Mission):
             server_control_message_pb2.ServerControlMessage,
             self.franka_sub_loop
         )
+
+    def update_annotator(self):
+        for anno in self.camera_annotators:
+            if isinstance(anno, G1Annotator):
+                anno.g1 = self.franka
 
     def stop_mission(self) -> None:
         """Stop the mission and clean up resources.
@@ -212,9 +219,35 @@ class G1StackBlockMission(Mission):
         Controls the Franka robot's end effector position using RMPFlow and
         randomizes the target position every 5 seconds.
 
+        joint_names:  [
+            'left_hip_pitch_joint', 'right_hip_pitch_joint',             0~1
+            'waist_yaw_joint',                                           2
+            'left_hip_roll_joint', 'right_hip_roll_joint',               3~4
+            'waist_roll_joint',                                          5
+            'left_hip_yaw_joint', 'right_hip_yaw_joint',                 6~7
+            'waist_pitch_joint',                                         8
+            'left_knee_joint', 'right_knee_joint',                       9~10
+            'left_shoulder_pitch_joint', 'right_shoulder_pitch_joint',   11~12
+            'left_ankle_pitch_joint', 'right_ankle_pitch_joint',         13~14
+            'left_shoulder_roll_joint', 'right_shoulder_roll_joint',     15~16
+            'left_ankle_roll_joint', 'right_ankle_roll_joint',           17~18
+            'left_shoulder_yaw_joint', 'right_shoulder_yaw_joint',       19~20
+            'left_elbow_joint', 'right_elbow_joint',                     21~22
+            'left_wrist_roll_joint', 'right_wrist_roll_joint',           23~24
+            'left_wrist_pitch_joint', 'right_wrist_pitch_joint',         25~26
+            'left_wrist_yaw_joint', 'right_wrist_yaw_joint',             27~28
+            'left_hand_index_0_joint', 'left_hand_middle_0_joint', 'left_hand_thumb_0_joint',    29~31
+            'right_hand_index_0_joint', 'right_hand_middle_0_joint', 'right_hand_thumb_0_joint', 32~34
+            'left_hand_index_1_joint', 'left_hand_middle_1_joint', 'left_hand_thumb_1_joint',    35~37
+            'right_hand_index_1_joint', 'right_hand_middle_1_joint', 'right_hand_thumb_1_joint', 38~40
+            'left_hand_thumb_2_joint', 'right_hand_thumb_2_joint'        41~42
+        ]
+
         Args:
             proto_msg: ServerControlMessage containing a FrankaCommand
         """
+        # print("joint_names: ", Articulation(prim_paths_expr='/World/G1').joint_names)
+
         # Default position if no command is received
         new_effector_pos = [0, 0, 0]
         self.draw.clear_points()
@@ -247,6 +280,7 @@ class G1StackBlockMission(Mission):
         """Reset the Franka robot and its controller."""
         self.franka = Robot(prim_path="/World/G1")
         self.franka.initialize()
+        self.update_annotator()
         self.rmpf_controller = RMPFlowController(name="target_follower_controller", robot_articulation=self.franka)
         self.franka_articulation_controller = self.franka.get_articulation_controller()
         self.target = XFormPrim(prim_paths_expr="/World/Target")
@@ -282,6 +316,14 @@ class G1StackBlockMission(Mission):
             path_to="/World/G1",
             asset_path=G1_USD,
             instanceable=False,
+        )
+        omni.kit.commands.execute(
+            'ChangeProperty',
+            prop_path=Sdf.Path("/World/G1" + '.xformOp:translate'),
+            value=Gf.Vec3d(0.0, 0.0, 0.8),
+            prev=Gf.Vec3d(0.0, 0.0, 0.0),  # Previous value (optional)
+            # target_layer=omni.usd.get_context().get_stage(),
+            usd_context_name=omni.usd.get_context()
         )
         omni.kit.selection.SelectNoneCommand().do()
 

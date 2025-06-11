@@ -292,7 +292,11 @@ class FrankaVisionMission(App):
         img_data = client_stream.color_image  # bytes
         depth_data = client_stream.depth_image  # bytes
 
-        bbox2d_data = self.proto_bbox_data_to_dict(client_stream.bbox2d)
+        if client_stream.HasField("bbox2d"):
+            bbox2d_data = self.proto_bbox_data_to_dict(client_stream.bbox2d)
+        else:
+            bbox2d_data = {}
+
         camera_data = self.proto_camera_data_to_dict(client_stream.camera)
 
         self.rates_debug(sim_time, timecode)
@@ -304,7 +308,7 @@ class FrankaVisionMission(App):
         if dpg.get_value("ground_truth_mode") in ["BBOX2D", "RGB"]:
             img_array = np.frombuffer(img_data, dtype=np.uint8).reshape(self.dimmention, self.dimmention, 4)
 
-            if dpg.get_value("ground_truth_mode") == "BBOX2D":
+            if dpg.get_value("ground_truth_mode") == "BBOX2D" and bbox2d_data:
                 try:
                     img_array = draw_bounding_boxes(img_array, bbox2d_data)
                 except:
@@ -320,9 +324,9 @@ class FrankaVisionMission(App):
         np.divide(img_array, 255.0, out=self.texture_data)
         dpg.set_value("image_stream", self.texture_data)
 
-        if not SUBSCRIBE_ONLY:
-            interseting_bbox = self.get_interseting_bbox(bbox2d_data)
-            self.camera_to_world.get_bbox_center_in_world_coords(interseting_bbox, depth_data, camera_data, device="cuda")
+        # if not SUBSCRIBE_ONLY:
+        #     interseting_bbox = self.get_interseting_bbox(bbox2d_data)
+        #     self.camera_to_world.get_bbox_center_in_world_coords(interseting_bbox, depth_data, camera_data, device="cuda")
 
     def get_interseting_bbox(self, bbox_data: dict) -> None:
         index = -1

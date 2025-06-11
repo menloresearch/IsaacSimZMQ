@@ -4,8 +4,10 @@
 import asyncio
 import time
 import traceback
+from enum import Enum
 
 import zmq
+import numpy as np
 
 import carb
 import omni.graph.core as og
@@ -60,6 +62,8 @@ class ZMQAnnotator:
         self.server_ip = server_ip
         self.port = port
         self.resolution = resolution
+
+        self.send_bbox = False
 
         # Get stage and synthetic data interface
         self.stage = omni.usd.get_context().get_stage()
@@ -274,25 +278,159 @@ class ZMQAnnotator:
         # Create protobuf message
         client_stream = client_stream_message_pb2.ClientStreamMessage()
 
-        # Get bounding box data (performance intensive operation)
-        bbox2d_data = self.bbox2d_annot.get_data()
+        if self.send_bbox:
+            # Get bounding box data (performance intensive operation)
+            bbox2d_data = self.bbox2d_annot.get_data()
 
-        # Fill BBox2D information
-        bbox2d_info = client_stream_message_pb2.BBox2DInfo()
-        bbox2d_info.bboxIds.extend(bbox2d_data["info"]["bboxIds"].tolist())
-        for key, value in bbox2d_data["info"]["idToLabels"].items():
-            bbox2d_info.idToLabels[str(key)] = f"class:{next(iter(value.values()))}"
-        client_stream.bbox2d.info.CopyFrom(bbox2d_info)
+            # Fill BBox2D information
+            bbox2d_info = client_stream_message_pb2.BBox2DInfo()
+            bbox2d_info.bboxIds.extend(bbox2d_data["info"]["bboxIds"].tolist())
+            for key, value in bbox2d_data["info"]["idToLabels"].items():
+                bbox2d_info.idToLabels[str(key)] = f"class:{next(iter(value.values()))}"
+            client_stream.bbox2d.info.CopyFrom(bbox2d_info)
 
-        # Fill BBox2D data
-        for data in bbox2d_data["data"]:
-            bbox2d_type = client_stream.bbox2d.data.add()
-            bbox2d_type.semanticId = data[0]
-            bbox2d_type.xMin = data[1]
-            bbox2d_type.yMin = data[2]
-            bbox2d_type.xMax = data[3]
-            bbox2d_type.yMax = data[4]
-            bbox2d_type.occlusionRatio = data[5]
+            # Fill BBox2D data
+            for data in bbox2d_data["data"]:
+                bbox2d_type = client_stream.bbox2d.data.add()
+                bbox2d_type.semanticId = data[0]
+                bbox2d_type.xMin = data[1]
+                bbox2d_type.yMin = data[2]
+                bbox2d_type.xMax = data[3]
+                bbox2d_type.yMax = data[4]
+                bbox2d_type.occlusionRatio = data[5]
+
+        # Fill Camera information
+        camera = client_stream_message_pb2.Camera()
+        view_matrix = self.camera.get_view_matrix_ros()
+        camera.view_matrix_ros.extend(view_matrix.flatten().tolist())
+        try:
+            intrinsics_matrix = self.camera.get_intrinsics_matrix()
+            camera.intrinsics_matrix.extend(intrinsics_matrix.flatten().tolist())
+        except:
+            # Camera.get_intrinsics_matrix() will throw exception for non pinhole cameras
+            # I this case, we will not stream camera data
+            carb.log_verbose(traceback.format_exc())
+        camera.camera_scale.extend(self.camera_xform.get_world_scales()[0].tolist())
+        client_stream.camera.CopyFrom(camera)
+
+        # Fill Clock information
+        clock = client_stream_message_pb2.Clock()
+        clock.sim_dt = dt
+        clock.sys_dt = 0  # not simply accessible via python
+        clock.sim_time = sim_time
+        clock.sys_time = time.time()
+        client_stream.clock.CopyFrom(clock)
+
+        # Fill RGB image data
+        client_stream.color_image = self.rgb_annot.get_data().tobytes()
+
+        # Fill Depth image data
+        client_stream.depth_image = self.distance_to_camera_annot.get_data().tobytes()
+
+        # Serialize and send the message
+        message = client_stream.SerializeToString()
+
+        # send message with error throttling if not connected to a server
+        async def graceful_send():
+            try:
+                await self.sock.send(message)
+            except zmq.Again:
+                if sim_time - self.last_error_time > 5.0:
+                    carb.log_warn("Failed to send message (no server available)")
+                    self.last_error_time = sim_time
+            except asyncio.exceptions.CancelledError:
+                pass  # expected error when user stops the streaming
+            except:
+                # unexpected error
+                carb.log_warn(traceback.format_exc())
+
+        asyncio.ensure_future(graceful_send())
+
+        # Calculate and return execution time
+        exec_time = time.monotonic() - start_time
+        return exec_time
+
+
+class G1Annotator(ZMQAnnotator):
+
+    def __init__(
+        self,
+        camera: str,
+        resolution: tuple,
+        issac_robot,
+        **kwargs,
+    ):
+        super().__init__(camera, resolution, **kwargs)
+        self.g1 = issac_robot
+
+    def get_g1_state(self):
+        join_pos: np.ndarray = self.g1.get_joint_positions()
+        print("join_pos: ", join_pos)
+
+        proto_joins = client_stream_message_pb2.G1JoinState()
+
+        proto_lhand = client_stream_message_pb2.Dex31HandJoins()
+        proto_rhand = client_stream_message_pb2.Dex31HandJoins()
+        proto_joins.left_hand.CopyFrom(proto_lhand)
+        proto_joins.right_hand.CopyFrom(proto_rhand)
+
+        proto_lshoulder = client_stream_message_pb2.Vector3()
+        proto_lshoulder.x = join_pos[11];
+        proto_lshoulder.y = join_pos[15];
+        proto_lshoulder.z = join_pos[19];
+        proto_joins.left_shoulder_angle.CopyFrom(proto_lshoulder)
+
+        return proto_joins
+
+    def stream(self, dt: float, sim_time: float) -> float:
+        """
+        ** Used in Python mode Only **
+
+        Capture and stream data from the camera and annotators.
+
+        This method is called each step (or rate-limited) to capture RGB, depth, and bounding box data
+        from the camera, package it into a protobuf message, and send it via ZMQ.
+
+        Args:
+            dt (float): The time difference since the last call
+            sim_time (float): The current simulation time
+
+        Returns:
+            float: Execution time in seconds
+
+        Note:
+            The protobuf message is defined in
+            ClientStreamMessage @ proto/client_stream_message.proto
+
+        """
+        start_time = time.monotonic()
+        # https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/annotators_details.html#bounding-box-2d-tight
+
+        # Create protobuf message
+
+        client_stream = client_stream_message_pb2.G1ClientStreamMessage()
+        client_stream.join_state.CopyFrom(self.get_g1_state())
+
+        if self.send_bbox:
+            # Get bounding box data (performance intensive operation)
+            bbox2d_data = self.bbox2d_annot.get_data()
+
+            # Fill BBox2D information
+            bbox2d_info = client_stream_message_pb2.BBox2DInfo()
+            bbox2d_info.bboxIds.extend(bbox2d_data["info"]["bboxIds"].tolist())
+            for key, value in bbox2d_data["info"]["idToLabels"].items():
+                bbox2d_info.idToLabels[str(key)] = f"class:{next(iter(value.values()))}"
+            client_stream.bbox2d.info.CopyFrom(bbox2d_info)
+
+            # Fill BBox2D data
+            for data in bbox2d_data["data"]:
+                bbox2d_type = client_stream.bbox2d.data.add()
+                bbox2d_type.semanticId = data[0]
+                bbox2d_type.xMin = data[1]
+                bbox2d_type.yMin = data[2]
+                bbox2d_type.xMax = data[3]
+                bbox2d_type.yMax = data[4]
+                bbox2d_type.occlusionRatio = data[5]
 
         # Fill Camera information
         camera = client_stream_message_pb2.Camera()
