@@ -170,9 +170,11 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ClientStreamMessageDefaultTypeI
 constexpr G1ClientStreamMessage::G1ClientStreamMessage(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : color_image_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , join_state_(nullptr)
+  , depth_image_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , bbox2d_(nullptr)
   , clock_(nullptr)
-  , camera_(nullptr){}
+  , camera_(nullptr)
+  , join_state_(nullptr){}
 struct G1ClientStreamMessageDefaultTypeInternal {
   constexpr G1ClientStreamMessageDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -297,10 +299,12 @@ const uint32_t TableStruct_client_5fstream_5fmessage_2eproto::offsets[] PROTOBUF
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::G1ClientStreamMessage, join_state_),
+  PROTOBUF_FIELD_OFFSET(::G1ClientStreamMessage, bbox2d_),
   PROTOBUF_FIELD_OFFSET(::G1ClientStreamMessage, clock_),
   PROTOBUF_FIELD_OFFSET(::G1ClientStreamMessage, camera_),
   PROTOBUF_FIELD_OFFSET(::G1ClientStreamMessage, color_image_),
+  PROTOBUF_FIELD_OFFSET(::G1ClientStreamMessage, depth_image_),
+  PROTOBUF_FIELD_OFFSET(::G1ClientStreamMessage, join_state_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::Vector3)},
@@ -358,15 +362,16 @@ const char descriptor_table_protodef_client_5fstream_5fmessage_2eproto[] PROTOBU
   "\030\003 \003(\001\"\210\001\n\023ClientStreamMessage\022\027\n\006bbox2d"
   "\030\001 \001(\0132\007.BBox2D\022\025\n\005clock\030\002 \001(\0132\006.Clock\022\027"
   "\n\006camera\030\003 \001(\0132\007.Camera\022\023\n\013color_image\030\004"
-  " \001(\014\022\023\n\013depth_image\030\005 \001(\014\"~\n\025G1ClientStr"
-  "eamMessage\022 \n\njoin_state\030\001 \001(\0132\014.G1JoinS"
-  "tate\022\025\n\005clock\030\002 \001(\0132\006.Clock\022\027\n\006camera\030\003 "
-  "\001(\0132\007.Camera\022\023\n\013color_image\030\004 \001(\014b\006proto"
-  "3"
+  " \001(\014\022\023\n\013depth_image\030\005 \001(\014\"\254\001\n\025G1ClientSt"
+  "reamMessage\022\027\n\006bbox2d\030\001 \001(\0132\007.BBox2D\022\025\n\005"
+  "clock\030\002 \001(\0132\006.Clock\022\027\n\006camera\030\003 \001(\0132\007.Ca"
+  "mera\022\023\n\013color_image\030\004 \001(\014\022\023\n\013depth_image"
+  "\030\005 \001(\014\022 \n\njoin_state\030\006 \001(\0132\014.G1JoinState"
+  "b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_client_5fstream_5fmessage_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_client_5fstream_5fmessage_2eproto = {
-  false, false, 1241, descriptor_table_protodef_client_5fstream_5fmessage_2eproto, "client_stream_message.proto", 
+  false, false, 1288, descriptor_table_protodef_client_5fstream_5fmessage_2eproto, "client_stream_message.proto", 
   &descriptor_table_client_5fstream_5fmessage_2eproto_once, nullptr, 0, 11,
   schemas, file_default_instances, TableStruct_client_5fstream_5fmessage_2eproto::offsets,
   file_level_metadata_client_5fstream_5fmessage_2eproto, file_level_enum_descriptors_client_5fstream_5fmessage_2eproto, file_level_service_descriptors_client_5fstream_5fmessage_2eproto,
@@ -3293,14 +3298,15 @@ void ClientStreamMessage::InternalSwap(ClientStreamMessage* other) {
 
 class G1ClientStreamMessage::_Internal {
  public:
-  static const ::G1JoinState& join_state(const G1ClientStreamMessage* msg);
+  static const ::BBox2D& bbox2d(const G1ClientStreamMessage* msg);
   static const ::Clock& clock(const G1ClientStreamMessage* msg);
   static const ::Camera& camera(const G1ClientStreamMessage* msg);
+  static const ::G1JoinState& join_state(const G1ClientStreamMessage* msg);
 };
 
-const ::G1JoinState&
-G1ClientStreamMessage::_Internal::join_state(const G1ClientStreamMessage* msg) {
-  return *msg->join_state_;
+const ::BBox2D&
+G1ClientStreamMessage::_Internal::bbox2d(const G1ClientStreamMessage* msg) {
+  return *msg->bbox2d_;
 }
 const ::Clock&
 G1ClientStreamMessage::_Internal::clock(const G1ClientStreamMessage* msg) {
@@ -3309,6 +3315,10 @@ G1ClientStreamMessage::_Internal::clock(const G1ClientStreamMessage* msg) {
 const ::Camera&
 G1ClientStreamMessage::_Internal::camera(const G1ClientStreamMessage* msg) {
   return *msg->camera_;
+}
+const ::G1JoinState&
+G1ClientStreamMessage::_Internal::join_state(const G1ClientStreamMessage* msg) {
+  return *msg->join_state_;
 }
 G1ClientStreamMessage::G1ClientStreamMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -3330,10 +3340,18 @@ G1ClientStreamMessage::G1ClientStreamMessage(const G1ClientStreamMessage& from)
     color_image_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_color_image(), 
       GetArenaForAllocation());
   }
-  if (from._internal_has_join_state()) {
-    join_state_ = new ::G1JoinState(*from.join_state_);
+  depth_image_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    depth_image_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_depth_image().empty()) {
+    depth_image_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_depth_image(), 
+      GetArenaForAllocation());
+  }
+  if (from._internal_has_bbox2d()) {
+    bbox2d_ = new ::BBox2D(*from.bbox2d_);
   } else {
-    join_state_ = nullptr;
+    bbox2d_ = nullptr;
   }
   if (from._internal_has_clock()) {
     clock_ = new ::Clock(*from.clock_);
@@ -3345,6 +3363,11 @@ G1ClientStreamMessage::G1ClientStreamMessage(const G1ClientStreamMessage& from)
   } else {
     camera_ = nullptr;
   }
+  if (from._internal_has_join_state()) {
+    join_state_ = new ::G1JoinState(*from.join_state_);
+  } else {
+    join_state_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:G1ClientStreamMessage)
 }
 
@@ -3353,10 +3376,14 @@ color_image_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   color_image_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+depth_image_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  depth_image_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&join_state_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&camera_) -
-    reinterpret_cast<char*>(&join_state_)) + sizeof(camera_));
+    reinterpret_cast<char*>(&bbox2d_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&join_state_) -
+    reinterpret_cast<char*>(&bbox2d_)) + sizeof(join_state_));
 }
 
 G1ClientStreamMessage::~G1ClientStreamMessage() {
@@ -3369,9 +3396,11 @@ G1ClientStreamMessage::~G1ClientStreamMessage() {
 inline void G1ClientStreamMessage::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   color_image_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete join_state_;
+  depth_image_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (this != internal_default_instance()) delete bbox2d_;
   if (this != internal_default_instance()) delete clock_;
   if (this != internal_default_instance()) delete camera_;
+  if (this != internal_default_instance()) delete join_state_;
 }
 
 void G1ClientStreamMessage::ArenaDtor(void* object) {
@@ -3391,10 +3420,11 @@ void G1ClientStreamMessage::Clear() {
   (void) cached_has_bits;
 
   color_image_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && join_state_ != nullptr) {
-    delete join_state_;
+  depth_image_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && bbox2d_ != nullptr) {
+    delete bbox2d_;
   }
-  join_state_ = nullptr;
+  bbox2d_ = nullptr;
   if (GetArenaForAllocation() == nullptr && clock_ != nullptr) {
     delete clock_;
   }
@@ -3403,6 +3433,10 @@ void G1ClientStreamMessage::Clear() {
     delete camera_;
   }
   camera_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && join_state_ != nullptr) {
+    delete join_state_;
+  }
+  join_state_ = nullptr;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -3412,10 +3446,10 @@ const char* G1ClientStreamMessage::_InternalParse(const char* ptr, ::PROTOBUF_NA
     uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .G1JoinState join_state = 1;
+      // .BBox2D bbox2d = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_join_state(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_bbox2d(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3441,6 +3475,23 @@ const char* G1ClientStreamMessage::_InternalParse(const char* ptr, ::PROTOBUF_NA
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_color_image();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bytes depth_image = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          auto str = _internal_mutable_depth_image();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .G1JoinState join_state = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+          ptr = ctx->ParseMessage(_internal_mutable_join_state(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3474,12 +3525,12 @@ uint8_t* G1ClientStreamMessage::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .G1JoinState join_state = 1;
-  if (this->_internal_has_join_state()) {
+  // .BBox2D bbox2d = 1;
+  if (this->_internal_has_bbox2d()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        1, _Internal::join_state(this), target, stream);
+        1, _Internal::bbox2d(this), target, stream);
   }
 
   // .Clock clock = 2;
@@ -3502,6 +3553,20 @@ uint8_t* G1ClientStreamMessage::_InternalSerialize(
   if (!this->_internal_color_image().empty()) {
     target = stream->WriteBytesMaybeAliased(
         4, this->_internal_color_image(), target);
+  }
+
+  // bytes depth_image = 5;
+  if (!this->_internal_depth_image().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        5, this->_internal_depth_image(), target);
+  }
+
+  // .G1JoinState join_state = 6;
+  if (this->_internal_has_join_state()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        6, _Internal::join_state(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3527,11 +3592,18 @@ size_t G1ClientStreamMessage::ByteSizeLong() const {
         this->_internal_color_image());
   }
 
-  // .G1JoinState join_state = 1;
-  if (this->_internal_has_join_state()) {
+  // bytes depth_image = 5;
+  if (!this->_internal_depth_image().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_depth_image());
+  }
+
+  // .BBox2D bbox2d = 1;
+  if (this->_internal_has_bbox2d()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *join_state_);
+        *bbox2d_);
   }
 
   // .Clock clock = 2;
@@ -3546,6 +3618,13 @@ size_t G1ClientStreamMessage::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *camera_);
+  }
+
+  // .G1JoinState join_state = 6;
+  if (this->_internal_has_join_state()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *join_state_);
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
@@ -3573,14 +3652,20 @@ void G1ClientStreamMessage::MergeFrom(const G1ClientStreamMessage& from) {
   if (!from._internal_color_image().empty()) {
     _internal_set_color_image(from._internal_color_image());
   }
-  if (from._internal_has_join_state()) {
-    _internal_mutable_join_state()->::G1JoinState::MergeFrom(from._internal_join_state());
+  if (!from._internal_depth_image().empty()) {
+    _internal_set_depth_image(from._internal_depth_image());
+  }
+  if (from._internal_has_bbox2d()) {
+    _internal_mutable_bbox2d()->::BBox2D::MergeFrom(from._internal_bbox2d());
   }
   if (from._internal_has_clock()) {
     _internal_mutable_clock()->::Clock::MergeFrom(from._internal_clock());
   }
   if (from._internal_has_camera()) {
     _internal_mutable_camera()->::Camera::MergeFrom(from._internal_camera());
+  }
+  if (from._internal_has_join_state()) {
+    _internal_mutable_join_state()->::G1JoinState::MergeFrom(from._internal_join_state());
   }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -3606,12 +3691,17 @@ void G1ClientStreamMessage::InternalSwap(G1ClientStreamMessage* other) {
       &color_image_, lhs_arena,
       &other->color_image_, rhs_arena
   );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &depth_image_, lhs_arena,
+      &other->depth_image_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(G1ClientStreamMessage, camera_)
-      + sizeof(G1ClientStreamMessage::camera_)
-      - PROTOBUF_FIELD_OFFSET(G1ClientStreamMessage, join_state_)>(
-          reinterpret_cast<char*>(&join_state_),
-          reinterpret_cast<char*>(&other->join_state_));
+      PROTOBUF_FIELD_OFFSET(G1ClientStreamMessage, join_state_)
+      + sizeof(G1ClientStreamMessage::join_state_)
+      - PROTOBUF_FIELD_OFFSET(G1ClientStreamMessage, bbox2d_)>(
+          reinterpret_cast<char*>(&bbox2d_),
+          reinterpret_cast<char*>(&other->bbox2d_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata G1ClientStreamMessage::GetMetadata() const {

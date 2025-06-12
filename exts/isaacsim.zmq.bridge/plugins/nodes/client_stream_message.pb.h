@@ -2085,9 +2085,11 @@ class G1ClientStreamMessage final :
 
   enum : int {
     kColorImageFieldNumber = 4,
-    kJoinStateFieldNumber = 1,
+    kDepthImageFieldNumber = 5,
+    kBbox2DFieldNumber = 1,
     kClockFieldNumber = 2,
     kCameraFieldNumber = 3,
+    kJoinStateFieldNumber = 6,
   };
   // bytes color_image = 4;
   void clear_color_image();
@@ -2103,23 +2105,37 @@ class G1ClientStreamMessage final :
   std::string* _internal_mutable_color_image();
   public:
 
-  // .G1JoinState join_state = 1;
-  bool has_join_state() const;
+  // bytes depth_image = 5;
+  void clear_depth_image();
+  const std::string& depth_image() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_depth_image(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_depth_image();
+  PROTOBUF_NODISCARD std::string* release_depth_image();
+  void set_allocated_depth_image(std::string* depth_image);
   private:
-  bool _internal_has_join_state() const;
+  const std::string& _internal_depth_image() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_depth_image(const std::string& value);
+  std::string* _internal_mutable_depth_image();
   public:
-  void clear_join_state();
-  const ::G1JoinState& join_state() const;
-  PROTOBUF_NODISCARD ::G1JoinState* release_join_state();
-  ::G1JoinState* mutable_join_state();
-  void set_allocated_join_state(::G1JoinState* join_state);
+
+  // .BBox2D bbox2d = 1;
+  bool has_bbox2d() const;
   private:
-  const ::G1JoinState& _internal_join_state() const;
-  ::G1JoinState* _internal_mutable_join_state();
+  bool _internal_has_bbox2d() const;
   public:
-  void unsafe_arena_set_allocated_join_state(
-      ::G1JoinState* join_state);
-  ::G1JoinState* unsafe_arena_release_join_state();
+  void clear_bbox2d();
+  const ::BBox2D& bbox2d() const;
+  PROTOBUF_NODISCARD ::BBox2D* release_bbox2d();
+  ::BBox2D* mutable_bbox2d();
+  void set_allocated_bbox2d(::BBox2D* bbox2d);
+  private:
+  const ::BBox2D& _internal_bbox2d() const;
+  ::BBox2D* _internal_mutable_bbox2d();
+  public:
+  void unsafe_arena_set_allocated_bbox2d(
+      ::BBox2D* bbox2d);
+  ::BBox2D* unsafe_arena_release_bbox2d();
 
   // .Clock clock = 2;
   bool has_clock() const;
@@ -2157,6 +2173,24 @@ class G1ClientStreamMessage final :
       ::Camera* camera);
   ::Camera* unsafe_arena_release_camera();
 
+  // .G1JoinState join_state = 6;
+  bool has_join_state() const;
+  private:
+  bool _internal_has_join_state() const;
+  public:
+  void clear_join_state();
+  const ::G1JoinState& join_state() const;
+  PROTOBUF_NODISCARD ::G1JoinState* release_join_state();
+  ::G1JoinState* mutable_join_state();
+  void set_allocated_join_state(::G1JoinState* join_state);
+  private:
+  const ::G1JoinState& _internal_join_state() const;
+  ::G1JoinState* _internal_mutable_join_state();
+  public:
+  void unsafe_arena_set_allocated_join_state(
+      ::G1JoinState* join_state);
+  ::G1JoinState* unsafe_arena_release_join_state();
+
   // @@protoc_insertion_point(class_scope:G1ClientStreamMessage)
  private:
   class _Internal;
@@ -2165,9 +2199,11 @@ class G1ClientStreamMessage final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr color_image_;
-  ::G1JoinState* join_state_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr depth_image_;
+  ::BBox2D* bbox2d_;
   ::Clock* clock_;
   ::Camera* camera_;
+  ::G1JoinState* join_state_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_client_5fstream_5fmessage_2eproto;
 };
@@ -3919,45 +3955,45 @@ inline void ClientStreamMessage::set_allocated_depth_image(std::string* depth_im
 
 // G1ClientStreamMessage
 
-// .G1JoinState join_state = 1;
-inline bool G1ClientStreamMessage::_internal_has_join_state() const {
-  return this != internal_default_instance() && join_state_ != nullptr;
+// .BBox2D bbox2d = 1;
+inline bool G1ClientStreamMessage::_internal_has_bbox2d() const {
+  return this != internal_default_instance() && bbox2d_ != nullptr;
 }
-inline bool G1ClientStreamMessage::has_join_state() const {
-  return _internal_has_join_state();
+inline bool G1ClientStreamMessage::has_bbox2d() const {
+  return _internal_has_bbox2d();
 }
-inline void G1ClientStreamMessage::clear_join_state() {
-  if (GetArenaForAllocation() == nullptr && join_state_ != nullptr) {
-    delete join_state_;
+inline void G1ClientStreamMessage::clear_bbox2d() {
+  if (GetArenaForAllocation() == nullptr && bbox2d_ != nullptr) {
+    delete bbox2d_;
   }
-  join_state_ = nullptr;
+  bbox2d_ = nullptr;
 }
-inline const ::G1JoinState& G1ClientStreamMessage::_internal_join_state() const {
-  const ::G1JoinState* p = join_state_;
-  return p != nullptr ? *p : reinterpret_cast<const ::G1JoinState&>(
-      ::_G1JoinState_default_instance_);
+inline const ::BBox2D& G1ClientStreamMessage::_internal_bbox2d() const {
+  const ::BBox2D* p = bbox2d_;
+  return p != nullptr ? *p : reinterpret_cast<const ::BBox2D&>(
+      ::_BBox2D_default_instance_);
 }
-inline const ::G1JoinState& G1ClientStreamMessage::join_state() const {
-  // @@protoc_insertion_point(field_get:G1ClientStreamMessage.join_state)
-  return _internal_join_state();
+inline const ::BBox2D& G1ClientStreamMessage::bbox2d() const {
+  // @@protoc_insertion_point(field_get:G1ClientStreamMessage.bbox2d)
+  return _internal_bbox2d();
 }
-inline void G1ClientStreamMessage::unsafe_arena_set_allocated_join_state(
-    ::G1JoinState* join_state) {
+inline void G1ClientStreamMessage::unsafe_arena_set_allocated_bbox2d(
+    ::BBox2D* bbox2d) {
   if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(join_state_);
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(bbox2d_);
   }
-  join_state_ = join_state;
-  if (join_state) {
+  bbox2d_ = bbox2d;
+  if (bbox2d) {
     
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:G1ClientStreamMessage.join_state)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:G1ClientStreamMessage.bbox2d)
 }
-inline ::G1JoinState* G1ClientStreamMessage::release_join_state() {
+inline ::BBox2D* G1ClientStreamMessage::release_bbox2d() {
   
-  ::G1JoinState* temp = join_state_;
-  join_state_ = nullptr;
+  ::BBox2D* temp = bbox2d_;
+  bbox2d_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
   temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
@@ -3969,44 +4005,44 @@ inline ::G1JoinState* G1ClientStreamMessage::release_join_state() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::G1JoinState* G1ClientStreamMessage::unsafe_arena_release_join_state() {
-  // @@protoc_insertion_point(field_release:G1ClientStreamMessage.join_state)
+inline ::BBox2D* G1ClientStreamMessage::unsafe_arena_release_bbox2d() {
+  // @@protoc_insertion_point(field_release:G1ClientStreamMessage.bbox2d)
   
-  ::G1JoinState* temp = join_state_;
-  join_state_ = nullptr;
+  ::BBox2D* temp = bbox2d_;
+  bbox2d_ = nullptr;
   return temp;
 }
-inline ::G1JoinState* G1ClientStreamMessage::_internal_mutable_join_state() {
+inline ::BBox2D* G1ClientStreamMessage::_internal_mutable_bbox2d() {
   
-  if (join_state_ == nullptr) {
-    auto* p = CreateMaybeMessage<::G1JoinState>(GetArenaForAllocation());
-    join_state_ = p;
+  if (bbox2d_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BBox2D>(GetArenaForAllocation());
+    bbox2d_ = p;
   }
-  return join_state_;
+  return bbox2d_;
 }
-inline ::G1JoinState* G1ClientStreamMessage::mutable_join_state() {
-  ::G1JoinState* _msg = _internal_mutable_join_state();
-  // @@protoc_insertion_point(field_mutable:G1ClientStreamMessage.join_state)
+inline ::BBox2D* G1ClientStreamMessage::mutable_bbox2d() {
+  ::BBox2D* _msg = _internal_mutable_bbox2d();
+  // @@protoc_insertion_point(field_mutable:G1ClientStreamMessage.bbox2d)
   return _msg;
 }
-inline void G1ClientStreamMessage::set_allocated_join_state(::G1JoinState* join_state) {
+inline void G1ClientStreamMessage::set_allocated_bbox2d(::BBox2D* bbox2d) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
-    delete join_state_;
+    delete bbox2d_;
   }
-  if (join_state) {
+  if (bbox2d) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::G1JoinState>::GetOwningArena(join_state);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::BBox2D>::GetOwningArena(bbox2d);
     if (message_arena != submessage_arena) {
-      join_state = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, join_state, submessage_arena);
+      bbox2d = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, bbox2d, submessage_arena);
     }
     
   } else {
     
   }
-  join_state_ = join_state;
-  // @@protoc_insertion_point(field_set_allocated:G1ClientStreamMessage.join_state)
+  bbox2d_ = bbox2d;
+  // @@protoc_insertion_point(field_set_allocated:G1ClientStreamMessage.bbox2d)
 }
 
 // .Clock clock = 2;
@@ -4238,6 +4274,147 @@ inline void G1ClientStreamMessage::set_allocated_color_image(std::string* color_
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:G1ClientStreamMessage.color_image)
+}
+
+// bytes depth_image = 5;
+inline void G1ClientStreamMessage::clear_depth_image() {
+  depth_image_.ClearToEmpty();
+}
+inline const std::string& G1ClientStreamMessage::depth_image() const {
+  // @@protoc_insertion_point(field_get:G1ClientStreamMessage.depth_image)
+  return _internal_depth_image();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void G1ClientStreamMessage::set_depth_image(ArgT0&& arg0, ArgT... args) {
+ 
+ depth_image_.SetBytes(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:G1ClientStreamMessage.depth_image)
+}
+inline std::string* G1ClientStreamMessage::mutable_depth_image() {
+  std::string* _s = _internal_mutable_depth_image();
+  // @@protoc_insertion_point(field_mutable:G1ClientStreamMessage.depth_image)
+  return _s;
+}
+inline const std::string& G1ClientStreamMessage::_internal_depth_image() const {
+  return depth_image_.Get();
+}
+inline void G1ClientStreamMessage::_internal_set_depth_image(const std::string& value) {
+  
+  depth_image_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* G1ClientStreamMessage::_internal_mutable_depth_image() {
+  
+  return depth_image_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* G1ClientStreamMessage::release_depth_image() {
+  // @@protoc_insertion_point(field_release:G1ClientStreamMessage.depth_image)
+  return depth_image_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void G1ClientStreamMessage::set_allocated_depth_image(std::string* depth_image) {
+  if (depth_image != nullptr) {
+    
+  } else {
+    
+  }
+  depth_image_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), depth_image,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (depth_image_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    depth_image_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:G1ClientStreamMessage.depth_image)
+}
+
+// .G1JoinState join_state = 6;
+inline bool G1ClientStreamMessage::_internal_has_join_state() const {
+  return this != internal_default_instance() && join_state_ != nullptr;
+}
+inline bool G1ClientStreamMessage::has_join_state() const {
+  return _internal_has_join_state();
+}
+inline void G1ClientStreamMessage::clear_join_state() {
+  if (GetArenaForAllocation() == nullptr && join_state_ != nullptr) {
+    delete join_state_;
+  }
+  join_state_ = nullptr;
+}
+inline const ::G1JoinState& G1ClientStreamMessage::_internal_join_state() const {
+  const ::G1JoinState* p = join_state_;
+  return p != nullptr ? *p : reinterpret_cast<const ::G1JoinState&>(
+      ::_G1JoinState_default_instance_);
+}
+inline const ::G1JoinState& G1ClientStreamMessage::join_state() const {
+  // @@protoc_insertion_point(field_get:G1ClientStreamMessage.join_state)
+  return _internal_join_state();
+}
+inline void G1ClientStreamMessage::unsafe_arena_set_allocated_join_state(
+    ::G1JoinState* join_state) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(join_state_);
+  }
+  join_state_ = join_state;
+  if (join_state) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:G1ClientStreamMessage.join_state)
+}
+inline ::G1JoinState* G1ClientStreamMessage::release_join_state() {
+  
+  ::G1JoinState* temp = join_state_;
+  join_state_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::G1JoinState* G1ClientStreamMessage::unsafe_arena_release_join_state() {
+  // @@protoc_insertion_point(field_release:G1ClientStreamMessage.join_state)
+  
+  ::G1JoinState* temp = join_state_;
+  join_state_ = nullptr;
+  return temp;
+}
+inline ::G1JoinState* G1ClientStreamMessage::_internal_mutable_join_state() {
+  
+  if (join_state_ == nullptr) {
+    auto* p = CreateMaybeMessage<::G1JoinState>(GetArenaForAllocation());
+    join_state_ = p;
+  }
+  return join_state_;
+}
+inline ::G1JoinState* G1ClientStreamMessage::mutable_join_state() {
+  ::G1JoinState* _msg = _internal_mutable_join_state();
+  // @@protoc_insertion_point(field_mutable:G1ClientStreamMessage.join_state)
+  return _msg;
+}
+inline void G1ClientStreamMessage::set_allocated_join_state(::G1JoinState* join_state) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete join_state_;
+  }
+  if (join_state) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::G1JoinState>::GetOwningArena(join_state);
+    if (message_arena != submessage_arena) {
+      join_state = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, join_state, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  join_state_ = join_state;
+  // @@protoc_insertion_point(field_set_allocated:G1ClientStreamMessage.join_state)
 }
 
 #ifdef __GNUC__
