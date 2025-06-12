@@ -2,10 +2,15 @@
 # SPDX-License-Identifier: MIT
 
 import argparse
+import copy
 import math
 import sys
 import time
 import traceback
+import threading
+from enum import Enum
+from typing import Dict, Any, List
+from datetime import datetime, timedelta
 from pprint import pprint
 
 import dearpygui.dearpygui as dpg
@@ -21,6 +26,7 @@ from isaac_zmq_server.ui import App
 
 import client_stream_message_pb2
 import server_control_message_pb2
+from gr00t_client import GR00T_N1_Client
 
 parser = argparse.ArgumentParser(description="Isaac Sim ZMQ Client Example")
 parser.add_argument("--port", type=int, default=5561, help="Port to subscribe data on")
@@ -39,6 +45,13 @@ else:
     print("Server is in publish and subscribe mode at port: {}, resolution: {}".format(PORT, RESOLUTION))
 
 
+
+class AppExecMode(Enum):
+    DEBUG = 0
+    FIX_ACTION_LOOP = 1
+    GR00T = 2
+
+
 class FrankaVisionMission(App):
     """
     GUI application for visualizing data from the Franka robot Mission.
@@ -49,14 +62,23 @@ class FrankaVisionMission(App):
     back to the simulation, forming a SIL (software in the loop).
     """
 
-    def __init__(self):
+    def __init__(self, config: Dict[str, Any]):
 
         App.__init__(self)
+        self.exec_mode = config['exec_mode']
+
+        if self.exec_mode == AppExecMode.GR00T:
+            self.gr00t_client = GR00T_N1_Client(config['inference_host'], config['inference_port'])
+        else:
+            self.gr00t_client = None
 
         # UI configuration
         self.dimmention = RESOLUTION  # Square image dimension TODO: support non square images
         self.expected_size = self.dimmention * self.dimmention * 4
         self.hz = 60  # Target refresh rate
+        self.contorl_hz = 10
+        if self.gr00t_client:
+            self.contorl_hz *= self.gr00t_client.action_horizons  # freqency of VLA infernce
 
         self.window_name = "Isaac Sim ZMQ Camera"
         if SUBSCRIBE_ONLY:
@@ -77,11 +99,14 @@ class FrankaVisionMission(App):
         self.mesure_interval = 1  # seconds
         self.num_receive_annotations = 0
         self.actual_rate = 10  # fps - will get updated from the client
+        self.last_command_time = datetime.now()
 
         # Data storage
+        self.client_msg_lock = threading.Lock()
         self.texture_data = np.zeros((self.dimmention, self.dimmention, 4), dtype=np.float32)
         self.depth_data = np.zeros((self.dimmention, self.dimmention, 4), dtype=np.uint8)
         self.current_camera_command = [0, 0, 0]
+        self.g1_join_position = None
 
         self.camera_to_world = CameraToWorldSpaceTransform((self.dimmention, self.dimmention))
 
@@ -199,7 +224,7 @@ class FrankaVisionMission(App):
             self.zmq_server.publish_protobuf_in_loop(
                 "franka",
                 self.ports["franka"],
-                self.hz,
+                self.contorl_hz,
                 self.franka_command,
             )
 
@@ -280,7 +305,7 @@ class FrankaVisionMission(App):
         if not self.debug_start_time:
             self.debug_start_time = time.monotonic()
 
-        client_stream = client_stream_message_pb2.ClientStreamMessage()
+        client_stream = client_stream_message_pb2.G1ClientStreamMessage()
 
         # Deserialize the message
         client_stream.ParseFromString(message)
@@ -320,8 +345,14 @@ class FrankaVisionMission(App):
                 img_array = colorize_depth(img_array)
             except:
                 print(traceback.format_exc())
+        else:
+            # logging
+            return
 
-        np.divide(img_array, 255.0, out=self.texture_data)
+        with self.client_msg_lock:
+            np.divide(img_array, 255.0, out=self.texture_data)
+            self.g1_join_position = copy.deepcopy(client_stream.join_state)
+
         dpg.set_value("image_stream", self.texture_data)
 
         # if not SUBSCRIBE_ONLY:
@@ -432,19 +463,26 @@ class FrankaVisionMission(App):
         Returns:
             server_control_message_pb2.ServerControlMessage: A protobuf message containing the effector position.
         """
+        with self.client_msg_lock:
+            img = self.texture_data.copy()
+            state = copy.deepcopy(self.g1_join_position)
+
         # Create a ServerControlMessage with a FrankaCommand
         message = server_control_message_pb2.ServerControlMessage()
 
-        # Set effector_pos vector
-        message.franka_command.effector_pos.x = self.camera_to_world.detection_world_pos[0]
-        message.franka_command.effector_pos.y = self.camera_to_world.detection_world_pos[1]
-        message.franka_command.effector_pos.z = self.camera_to_world.detection_world_pos[2]
-
-        # Set show_marker
-        if dpg.get_value("draw_detection_on_world"):
-            message.franka_command.show_marker = True
+        if self.exec_mode == AppExecMode.GR00T:
+            # Call inference server
+            pred_action = self.gr00t_client.get_action(img, state)
+            message.g1_command = pred_action
+        elif self.exec_mode == AppExecMode.FIX_ACTION_LOOP:
+            pass
         else:
-            message.franka_command.show_marker = False
+            # Set effector_pos vector
+            message.g1_command.left_shoulder_angle.x = 0
+            message.g1_command.left_shoulder_angle.y = 1
+            message.g1_command.left_shoulder_angle.z = 3
+        self.last_command_time = datetime.now()
+        print(f"[{datetime.now().isoformat()}] command sended")
 
         return message
 
@@ -470,4 +508,18 @@ class FrankaVisionMission(App):
         super()._cleanup()
 
 
-FrankaVisionMission.run_app()
+def run_app(app) -> None:
+    app._create_app()
+    app.create_network_iface()
+    app._run()
+    app._cleanup()
+
+
+if __name__ == "__main__":
+    config = {
+        'exec_mode': AppExecMode.GR00T,
+        'inference_host': '127.0.0.1',
+        'inference_port': 5555,
+    }
+    app = FrankaVisionMission(config)
+    run_app(app)

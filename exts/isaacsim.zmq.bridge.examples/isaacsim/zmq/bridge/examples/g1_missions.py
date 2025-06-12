@@ -70,11 +70,6 @@ class G1StackBlockMission(Mission):
         _seed = 1234
         self.rng = np.random.default_rng(_seed)
 
-        self.action_horizons = 16
-        self.dof = 43
-        self.action_consumed = 0
-        self.action_cache = np.zeros([self.action_horizons, self.dof])
-
     def start_mission(self) -> None:
         """Start the mission by setting up ZMQ communication and camera streaming.
 
@@ -252,9 +247,12 @@ class G1StackBlockMission(Mission):
         new_effector_pos = [0, 0, 0]
         self.draw.clear_points()
 
-        if proto_msg.HasField("franka_command"):
-            effector_pos = proto_msg.franka_command.effector_pos
-            new_effector_pos = [effector_pos.x, effector_pos.y, effector_pos.z]
+        if proto_msg.HasField("g1_command"):
+            # effector_pos = proto_msg.franka_command.effector_pos
+            # new_effector_pos = [effector_pos.x, effector_pos.y, effector_pos.z]
+            cmd = proto_msg.g1_command
+            print("cmd.left_shoulder_angle.y: ", cmd.left_shoulder_angle.y)
+            print("cmd.left_shoulder_angle.z: ", cmd.left_shoulder_angle.z)
 
         if self.world.is_playing():
             try:
