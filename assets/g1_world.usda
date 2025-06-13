@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (-1.903814276715516, 1.5663758425395942, 2.3412845066204526)
-                double3 target = (0.8761419831590405, 0.6718248540531686, 0.5450667065445545)
+                double3 position = (0.18663936049049865, 2.20678246195361, 1.6958053546215068)
+                double3 target = (-0.14352006206101034, -1.7932684491321336, 0.08917799589601039)
             }
             dictionary Right = {
                 double3 position = (0, -5, 0)
@@ -114,7 +114,8 @@ def Xform "World"
                 custom token cameraProjectionType (
                     allowedTokens = ["pinhole", "fisheyeOrthographic", "fisheyeEquidistant", "fisheyeEquisolid", "fisheyePolynomial", "fisheyeSpherical", "fisheyeKannalaBrandtK3", "fisheyeRadTanThinPrism", "omniDirectionalStereo"]
                 )
-                float focalLength = 20
+                float focalLength = 12
+                float focusDistance = 200
                 custom float fthetaCx
                 custom float fthetaCy
                 custom float fthetaHeight
@@ -125,9 +126,10 @@ def Xform "World"
                 custom float fthetaPolyD
                 custom float fthetaPolyE
                 custom float fthetaWidth
-                quatd xformOp:orient = (0.47495381489891564, -0.14405616330103815, 0.7769060444406825, 0.3874063675773591)
+                custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -191.65728077560658)
+                quatd xformOp:orient = (0.46621622086354075, -0.17108526498420001, 0.7537907165165312, 0.43031595741094575)
                 double3 xformOp:scale = (1, 1, 1)
-                double3 xformOp:translate = (6.660681096946868, 79.13555688050927, -127.38193329602245)
+                double3 xformOp:translate = (-1.3419980169093222, 73.62096269310024, -123.56147859305467)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
             }
         }
@@ -273,6 +275,14 @@ def Xform "World"
         float3 xformOp:scale = (0.010713063, 0.010713063, 0.008488671)
         double3 xformOp:translate = (0.6519669636506823, 0, 0.0750696465038565)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        over "shop_table" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI"]
+        )
+        {
+            uniform token physics:approximation = "none"
+            bool physics:collisionEnabled = 1
+        }
     }
 }
 
