@@ -7,6 +7,10 @@ import time
 import carb
 import numpy as np
 import omni.usd
+
+# from omni.isaac.core.utils.extensions import enable_extension
+# enable_extension("omni.isaac.robot_assembler")
+from isaacsim.robot_setup.assembler import RobotAssembler
 from isaacsim.core.api.robots import Robot
 from isaacsim.core.prims import XFormPrim, Articulation
 from isaacsim.core.utils.rotations import euler_angles_to_quat
@@ -308,6 +312,7 @@ class G1StackBlockMission(Mission):
         root = get_assets_root_path()
         global G1_USD
 
+        translate = [0.0, 0.0, 0.79]
         omni.kit.commands.execute(
             "CreateReferenceCommand",
             usd_context=omni.usd.get_context(),
@@ -318,12 +323,22 @@ class G1StackBlockMission(Mission):
         omni.kit.commands.execute(
             'ChangeProperty',
             prop_path=Sdf.Path("/World/G1" + '.xformOp:translate'),
-            value=Gf.Vec3d(0.0, 0.0, 0.8),
+            value=Gf.Vec3d(*translate),
             prev=Gf.Vec3d(0.0, 0.0, 0.0),  # Previous value (optional)
             # target_layer=omni.usd.get_context().get_stage(),
             usd_context_name=omni.usd.get_context()
         )
         omni.kit.selection.SelectNoneCommand().do()
+
+        # NOTE: fix pelvis joint position, so G1 won't sway around during operation.
+        # xform_pelvis = XFormPrim("/World/G1/pelvis")
+        # pelvis_translate = xform_pelvis.prims[0].GetAttribute("xformOp:translate").Get()
+        robot_assembler = RobotAssembler()
+        robot_assembler.create_fixed_joint(
+            prim_path="/World/G1/pelvis",
+            target1 ="/World/G1/pelvis",
+            fixed_joint_offset=np.asarray(translate),
+        )
 
     @classmethod
     async def _async_load(cls) -> None:
