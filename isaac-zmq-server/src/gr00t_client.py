@@ -1,7 +1,8 @@
 
 from dataclasses import dataclass
+from enum import Enum
 from io import BytesIO
-from typing import Any, Callable, Dict
+from typing import Any, Callable, Dict, List
 
 import torch
 import zmq
@@ -84,17 +85,54 @@ class G1StateConvert:
     """
 
     @staticmethod
-    def cmd_to_isaac(src):
+    def cmd_to_isaac(src: "client_stream_message_pb2.G1JoinState") -> np.ndarray:
         """
         fullbody [43,] join states tensor -> uppbody [23,] tensor for GR00T-N1
         """
         dst = np.zeros([43], dtype=np.float32)
 
+        dst[11] = src.left_shoulder_angle.y
+        dst[15] = src.left_shoulder_angle.x
+        dst[19] = src.left_shoulder_angle.z
+
+        dst[12] = src.right_shoulder_angle.y
+        dst[16] = src.right_shoulder_angle.x
+        dst[20] = src.right_shoulder_angle.z
+
+        dst[21] = src.left_elbow
+        dst[22] = src.right_elbow
+
+        dst[23] = src.left_wrist_angle.y
+        dst[25] = src.left_wrist_angle.x
+        dst[27] = src.left_wrist_angle.z
+
+        dst[24] = src.right_wrist_angle.y
+        dst[26] = src.right_wrist_angle.x
+        dst[28] = src.right_wrist_angle.z
+
+        dst[31] = src.left_hand.thumb_0
+        dst[37] = src.left_hand.thumb_1
+        dst[41] = src.left_hand.thumb_2
+        dst[29] = src.left_hand.index_0
+        dst[35] = src.left_hand.index_1
+        dst[30] = src.left_hand.middle_0
+        dst[36] = src.left_hand.middle_1
+
+        dst[34] = src.right_hand.thumb_0
+        dst[40] = src.right_hand.thumb_1
+        dst[42] = src.right_hand.thumb_2
+        dst[32] = src.right_hand.index_0
+        dst[38] = src.right_hand.index_1
+        dst[33] = src.right_hand.middle_0
+        dst[39] = src.right_hand.middle_1
+
+        return dst
+
     @staticmethod
     def cmd_to_gr00t(src: "client_stream_message_pb2.G1JoinState") -> Dict[str, np.ndarray]:
         state = {
             "state.left_shoulder": [
-                src.left_shoulder_angle.y,  # NOTE: [pitch, roll, yaw] -> [roll, pitch, yaw]
+                src.left_shoulder_angle.y,  # NOTE: [roll, pitch, yaw] -> [pitch, roll, yaw]
                 src.left_shoulder_angle.x,
                 src.left_shoulder_angle.z,
             ],
@@ -141,11 +179,48 @@ class G1StateConvert:
         return state
 
     @staticmethod
-    def isaac_to_cmd(src):
+    def isaac_to_cmd(src: np.ndarray):
         """
         fullbody [43,] join states tensor -> G1ActionCommand protobuf message
         """
         dst = server_control_message_pb2.G1ActionCommand()
+
+        dst.left_shoulder_angle.y = src[11]
+        dst.left_shoulder_angle.x = src[15]
+        dst.left_shoulder_angle.z = src[19]
+
+        dst.right_shoulder_angle.y = src[12]
+        dst.right_shoulder_angle.x = src[16]
+        dst.right_shoulder_angle.z = src[20]
+
+        dst.left_elbow = src[21]
+        dst.right_elbow = src[22]
+
+        dst.left_wrist_angle.y = src[23]
+        dst.left_wrist_angle.x = src[25]
+        dst.left_wrist_angle.z = src[27]
+
+        dst.right_wrist_angle.y = src[24]
+        dst.right_wrist_angle.x = src[26]
+        dst.right_wrist_angle.z = src[28]
+
+        dst.left_hand.thumb_0 = src[31]
+        dst.left_hand.thumb_1 = src[37]
+        dst.left_hand.thumb_2 = src[41]
+        dst.left_hand.index_0 = src[29]
+        dst.left_hand.index_1 = src[35]
+        dst.left_hand.middle_0 = src[30]
+        dst.left_hand.middle_1 = src[36]
+
+        dst.right_hand.thumb_0 = src[34]
+        dst.right_hand.thumb_1 = src[40]
+        dst.right_hand.thumb_2 = src[42]
+        dst.right_hand.index_0 = src[32]
+        dst.right_hand.index_1 = src[38]
+        dst.right_hand.middle_0 = src[33]
+        dst.right_hand.middle_1 = src[39]
+
+        return dst
 
     @staticmethod
     def gr00t_to_cmd(src: Dict[str, np.ndarray]):
@@ -154,25 +229,25 @@ class G1StateConvert:
 
         predicts = []
         for i in range(action_horizon):
-            state = client_stream_message_pb2.G1JoinState()
+            state = server_control_message_pb2.G1JoinState()
 
-            state.left_shoulder_angle.y = src['action.left_shoulder'][i][0]
             state.left_shoulder_angle.x = src['action.left_shoulder'][i][1]
+            state.left_shoulder_angle.y = src['action.left_shoulder'][i][0]
             state.left_shoulder_angle.z = src['action.left_shoulder'][i][2]
 
-            state.right_shoulder_angle.y = src['action.right_shoulder'][i][0]
             state.right_shoulder_angle.x = src['action.right_shoulder'][i][1]
+            state.right_shoulder_angle.y = src['action.right_shoulder'][i][0]
             state.right_shoulder_angle.z = src['action.right_shoulder'][i][2]
 
             state.left_elbow = src['action.left_elbow'][i]
             state.right_elbow = src['action.right_elbow'][i]
 
-            state.left_wrist_angle.y = src['action.left_wrist'][i][0]
             state.left_wrist_angle.x = src['action.left_wrist'][i][1]
+            state.left_wrist_angle.y = src['action.left_wrist'][i][0]
             state.left_wrist_angle.z = src['action.left_wrist'][i][2]
 
-            state.right_wrist_angle.y = src['action.right_wrist'][i][0]
             state.right_wrist_angle.x = src['action.right_wrist'][i][1]
+            state.right_wrist_angle.y = src['action.right_wrist'][i][0]
             state.right_wrist_angle.z = src['action.right_wrist'][i][2]
 
             state.left_hand.thumb_0 = src['action.left_hand'][i][0]
@@ -194,6 +269,108 @@ class G1StateConvert:
             predicts.append(state)
 
         return predicts
+
+
+class G1_Pose(Enum):
+    LEFT_HAND_FINGER_BEND_INWARD = 1
+    LEFT_HAND_FINGER_BEND_OUTWARD = 3
+    LEFT_HAND_FINGER_GRIP = 2
+
+    RIGHT_HAND_FINGER_BEND_INWARD = 4
+    RIGHT_HAND_FINGER_BEND_OUTWARD = 6
+    RIGHT_HAND_FINGER_GRIP = 5
+
+    LEFT_WRIST_BEND=7
+    RIGHT_WRIST_BEND=8
+
+    LEFT_ELBOW_BEND=9
+    RIGHT_ELBOW_BEND=10
+
+    LEFT_SHOULDER_RAISE=11
+    RIGHT_SHOULDER_RAISE=12
+
+
+def build_join_pos(pose: G1_Pose):
+    # left hand join move inwoard.
+    jp = np.array([0] * 43, dtype=np.float32)
+    rad_90 = 1.57079633
+
+    if pose == G1_Pose.LEFT_HAND_FINGER_BEND_INWARD:
+        jp[41] = -1
+        jp[35:38] = -1
+        jp[29:32] = -1
+        jp[31] = 0 # first joins of the thumb only rotate entire finger. dont move it here.
+    elif pose == G1_Pose.LEFT_HAND_FINGER_BEND_OUTWARD:
+        jp[41] = 1
+        jp[35:38] = 1 # NOTE: index, middle finger cant bend backward, so this wont do anything
+        jp[29:32] = 1
+        jp[31] = 0 # first joins of the thumb only rotate entire finger. dont move it here.
+    elif pose == G1_Pose.LEFT_HAND_FINGER_GRIP:
+        jp[35:38] = -1
+        jp[29:32] = -1
+        # move thumb in different direction
+        jp[31] = 0
+        jp[37] = 1
+        jp[41] = 1
+    elif pose == G1_Pose.RIGHT_HAND_FINGER_BEND_INWARD:
+        jp[42] = 1
+        jp[38:41] = 1
+        jp[32:35] = 1
+        jp[34] = 0 # first joins of the thumb only rotate entire finger. dont move it here.
+    elif pose == G1_Pose.RIGHT_HAND_FINGER_BEND_OUTWARD:
+        jp[42] = -1
+        jp[38:41] = -1
+        jp[32:35] = -1
+        jp[34] = 0 # first joins of the thumb only rotate entire finger. dont move it here.
+    elif pose == G1_Pose.RIGHT_HAND_FINGER_GRIP:
+        jp[38:41] = 1
+        jp[32:35] = 1
+        # move thumb in different direction
+        jp[34] = 0
+        jp[40] = -1
+        jp[42] = -1
+
+    elif pose == G1_Pose.LEFT_WRIST_BEND:
+        # [roll, pitch, yaw]
+        jp[23] = 0  # valid range around -1.97 ~ 1.97
+        jp[25] = 0
+        jp[27] = rad_90 * 3
+    elif pose == G1_Pose.RIGHT_WRIST_BEND:
+        jp[24] = 1
+        jp[26] = 1
+        jp[28] = 1
+
+    elif pose == G1_Pose.LEFT_ELBOW_BEND:
+        jp[21] = -2  # -1.04 ~ 1.98
+    elif pose == G1_Pose.RIGHT_ELBOW_BEND:
+        jp[22] = 1
+
+
+    elif pose == G1_Pose.LEFT_SHOULDER_RAISE:
+        jp[11] = 0  # -3.08 ~ 2.6697 / forward rotate ~ backward
+        jp[15] = 0  # 0 - ~ 2.25 / ~ raise sideway
+        jp[19] = rad_90 * 4  # -2.6 ~ 2.616
+    elif pose == G1_Pose.RIGHT_SHOULDER_RAISE:
+        jp[12] = -rad_90 * 2  # -1.04 ~ 1.98
+        jp[16] = 0  # -1.04 ~ 1.98
+        jp[20] = 0  # -1.04 ~ 1.98
+
+    return jp
+
+
+def cycle_single_pose(step: int, pose: G1_Pose, loop_step=90):
+    cur = (step % loop_step) / loop_step
+    return build_join_pos(pose) * cur
+
+
+def cycle_pose_list(step: int, pose_list: List[G1_Pose], loop_step=90):
+    n = len(pose_list)
+    total_step = loop_step * n
+    action_step = step % total_step
+    sub_step = step % loop_step
+
+    pose = pose_list[action_step // loop_step]
+    return cycle_single_pose(sub_step, pose, loop_step=loop_step)
 
 
 class GR00T_N1_Client(BaseInferenceClient):

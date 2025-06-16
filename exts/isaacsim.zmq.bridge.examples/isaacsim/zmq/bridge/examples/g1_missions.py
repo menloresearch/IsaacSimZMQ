@@ -24,7 +24,7 @@ from isaacsim.storage.native import get_assets_root_path
 from isaacsim.util.debug_draw import _debug_draw
 from pxr import Gf, Sdf, Tf, Usd, UsdGeom, UsdPhysics, UsdShade
 
-from . import EXT_NAME, G1Annotator
+from . import EXT_NAME, G1Annotator, G1StateConvert
 from .mission import Mission
 
 # The omni.__proto__ namespace is created by this extention
@@ -248,20 +248,24 @@ class G1StackBlockMission(Mission):
         # print("joint_names: ", Articulation(prim_paths_expr='/World/G1').joint_names)
 
         # Default position if no command is received
-        new_effector_pos = [0, 0, 0]
+        # new_effector_pos = [0, 0, 0]
         self.draw.clear_points()
 
-        if proto_msg.HasField("g1_command"):
-            # effector_pos = proto_msg.franka_command.effector_pos
-            # new_effector_pos = [effector_pos.x, effector_pos.y, effector_pos.z]
-            cmd = proto_msg.g1_command
-            print("cmd.left_shoulder_angle.y: ", cmd.left_shoulder_angle.y)
-            print("cmd.left_shoulder_angle.z: ", cmd.left_shoulder_angle.z)
-
         if self.world.is_playing():
+
+            if proto_msg.HasField("g1_command"):
+                # effector_pos = proto_msg.franka_command.effector_pos
+                # new_effector_pos = [effector_pos.x, effector_pos.y, effector_pos.z]
+                cmd = proto_msg.g1_command
+                print("cmd.left_shoulder_angle.y: ", cmd.left_shoulder_angle.y)
+                print("cmd.left_shoulder_angle.z: ", cmd.left_shoulder_angle.z)
+                joint_pos = G1StateConvert.cmd_to_isaac(cmd)
+            else:
+                joint_pos = np.array([0] * 33 + [1.0] * 10)
+
             try:
                 action = ArticulationAction(
-                    joint_positions=np.array([0] * 33 + [1.0] * 10),
+                    joint_positions=joint_pos,
                     joint_velocities=None,
                     joint_efforts=None
                 )

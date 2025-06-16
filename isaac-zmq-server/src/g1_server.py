@@ -26,7 +26,13 @@ from isaac_zmq_server.ui import App
 
 import client_stream_message_pb2
 import server_control_message_pb2
-from gr00t_client import GR00T_N1_Client
+from gr00t_client import (
+    GR00T_N1_Client,
+    G1_Pose,
+    G1StateConvert,
+    build_join_pos,
+    cycle_pose_list,
+)
 
 parser = argparse.ArgumentParser(description="Isaac Sim ZMQ Client Example")
 parser.add_argument("--port", type=int, default=5561, help="Port to subscribe data on")
@@ -100,6 +106,7 @@ class FrankaVisionMission(App):
         self.num_receive_annotations = 0
         self.actual_rate = 10  # fps - will get updated from the client
         self.last_command_time = datetime.now()
+        self.num_cmd_send = 0
 
         # Data storage
         self.client_msg_lock = threading.Lock()
@@ -463,25 +470,38 @@ class FrankaVisionMission(App):
         Returns:
             server_control_message_pb2.ServerControlMessage: A protobuf message containing the effector position.
         """
+        # Create a ServerControlMessage with a FrankaCommand
+        message = server_control_message_pb2.ServerControlMessage()
+
+        if self.g1_join_position is None and self.exec_mode == AppExecMode.GR00T:
+            # input data is not ready yet, send empty command
+            return message
+
         with self.client_msg_lock:
             img = self.texture_data.copy()
             state = copy.deepcopy(self.g1_join_position)
 
-        # Create a ServerControlMessage with a FrankaCommand
-        message = server_control_message_pb2.ServerControlMessage()
-
         if self.exec_mode == AppExecMode.GR00T:
             # Call inference server
             pred_action = self.gr00t_client.get_action(img, state)
-            message.g1_command = pred_action
+            message.g1_command.CopyFrom(pred_action)
         elif self.exec_mode == AppExecMode.FIX_ACTION_LOOP:
-            pass
+            cmd = G1StateConvert.isaac_to_cmd(
+                cycle_pose_list(
+                    self.num_cmd_send,
+                    [G1_Pose.LEFT_HAND_FINGER_GRIP, G1_Pose.RIGHT_HAND_FINGER_GRIP],
+                    loop_step=30,
+                )
+            )
+            message.g1_command.CopyFrom(cmd)
         else:
-            # Set effector_pos vector
+            # sanity check message
             message.g1_command.left_shoulder_angle.x = 0
             message.g1_command.left_shoulder_angle.y = 1
             message.g1_command.left_shoulder_angle.z = 3
+
         self.last_command_time = datetime.now()
+        self.num_cmd_send += 1
         print(f"[{datetime.now().isoformat()}] command sended")
 
         return message
@@ -517,7 +537,7 @@ def run_app(app) -> None:
 
 if __name__ == "__main__":
     config = {
-        'exec_mode': AppExecMode.GR00T,
+        'exec_mode': AppExecMode.FIX_ACTION_LOOP,
         'inference_host': '127.0.0.1',
         'inference_port': 5555,
     }

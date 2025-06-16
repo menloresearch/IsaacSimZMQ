@@ -243,7 +243,8 @@ class ZMQAnnotator:
             self.nodes = []
 
         self.rgb_annot.detach(self.rp)
-        self.bbox2d_annot.detach(self.rp)
+        if self.bbox2d_annot:
+            self.bbox2d_annot.detach(self.rp)
         self.distance_to_camera_annot.detach(self.rp)
 
         # Causes instability, not recommended when kit is controlling the main thread
@@ -351,6 +352,100 @@ class ZMQAnnotator:
         return exec_time
 
 
+class G1StateConvert:
+    """
+    Isaac Sim Join State <--> G1JoinState <--> GR00T-N1 in/output state tensor
+    """
+
+    @staticmethod
+    def cmd_to_isaac(src: "client_stream_message_pb2.G1JoinState") -> np.ndarray:
+        """
+        fullbody [43,] join states tensor -> uppbody [23,] tensor for GR00T-N1
+        """
+        dst = np.zeros([43], dtype=np.float32)
+
+        dst[11] = src.left_shoulder_angle.y
+        dst[15] = src.left_shoulder_angle.x
+        dst[19] = src.left_shoulder_angle.z
+
+        dst[12] = src.right_shoulder_angle.y
+        dst[16] = src.right_shoulder_angle.x
+        dst[20] = src.right_shoulder_angle.z
+
+        dst[21] = src.left_elbow
+        dst[22] = src.right_elbow
+
+        dst[23] = src.left_wrist_angle.y
+        dst[25] = src.left_wrist_angle.x
+        dst[27] = src.left_wrist_angle.z
+
+        dst[24] = src.right_wrist_angle.y
+        dst[26] = src.right_wrist_angle.x
+        dst[28] = src.right_wrist_angle.z
+
+        dst[31] = src.left_hand.thumb_0
+        dst[37] = src.left_hand.thumb_1
+        dst[41] = src.left_hand.thumb_2
+        dst[29] = src.left_hand.index_0
+        dst[35] = src.left_hand.index_1
+        dst[30] = src.left_hand.middle_0
+        dst[36] = src.left_hand.middle_1
+
+        dst[34] = src.right_hand.thumb_0
+        dst[40] = src.right_hand.thumb_1
+        dst[42] = src.right_hand.thumb_2
+        dst[32] = src.right_hand.index_0
+        dst[38] = src.right_hand.index_1
+        dst[33] = src.right_hand.middle_0
+        dst[39] = src.right_hand.middle_1
+
+        return dst
+
+    @staticmethod
+    def isaac_to_cmd(src: np.ndarray):
+        """
+        fullbody [43,] join states tensor -> G1ActionCommand protobuf message
+        """
+        dst = client_stream_message_pb2.G1JoinState()
+
+        dst.left_shoulder_angle.y = src[11]
+        dst.left_shoulder_angle.x = src[15]
+        dst.left_shoulder_angle.z = src[19]
+
+        dst.right_shoulder_angle.y = src[12]
+        dst.right_shoulder_angle.x = src[16]
+        dst.right_shoulder_angle.z = src[20]
+
+        dst.left_elbow = src[21]
+        dst.right_elbow = src[22]
+
+        dst.left_wrist_angle.y = src[23]
+        dst.left_wrist_angle.x = src[25]
+        dst.left_wrist_angle.z = src[27]
+
+        dst.right_wrist_angle.y = src[24]
+        dst.right_wrist_angle.x = src[26]
+        dst.right_wrist_angle.z = src[28]
+
+        dst.left_hand.thumb_0 = src[31]
+        dst.left_hand.thumb_1 = src[37]
+        dst.left_hand.thumb_2 = src[41]
+        dst.left_hand.index_0 = src[29]
+        dst.left_hand.index_1 = src[35]
+        dst.left_hand.middle_0 = src[30]
+        dst.left_hand.middle_1 = src[36]
+
+        dst.right_hand.thumb_0 = src[34]
+        dst.right_hand.thumb_1 = src[40]
+        dst.right_hand.thumb_2 = src[42]
+        dst.right_hand.index_0 = src[32]
+        dst.right_hand.index_1 = src[38]
+        dst.right_hand.middle_0 = src[33]
+        dst.right_hand.middle_1 = src[39]
+
+        return dst
+
+
 class G1Annotator(ZMQAnnotator):
 
     def __init__(
@@ -365,22 +460,8 @@ class G1Annotator(ZMQAnnotator):
 
     def get_g1_state(self):
         join_pos: np.ndarray = self.g1.get_joint_positions()
-        print("join_pos: ", join_pos)
-
-        proto_joins = client_stream_message_pb2.G1JoinState()
-
-        proto_lhand = client_stream_message_pb2.Dex31HandJoins()
-        proto_rhand = client_stream_message_pb2.Dex31HandJoins()
-        proto_joins.left_hand.CopyFrom(proto_lhand)
-        proto_joins.right_hand.CopyFrom(proto_rhand)
-
-        proto_lshoulder = client_stream_message_pb2.Vector3()
-        proto_lshoulder.x = join_pos[11];
-        proto_lshoulder.y = join_pos[15];
-        proto_lshoulder.z = join_pos[19];
-        proto_joins.left_shoulder_angle.CopyFrom(proto_lshoulder)
-
-        return proto_joins
+        # print("join_pos: ", join_pos)
+        return G1StateConvert.isaac_to_cmd(join_pos)
 
     def stream(self, dt: float, sim_time: float) -> float:
         """
