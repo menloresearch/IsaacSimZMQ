@@ -61,7 +61,7 @@ class G1StackBlockMission(Mission):
         # Simulation parameters
         self.physics_dt = 60.0  # Rate of the physics simulation
         self.camera_hz = 60.0  # Do not go above physics_dt!
-        self.dimension = 1080  # Square image
+        self.dimension = (480, 640)
 
         # Camera setup
         self.camera_annotator = None
@@ -104,7 +104,7 @@ class G1StackBlockMission(Mission):
         # Create camera annotator for streaming camera data
         self.camera_annotator = G1Annotator(
             self._camera_path,
-            (self.dimension, self.dimension),
+            (self.dimension[1], self.dimension[0],),
             self.franka,
             use_ogn_nodes=self.use_ogn_nodes,
             server_ip=self.server_ip,
@@ -289,7 +289,7 @@ class G1StackBlockMission(Mission):
         self.update_annotator()
         self.rmpf_controller = RMPFlowController(name="target_follower_controller", robot_articulation=self.franka)
         self.franka_articulation_controller = self.franka.get_articulation_controller()
-        self.target = XFormPrim(prim_paths_expr="/World/Target")
+        self.target = XFormPrim(prim_paths_expr="/World/Target_R")
 
     def before_reset_world(self) -> None:
         """Prepare the world for reset.
