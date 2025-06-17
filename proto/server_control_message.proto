@@ -42,6 +42,7 @@ message ServerControlMessage {
         FrankaCommand franka_command = 3;
         G1ActionCommand g1_command = 4;
     }
+    double sys_time = 5;
 }
 
 message G1ActionCommand {

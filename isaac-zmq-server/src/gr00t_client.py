@@ -1,4 +1,5 @@
 
+import math
 from dataclasses import dataclass
 from enum import Enum
 from io import BytesIO
@@ -229,7 +230,7 @@ class G1StateConvert:
 
         predicts = []
         for i in range(action_horizon):
-            state = server_control_message_pb2.G1JoinState()
+            state = server_control_message_pb2.G1ActionCommand()
 
             state.left_shoulder_angle.x = src['action.left_shoulder'][i][1]
             state.left_shoulder_angle.y = src['action.left_shoulder'][i][0]
@@ -375,30 +376,65 @@ def cycle_pose_list(step: int, pose_list: List[G1_Pose], loop_step=90):
 
 class GR00T_N1_Client(BaseInferenceClient):
 
-    def __init__(self, host: str = "localhost", port: int = 5555, timeout_ms: int = 15000):
+    def __init__(self, contorl_hz: int, host: str = "localhost", port: int = 5555, timeout_ms: int = 15000):
         super().__init__(host=host, port=port, timeout_ms=timeout_ms)
         self.action_horizons = 16
         self.dof = 43
         self.action_consumed = 0
+        self.contorl_hz = contorl_hz
+        self.vla_interval = (16 / 30) # how long each VLA's prediction cover(in seconds)
         # self.action_cache = np.zeros([self.action_horizons, self.dof])
         self.action_cache = []
 
-    def get_action(self, img: np.ndarray, state: "client_stream_message_pb2.G1JoinState") -> "client_stream_message_pb2.G1JoinState":
+    def linear_interpolation(self, act_cmds: List["client_stream_message_pb2.G1JoinState"]):
+        src_pts = len(act_cmds)
+        tar_pts = math.ceil(self.vla_interval * self.contorl_hz)
+        # print("src_pts", src_pts, len(act_cmds), type(act_cmds))
+        if tar_pts <= src_pts:
+            return act_cmds
+
+        act_tensor = [G1StateConvert.cmd_to_isaac(cmd) for cmd in act_cmds]
+        inter_t = [
+            (i / tar_pts) * (src_pts - 1)
+            for i in range(tar_pts)
+        ][::-1]
+        # print("inter_t", len(inter_t), inter_t)
+
+        new_act_ten = []
+        for a, b in zip(range(src_pts), range(1, src_pts)):
+            # print(a, b)
+            ten_a = act_tensor[a]
+            ten_b = act_tensor[b]
+
+            while inter_t and inter_t[-1] <= b:
+                pt = inter_t.pop()
+                ratio = (pt - a) / (b - a)
+                new_act_ten.append(ten_a + (ten_b - ten_a) * ratio)
+
+        assert len(new_act_ten) == tar_pts, f"{len(new_act_ten)} != {tar_pts}"
+        return [G1StateConvert.isaac_to_cmd(ten) for ten in new_act_ten]
+
+    def update_state(self, img: np.ndarray, state: "client_stream_message_pb2.G1JoinState"):
+        # call inference server
+        observations = {
+            "video.ego_view": (img * 255).astype(np.uint8)[np.newaxis, ...],
+        }
+        observations.update(G1StateConvert.cmd_to_gr00t(state))
+
+        predict = self.call_endpoint("get_action", observations)
+
+        self.action_consumed = 0
+        self.action_cache = G1StateConvert.gr00t_to_cmd(predict)
+        assert len(self.action_cache) == self.action_horizons
+        self.action_cache = self.linear_interpolation(self.action_cache)
+        print("Inference!")
+
+    def action_avaible(self) -> bool:
+        return self.action_consumed < len(self.action_cache)
+
+    def get_action(self) -> "client_stream_message_pb2.G1JoinState":
         if self.action_consumed >= len(self.action_cache):
-            # call inference server
-            observations = {
-                "video.ego_view": (img * 255).astype(np.uint8),
-            }
-            observations.update(G1StateConvert.cmd_to_gr00t(state))
-
-            predict = self.call_endpoint("get_action", observations)
-            # for k, v in predict.items():
-            #     print('predict', k, v.shape)
-
-            self.action_consumed = 0
-            self.action_cache = G1StateConvert.gr00t_to_cmd(predict)
-            assert len(self.action_cache) == self.action_horizons
-
+            raise RuntimeError()
         action = self.action_cache[self.action_consumed]
         self.action_consumed += 1
         return action
@@ -410,11 +446,15 @@ def test_single_inference_step():
     state.right_shoulder_angle.x = 1.0
     print(state.right_shoulder_angle.x)
 
-    img = np.random.randint(0, 256, (1, 480, 640, 3), dtype=np.uint8)
+    img = np.random.randint(0, 256, (480, 640, 3), dtype=np.uint8)
     # state.to_dict()
 
-    client = GR00T_N1_Client()
-    client.get_action(img, state)
+    client = GR00T_N1_Client(60)
+    client.update_state(img, state)
+    for i in range(len(client.action_cache)):
+        out = client.get_action()
+        print(i, '-' * 100)
+        print(out)
 
 
 if __name__ == '__main__':

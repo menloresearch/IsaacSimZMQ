@@ -73,18 +73,24 @@ class FrankaVisionMission(App):
         App.__init__(self)
         self.exec_mode = config['exec_mode']
 
-        if self.exec_mode == AppExecMode.GR00T:
-            self.gr00t_client = GR00T_N1_Client(config['inference_host'], config['inference_port'])
-        else:
-            self.gr00t_client = None
-
         # UI configuration
         self.dimmention = (480, 640)
         self.expected_size = self.dimmention[0] * self.dimmention[1] * 4
         self.hz = 60  # Target refresh rate
-        self.contorl_hz = 10
-        if self.gr00t_client:
-            self.contorl_hz *= self.gr00t_client.action_horizons  # freqency of VLA infernce
+        self.contorl_hz = 60  # freqency of sending command <= physics_dt
+
+        if self.exec_mode == AppExecMode.GR00T:
+            self.gr00t_client = GR00T_N1_Client(
+                self.contorl_hz,
+                config['inference_host'],
+                config['inference_port']
+            )
+        else:
+            self.gr00t_client = None
+
+        # if self.gr00t_client:
+        #     self.contorl_hz *= self.gr00t_client.action_horizons
+        #     self.gr00t_client.contorl_hz *= self.gr00t_client.action_horizons
 
         self.window_name = "Isaac Sim ZMQ Camera"
         if SUBSCRIBE_ONLY:
@@ -467,18 +473,25 @@ class FrankaVisionMission(App):
         # Create a ServerControlMessage with a FrankaCommand
         message = server_control_message_pb2.ServerControlMessage()
 
-        if self.g1_join_position is None and self.exec_mode == AppExecMode.GR00T:
-            # input data is not ready yet, send empty command
-            return message
+        # if self.g1_join_position is None and self.exec_mode == AppExecMode.GR00T:
+        #     # input data is not ready yet, send empty command
+        #     print('waiting for client input datas')
+        #     return message
 
-        with self.client_msg_lock:
-            img = self.texture_data.copy()
-            state = copy.deepcopy(self.g1_join_position)
 
         if self.exec_mode == AppExecMode.GR00T:
-            # Call inference server
-            pred_action = self.gr00t_client.get_action(img, state)
-            message.g1_command.CopyFrom(pred_action)
+
+            if self.g1_join_position and not self.gr00t_client.action_avaible():
+                with self.client_msg_lock:
+                    img = self.texture_data.copy()
+                    state = copy.deepcopy(self.g1_join_position)
+                    self.gr00t_client.update_state(img, state)
+                    self.g1_join_position = None
+
+            if self.gr00t_client.action_avaible():
+                # Call inference server
+                pred_action = self.gr00t_client.get_action()
+                message.g1_command.CopyFrom(pred_action)
         elif self.exec_mode == AppExecMode.FIX_ACTION_LOOP:
             cmd = G1StateConvert.isaac_to_cmd(
                 cycle_pose_list(
@@ -497,6 +510,7 @@ class FrankaVisionMission(App):
         self.last_command_time = datetime.now()
         self.num_cmd_send += 1
         print(f"[{datetime.now().isoformat()}] command sended")
+        message.sys_time = time.time()
 
         return message
 
@@ -531,7 +545,7 @@ def run_app(app) -> None:
 
 if __name__ == "__main__":
     config = {
-        'exec_mode': AppExecMode.FIX_ACTION_LOOP,
+        'exec_mode': AppExecMode.GR00T,
         'inference_host': '127.0.0.1',
         'inference_port': 5555,
     }

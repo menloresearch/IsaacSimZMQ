@@ -2,6 +2,9 @@
 # SPDX-License-Identifier: MIT
 
 import asyncio
+from collections import deque
+from datetime import timedelta, datetime
+from heapq import heappush, heappop
 import time
 
 import carb
@@ -33,6 +36,24 @@ from omni.__proto__ import server_control_message_pb2
 
 
 G1_USD = "/home/ron/Downloads/g1_29dof_with_hand_rev_1_0.usd"
+
+
+class ActionQueue:
+
+    def __init__(self, limit=128):
+        self._que = []
+        self.limit = limit
+
+    def push(self, time, item):
+        if len(self._que) < self.limit:
+            heappush(self._que, (time, item))
+
+    @property
+    def empty(self):
+        return len(self._que) == 0
+
+    def pop_top(self,):
+        return heappop(self._que)[1]
 
 
 class G1StackBlockMission(Mission):
@@ -71,6 +92,9 @@ class G1StackBlockMission(Mission):
 
         # Target position randomization
         self.last_trigger_time = 0
+
+        self.last_action_time = datetime.now()
+        self.action_que = ActionQueue(limit=128)
         _seed = 1234
         self.rng = np.random.default_rng(_seed)
 
@@ -262,25 +286,33 @@ class G1StackBlockMission(Mission):
                 joint_pos = G1StateConvert.cmd_to_isaac(cmd)
             else:
                 joint_pos = np.array([0] * 33 + [1.0] * 10)
+            self.action_que.push(proto_msg.sys_time, joint_pos)
 
-            try:
-                action = ArticulationAction(
-                    joint_positions=joint_pos,
-                    joint_velocities=None,
-                    joint_efforts=None
-                )
-                self.franka.apply_action(action)
-            except Exception as e:
-                carb.log_warn(f"[{EXT_NAME}] Error applying action: {e}")
+            interval = datetime.now() - self.last_action_time
+            if not self.action_que.empty:
+                try:
+                    action = ArticulationAction(
+                        joint_positions=self.action_que.pop_top(),
+                        joint_velocities=None,
+                        joint_efforts=None
+                    )
+                    self.franka.apply_action(action)
+                    self.last_action_time = datetime.now()
+                except Exception as e:
+                    carb.log_warn(f"[{EXT_NAME}] Error applying action: {e}")
 
+            self.check_and_repositin_blocks()
+
+    def check_and_repositin_blocks(self):
         # randomize the target position every 8 seconds :)
-        current_time = time.time()
-        if current_time - self.last_trigger_time > 8:
-            lower_bounds = np.array([0.2, -0.2, 0.1])
-            upper_bounds = np.array([0.6, 0.2, 0.5])
-            random_array = self.rng.uniform(lower_bounds, upper_bounds)
-            self.target.set_world_poses(positions=np.array([random_array]))
-            self.last_trigger_time = current_time
+        # current_time = time.time()
+        # if current_time - self.last_trigger_time > 8:
+        #     lower_bounds = np.array([0.2, -0.2, 0.1])
+        #     upper_bounds = np.array([0.6, 0.2, 0.5])
+        #     random_array = self.rng.uniform(lower_bounds, upper_bounds)
+        #     self.target.set_world_poses(positions=np.array([random_array]))
+        #     self.last_trigger_time = current_time
+        pass
 
     def reset_franka_mission(self) -> None:
         """Reset the Franka robot and its controller."""
