@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (0.18663936049049865, 2.20678246195361, 1.6958053546215068)
-                double3 target = (-0.14352006206101034, -1.7932684491321336, 0.08917799589601039)
+                double3 position = (1.2223691793850973, 0.6833573008658518, 1.5752389032860517)
+                double3 target = (-2.133891085836029, -1.3744166765191612, -0.28719195349810955)
             }
             dictionary Right = {
                 double3 position = (0, -5, 0)
@@ -89,9 +89,9 @@ def Xform "World"
 
     over "base_link"
     {
-        quatd xformOp:orient = (0.2588190451025208, 0, 0, 0.9659258262890684)
+        quatd xformOp:orient = (0.258819043636322, 0, 0, 0.9659258127212524)
         float3 xformOp:scale = (0.01, 0.01, 0.01)
-        double3 xformOp:translate = (0.8000000000000147, 1.2169259120343074, 0.7000000000000001)
+        double3 xformOp:translate = (0.800000011920929, 1.216925859451294, 0.699999988079071)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         over "base_link_grp"
@@ -127,9 +127,9 @@ def Xform "World"
                 custom float fthetaPolyE
                 custom float fthetaWidth
                 custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -191.65728077560658)
-                quatd xformOp:orient = (0.46621622086354075, -0.17108526498420001, 0.7537907165165312, 0.43031595741094575)
+                quatd xformOp:orient = (0.46621623635292053, -0.17108526825904846, 0.7537907361984253, 0.43031594157218933)
                 double3 xformOp:scale = (1, 1, 1)
-                double3 xformOp:translate = (-1.3419980169093222, 73.62096269310024, -123.56147859305467)
+                double3 xformOp:translate = (-1.3419818878173828, 73.62095642089844, -123.56143188476562)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
             }
         }
@@ -198,32 +198,6 @@ def Xform "World"
         }
     }
 
-    def Mesh "Target" (
-        prepend apiSchemas = ["SemanticsAPI:Semantics_1Vc4", "MaterialBindingAPI"]
-    )
-    {
-        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
-        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
-        int[] faceVertexIndices = [0, 1, 3, 2, 4, 6, 7, 5, 6, 2, 3, 7, 4, 5, 1, 0, 4, 0, 2, 6, 5, 7, 3, 1]
-        rel material:binding = </World/Looks/OmniPBR> (
-            bindMaterialAs = "weakerThanDescendants"
-        )
-        normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0)] (
-            interpolation = "faceVarying"
-        )
-        point3f[] points = [(-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (0.5, 0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5)]
-        texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0), (0, 1), (0, 0), (1, 0), (1, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0)] (
-            interpolation = "faceVarying"
-        )
-        string semantic:Semantics_1Vc4:params:semanticData = "object"
-        string semantic:Semantics_1Vc4:params:semanticType = "class"
-        uniform token subdivisionScheme = "none"
-        quatd xformOp:orient = (1, 0, 0, 0)
-        double3 xformOp:scale = (0.05, 0.05, 0.05)
-        double3 xformOp:translate = (0.4, 0, 1.2120070561192815)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-    }
-
     def RectLight "RectLight" (
         prepend apiSchemas = ["ShapingAPI"]
     )
@@ -265,6 +239,91 @@ def Xform "World"
                 )
             }
         }
+
+        def Material "Carpaint_01"
+        {
+            token outputs:mdl:displacement.connect = </World/Looks/Carpaint_01/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </World/Looks/Carpaint_01/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </World/Looks/Carpaint_01/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @https://omniverse-content-production.s3.us-west-2.amazonaws.com/Materials/2023_1/Automotive/Carpaint/Carpaint_01.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "Carpaint_01"
+                token outputs:out (
+                    renderType = "material"
+                )
+            }
+        }
+
+        def Material "Carpaint_02"
+        {
+            token outputs:mdl:displacement.connect = </World/Looks/Carpaint_02/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </World/Looks/Carpaint_02/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </World/Looks/Carpaint_02/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @https://omniverse-content-production.s3.us-west-2.amazonaws.com/Materials/2023_1/Automotive/Carpaint/Carpaint_01.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "Carpaint_01"
+                token outputs:out (
+                    renderType = "material"
+                )
+            }
+        }
+
+        def Material "Carpaint_03"
+        {
+            token outputs:mdl:displacement.connect = </World/Looks/Carpaint_03/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </World/Looks/Carpaint_03/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </World/Looks/Carpaint_03/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @https://omniverse-content-production.s3.us-west-2.amazonaws.com/Materials/2023_1/Automotive/Carpaint/Carpaint_02.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "Carpaint_02"
+                token outputs:out (
+                    renderType = "material"
+                )
+            }
+        }
+
+        def Material "Carpaint_04"
+        {
+            token outputs:mdl:displacement.connect = </World/Looks/Carpaint_04/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </World/Looks/Carpaint_04/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </World/Looks/Carpaint_04/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @https://omniverse-content-production.s3.us-west-2.amazonaws.com/Materials/2023_1/Automotive/Carpaint/Carpaint_02.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "Carpaint_02"
+                token outputs:out (
+                    renderType = "material"
+                )
+            }
+        }
+
+        def Material "Rim_Yellow_Painted_Metal"
+        {
+            token outputs:mdl:displacement.connect = </World/Looks/Rim_Yellow_Painted_Metal/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </World/Looks/Rim_Yellow_Painted_Metal/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </World/Looks/Rim_Yellow_Painted_Metal/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @https://omniverse-content-production.s3.us-west-2.amazonaws.com/Materials/2023_1/Automotive/Rims/Rim_Yellow_Painted_Metal.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "Rim_Yellow_Painted_Metal"
+                token outputs:out (
+                    renderType = "material"
+                )
+            }
+        }
     }
 
     def Xform "Shop_Table" (
@@ -282,6 +341,130 @@ def Xform "World"
         {
             uniform token physics:approximation = "none"
             bool physics:collisionEnabled = 1
+        }
+    }
+
+    def Xform "Target_G" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </World/Looks/Carpaint_03> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0.379310293319649, 0.10041353106498718, 0.2888193726539612)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Mesh "Cube" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "MaterialBindingAPI"]
+        )
+        {
+            float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+            int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+            int[] faceVertexIndices = [0, 1, 3, 2, 4, 6, 7, 5, 6, 2, 3, 7, 4, 5, 1, 0, 4, 0, 2, 6, 5, 7, 3, 1]
+            rel material:binding = </World/Looks/Carpaint_02> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0)] (
+                interpolation = "faceVarying"
+            )
+            vector3f physics:angularVelocity = (0.005667568, 0.093464, 0.0042911763)
+            uniform token physics:approximation = "none"
+            bool physics:collisionEnabled = 1
+            bool physics:kinematicEnabled = 0
+            bool physics:rigidBodyEnabled = 1
+            vector3f physics:velocity = (0.000103862854, 0.00000615737, -0.00007302623)
+            point3f[] points = [(-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (0.5, 0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5)]
+            texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0), (0, 1), (0, 0), (1, 0), (1, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0)] (
+                interpolation = "faceVarying"
+            )
+            uniform token subdivisionScheme = "none"
+            quatd xformOp:orient = (0.9999999999977554, -6.549738823203365e-8, 0.000002107747019927388, 2.0593788988731598e-7)
+            double3 xformOp:scale = (0.06, 0.06, 0.06)
+            double3 xformOp:translate = (-0.007802482518021736, 0.17944993871712994, 0.5479808998868677)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "Target_Y" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </World/Looks/Carpaint_03> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0.3234612874988202, 0.10041353106498718, 0.2888193726539612)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Mesh "Cube" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "MaterialBindingAPI"]
+        )
+        {
+            float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+            int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+            int[] faceVertexIndices = [0, 1, 3, 2, 4, 6, 7, 5, 6, 2, 3, 7, 4, 5, 1, 0, 4, 0, 2, 6, 5, 7, 3, 1]
+            rel material:binding = </World/Looks/Rim_Yellow_Painted_Metal> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0)] (
+                interpolation = "faceVarying"
+            )
+            vector3f physics:angularVelocity = (0.005667568, 0.093464, 0.0042911763)
+            uniform token physics:approximation = "none"
+            bool physics:collisionEnabled = 1
+            bool physics:kinematicEnabled = 0
+            bool physics:rigidBodyEnabled = 1
+            vector3f physics:velocity = (0.000103862854, 0.00000615737, -0.00007302623)
+            point3f[] points = [(-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (0.5, 0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5)]
+            texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0), (0, 1), (0, 0), (1, 0), (1, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0)] (
+                interpolation = "faceVarying"
+            )
+            uniform token subdivisionScheme = "none"
+            quatd xformOp:orient = (0.9999999999977558, -6.549084696816668e-8, 0.0000021075365179548043, 2.0593789937716369e-7)
+            double3 xformOp:scale = (0.06, 0.06, 0.06)
+            double3 xformOp:translate = (-0.008628939056803286, -0.15072132383881628, 0.5479808998868667)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "Target_R"
+    {
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0.393932940706139, 0.10041353106498718, 0.2888193726539612)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Mesh "Cube" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "MaterialBindingAPI"]
+        )
+        {
+            float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+            int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+            int[] faceVertexIndices = [0, 1, 3, 2, 4, 6, 7, 5, 6, 2, 3, 7, 4, 5, 1, 0, 4, 0, 2, 6, 5, 7, 3, 1]
+            rel material:binding = </World/Looks/Carpaint_04> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0)] (
+                interpolation = "faceVarying"
+            )
+            vector3f physics:angularVelocity = (0.005667568, 0.093464, 0.0042911763)
+            uniform token physics:approximation = "none"
+            bool physics:collisionEnabled = 1
+            bool physics:kinematicEnabled = 0
+            bool physics:rigidBodyEnabled = 1
+            vector3f physics:velocity = (0.000103862854, 0.00000615737, -0.00007302623)
+            point3f[] points = [(-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (0.5, 0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5)]
+            texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0), (0, 1), (0, 0), (1, 0), (1, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0)] (
+                interpolation = "faceVarying"
+            )
+            uniform token subdivisionScheme = "none"
+            quatd xformOp:orient = (0.9999999999977555, -6.54957529772112e-8, 0.0000021076943964019033, 2.059378922934882e-7)
+            double3 xformOp:scale = (0.06, 0.06, 0.06)
+            double3 xformOp:translate = (-0.04537628428377638, -0.012418232219436748, 0.5614779925444208)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
         }
     }
 }
