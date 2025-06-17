@@ -457,5 +457,33 @@ def test_single_inference_step():
         print(out)
 
 
+def test_cycle_consist():
+    isaac_joints = np.arange(43) + 1
+    # isaac_joints = np.random.uniform(1, 10, [43])
+    cmd = G1StateConvert.isaac_to_cmd(isaac_joints)
+    recover = G1StateConvert.cmd_to_isaac(cmd)
+    mask = recover > 0 # NOTE: only using upper body join
+    assert np.isclose(isaac_joints[mask], recover[mask]).all(), (isaac_joints - recover)
+
+    obs = {
+        # "video.ego_view": np.random.randint(0, 256, (1, 480, 640, 3), dtype=np.uint8),
+        "action.left_shoulder": np.random.rand(16, 3),
+        "action.right_shoulder": np.random.rand(16, 3),
+        "action.left_elbow": np.random.rand(16,),
+        "action.right_elbow": np.random.rand(16,),
+        "action.left_wrist": np.random.rand(16, 3),
+        "action.right_wrist": np.random.rand(16, 3),
+        "action.left_hand": np.random.rand(16, 7),
+        "action.right_hand": np.random.rand(16, 7),
+    }
+    cmd_list = G1StateConvert.gr00t_to_cmd(obs)
+    for i, cmd in enumerate(cmd_list):
+        recover = G1StateConvert.cmd_to_gr00t(cmd)
+        for k, v in recover.items():
+            og = obs[k.replace('state.', 'action.')][i]
+            assert np.isclose(og, v).all()
+
+
 if __name__ == '__main__':
+    test_cycle_consist()
     test_single_inference_step()
