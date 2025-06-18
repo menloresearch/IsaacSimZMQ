@@ -120,6 +120,7 @@ class FrankaVisionMission(App):
         self.depth_data = np.zeros((self.dimmention[0], self.dimmention[1], 4), dtype=np.uint8)
         self.current_camera_command = [0, 0, 0]
         self.g1_join_position = None
+        self.last_server_msg = None
 
         self.debug_start_time = None
 
@@ -473,12 +474,6 @@ class FrankaVisionMission(App):
         # Create a ServerControlMessage with a FrankaCommand
         message = server_control_message_pb2.ServerControlMessage()
 
-        # if self.g1_join_position is None and self.exec_mode == AppExecMode.GR00T:
-        #     # input data is not ready yet, send empty command
-        #     print('waiting for client input datas')
-        #     return message
-
-
         if self.exec_mode == AppExecMode.GR00T:
 
             if self.g1_join_position and not self.gr00t_client.action_avaible():
@@ -492,6 +487,9 @@ class FrankaVisionMission(App):
                 # Call inference server
                 pred_action = self.gr00t_client.get_action()
                 message.g1_command.CopyFrom(pred_action)
+            else:
+                if self.last_server_msg:
+                    message.g1_command.CopyFrom(self.last_server_msg.g1_command)
         elif self.exec_mode == AppExecMode.FIX_ACTION_LOOP:
             cmd = G1StateConvert.isaac_to_cmd(
                 cycle_pose_list(
@@ -511,6 +509,7 @@ class FrankaVisionMission(App):
         self.num_cmd_send += 1
         print(f"[{datetime.now().isoformat()}] command sended")
         message.sys_time = time.time()
+        self.last_server_msg = copy.deepcopy(message)
 
         return message
 

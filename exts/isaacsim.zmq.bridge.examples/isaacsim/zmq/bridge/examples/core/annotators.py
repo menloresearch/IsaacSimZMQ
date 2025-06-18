@@ -453,10 +453,12 @@ class G1Annotator(ZMQAnnotator):
         camera: str,
         resolution: tuple,
         issac_robot,
+        action_queue,
         **kwargs,
     ):
         super().__init__(camera, resolution, **kwargs)
         self.g1 = issac_robot
+        self.g1_action_que = action_queue
 
     def get_g1_state(self):
         join_pos: np.ndarray = self.g1.get_joint_positions()
@@ -484,6 +486,10 @@ class G1Annotator(ZMQAnnotator):
             ClientStreamMessage @ proto/client_stream_message.proto
 
         """
+        if not self.g1_action_que.empty:
+            # will not send new states for inference until we ran out of action command to exec
+            return 0
+
         start_time = time.monotonic()
         # https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/annotators_details.html#bounding-box-2d-tight
 
