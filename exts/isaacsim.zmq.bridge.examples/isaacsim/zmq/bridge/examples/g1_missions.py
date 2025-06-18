@@ -53,7 +53,7 @@ class ActionQueue:
         return len(self._que) == 0
 
     def pop_top(self,):
-        return heappop(self._que)[1]
+        return heappop(self._que)
 
 
 class G1StackBlockMission(Mission):
@@ -77,7 +77,7 @@ class G1StackBlockMission(Mission):
 
         self.draw = _debug_draw.acquire_debug_draw_interface()
 
-        self.cur_focal_length = 20
+        self.cur_focal_length = 10
 
         # Simulation parameters
         self.physics_dt = 60.0  # Rate of the physics simulation
@@ -130,6 +130,7 @@ class G1StackBlockMission(Mission):
             self._camera_path,
             (self.dimension[1], self.dimension[0],),
             self.franka,
+            self.action_que,
             use_ogn_nodes=self.use_ogn_nodes,
             server_ip=self.server_ip,
             port=self.ports["camera_annotator"],
@@ -147,11 +148,11 @@ class G1StackBlockMission(Mission):
             )
 
         # Set up async receive loops for all command channels
-        self.subscribe_to_protobuf_in_loop(
-            self.camera_control_socket,
-            server_control_message_pb2.ServerControlMessage,
-            self.camera_control_sub_loop,
-        )
+        # self.subscribe_to_protobuf_in_loop(
+        #     self.camera_control_socket,
+        #     server_control_message_pb2.ServerControlMessage,
+        #     self.camera_control_sub_loop,
+        # )
         self.subscribe_to_protobuf_in_loop(
             self.settings_socket,
             server_control_message_pb2.ServerControlMessage,
@@ -284,26 +285,28 @@ class G1StackBlockMission(Mission):
                 print("cmd.left_shoulder_angle.y: ", cmd.left_shoulder_angle.y)
                 print("cmd.left_shoulder_angle.z: ", cmd.left_shoulder_angle.z)
                 joint_pos = G1StateConvert.cmd_to_isaac(cmd)
+                self.action_que.push(proto_msg.sys_time, joint_pos)
             else:
                 joint_pos = np.array([0] * 33 + [1.0] * 10)
-            self.action_que.push(proto_msg.sys_time, joint_pos)
 
             interval = datetime.now() - self.last_action_time
             if not self.action_que.empty:
+                enque_t, target_pos = self.action_que.pop_top()
                 try:
                     action = ArticulationAction(
-                        joint_positions=self.action_que.pop_top(),
+                        joint_positions=target_pos,
                         joint_velocities=None,
                         joint_efforts=None
                     )
                     self.franka.apply_action(action)
                     self.last_action_time = datetime.now()
                 except Exception as e:
+                    self.action_que.push(enque_t, target_pos)
                     carb.log_warn(f"[{EXT_NAME}] Error applying action: {e}")
 
-            self.check_and_repositin_blocks()
+            self.check_and_repostion_blocks()
 
-    def check_and_repositin_blocks(self):
+    def check_and_repostion_blocks(self):
         # randomize the target position every 8 seconds :)
         # current_time = time.time()
         # if current_time - self.last_trigger_time > 8:
