@@ -33,8 +33,11 @@ from .mission import Mission
 # The omni.__proto__ namespace is created by this extention
 # read more at coreproto_util.py
 from omni.__proto__ import server_control_message_pb2
+from omni.isaac.core.articulations import ArticulationView
 
 
+
+# G1_USD = "/home/ron/Projects/unitree_ros/robots/g1_description/g1_29dof_with_hand_rev_1_0/g1_29dof_with_hand_rev_1_0.usd"
 G1_USD = "/home/ron/Downloads/g1_29dof_with_hand_rev_1_0.usd"
 
 
@@ -148,11 +151,6 @@ class G1StackBlockMission(Mission):
             )
 
         # Set up async receive loops for all command channels
-        # self.subscribe_to_protobuf_in_loop(
-        #     self.camera_control_socket,
-        #     server_control_message_pb2.ServerControlMessage,
-        #     self.camera_control_sub_loop,
-        # )
         self.subscribe_to_protobuf_in_loop(
             self.settings_socket,
             server_control_message_pb2.ServerControlMessage,
@@ -191,42 +189,6 @@ class G1StackBlockMission(Mission):
                 carb.log_warn(f"[{EXT_NAME}] Cant destory annotators while simulation is running!")
 
         asyncio.ensure_future(_stop())
-
-    def camera_control_sub_loop(self, proto_msg: server_control_message_pb2.ServerControlMessage) -> None:
-        """Handle camera control commands received.
-
-        Processes camera mount joints velocities and focal length adjustments from the incoming message.
-        Applies joint velocities to the camera mount and updates the focal length if changed.
-
-        Args:
-            proto_msg: ServerControlMessage containing a CameraControlCommand
-        """
-        new_velocities = (0, 0, 0)
-        if proto_msg.HasField("camera_control_command"):
-            joints_vel = proto_msg.camera_control_command.joints_vel
-            new_velocities = (joints_vel.x, joints_vel.y, joints_vel.z)
-            focal_length = proto_msg.camera_control_command.focal_length
-
-            if focal_length != self.cur_focal_length:
-                try:
-                    focalLength_attr = self._camera_prim.GetAttribute("focalLength")
-                    focalLength_attr.Set(focal_length)
-                    self.cur_focal_length = focal_length
-                except:
-                    carb.log_warn(f"[{EXT_NAME}] Failed to set focal length")
-                    pass
-
-        if self.world.is_playing():
-            try:
-                self.camera_controller.apply_action(
-                    ArticulationAction(
-                        joint_positions=None,
-                        joint_efforts=None,
-                        joint_velocities=[new_velocities[0], new_velocities[1], new_velocities[2]],
-                    )
-                )
-            except:
-                carb.log_warn(f"[{EXT_NAME}] unable to apply action to camera")
 
     def settings_sub_loop(self, proto_msg: server_control_message_pb2.ServerControlMessage) -> None:
         """General purpose control loop to tweak parameters of the simulator
@@ -378,6 +340,10 @@ class G1StackBlockMission(Mission):
             target1 ="/World/G1/pelvis",
             fixed_joint_offset=np.asarray(translate),
         )
+
+        # robot_view = ArticulationView(prim_paths_expr="/World/G1")
+        # robot_view.set_joint_positions(np.ones([43], dtype=np.float32))
+
 
     @classmethod
     async def _async_load(cls) -> None:
