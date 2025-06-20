@@ -1,5 +1,6 @@
 
 import math
+from datetime import datetime
 from dataclasses import dataclass
 from enum import Enum
 from io import BytesIO
@@ -11,6 +12,8 @@ import numpy as np
 import client_stream_message_pb2
 import server_control_message_pb2
 
+
+MsgList = List["client_stream_message_pb2.G1JoinState"]
 
 class TorchSerializer:
     @staticmethod
@@ -92,9 +95,9 @@ class G1StateConvert:
         """
         dst = np.zeros([43], dtype=np.float32)
 
-        dst[11] = src.left_shoulder_angle.y
-        dst[15] = src.left_shoulder_angle.x
-        dst[19] = src.left_shoulder_angle.z
+        dst[11] = src.left_shoulder_angle.y # pitch
+        dst[15] = src.left_shoulder_angle.x # roll
+        dst[19] = src.left_shoulder_angle.z # yaw
 
         dst[12] = src.right_shoulder_angle.y
         dst[16] = src.right_shoulder_angle.x
@@ -232,9 +235,9 @@ class G1StateConvert:
         for i in range(action_horizon):
             state = server_control_message_pb2.G1ActionCommand()
 
-            state.left_shoulder_angle.x = src['action.left_shoulder'][i][1]
-            state.left_shoulder_angle.y = src['action.left_shoulder'][i][0]
-            state.left_shoulder_angle.z = src['action.left_shoulder'][i][2]
+            state.left_shoulder_angle.x = src['action.left_shoulder'][i][1] # roll
+            state.left_shoulder_angle.y = src['action.left_shoulder'][i][0] # picth
+            state.left_shoulder_angle.z = src['action.left_shoulder'][i][2] # yaw
 
             state.right_shoulder_angle.x = src['action.right_shoulder'][i][1]
             state.right_shoulder_angle.y = src['action.right_shoulder'][i][0]
@@ -289,6 +292,8 @@ class G1_Pose(Enum):
 
     LEFT_SHOULDER_RAISE=11
     RIGHT_SHOULDER_RAISE=12
+
+    ARM_STRAIGHT = 13
 
 
 def build_join_pos(pose: G1_Pose):
@@ -355,13 +360,21 @@ def build_join_pos(pose: G1_Pose):
         jp[12] = -rad_90 * 2  # -1.04 ~ 1.98
         jp[16] = 0  # -1.04 ~ 1.98
         jp[20] = 0  # -1.04 ~ 1.98
+    elif pose == G1_Pose.ARM_STRAIGHT:
+        jp[11 + 1] = -0.64  # -1.04 ~ 1.98
+        jp[15 + 1] = -0.15  # -1.04 ~ 1.98
+        jp[19 + 1] = -0.23  # -1.04 ~ 1.98
+        jp[22] = 0.4
 
     return jp
 
 
 def cycle_single_pose(step: int, pose: G1_Pose, loop_step=90):
     cur = (step % loop_step) / loop_step
-    return build_join_pos(pose) * cur
+    if cur < 0.5:
+        return build_join_pos(pose) * cur * 2
+    else:
+        return build_join_pos(pose) * (1 - (cur - 0.5) * 2)
 
 
 def cycle_pose_list(step: int, pose_list: List[G1_Pose], loop_step=90):
@@ -384,9 +397,34 @@ class GR00T_N1_Client(BaseInferenceClient):
         self.contorl_hz = contorl_hz
         self.vla_interval = (16 / 30) # how long each VLA's prediction cover(in seconds)
         # self.action_cache = np.zeros([self.action_horizons, self.dof])
-        self.action_cache = []
+        self.action_cache: MsgList = []
+        self.action_cache_np: Dict[str, np.ndarray] | None = None
 
-    def linear_interpolation(self, act_cmds: List["client_stream_message_pb2.G1JoinState"]):
+    def smooth_action(self, pred: Dict[str, np.ndarray]):
+
+        def exponential_moving_average(data, alpha=0.2):
+            smoothed = np.zeros_like(data)
+            smoothed[0, ...] = data[0, ...]
+            for t in range(1, data.shape[0]):
+                smoothed[t, ...] = alpha * data[t, ...] + (1 - alpha) * smoothed[t-1, ...]
+            return smoothed
+
+        output = {}
+        for k, v in pred.items():
+            actions = v
+            if self.action_cache_np:
+                # if actions.ndim == 1:
+                #     actions = np.stack([self.action_cache_np[k], actions], axis=0)
+                # else:
+                actions = np.concatenate([self.action_cache_np[k], actions], axis=0)
+            smt_actions = exponential_moving_average(actions)
+            output[k] = smt_actions[-v.shape[0]:]
+
+        self.action_cache_np = pred
+        # self.action_cache_np = output
+        return output
+
+    def linear_interpolation(self, act_cmds: MsgList):
         src_pts = len(act_cmds)
         tar_pts = math.ceil(self.vla_interval * self.contorl_hz)
         # print("src_pts", src_pts, len(act_cmds), type(act_cmds))
@@ -416,18 +454,22 @@ class GR00T_N1_Client(BaseInferenceClient):
 
     def update_state(self, img: np.ndarray, state: "client_stream_message_pb2.G1JoinState"):
         # call inference server
+        img_int = (img * 255).astype(np.uint8)[np.newaxis, ...]
+        img_int = img_int[..., :3]
         observations = {
-            "video.ego_view": (img * 255).astype(np.uint8)[np.newaxis, ...],
+            "video.ego_view": img_int,
         }
         observations.update(G1StateConvert.cmd_to_gr00t(state))
 
         predict = self.call_endpoint("get_action", observations)
+        predict = self.smooth_action(predict)
 
         self.action_consumed = 0
         self.action_cache = G1StateConvert.gr00t_to_cmd(predict)
         assert len(self.action_cache) == self.action_horizons
+        self.action_cache = self.action_cache
         self.action_cache = self.linear_interpolation(self.action_cache)
-        print("Inference!")
+        print(f"[{datetime.now().isoformat()}] Inference!")
 
     def action_avaible(self) -> bool:
         return self.action_consumed < len(self.action_cache)

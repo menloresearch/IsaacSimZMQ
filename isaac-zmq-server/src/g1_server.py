@@ -476,8 +476,8 @@ class FrankaVisionMission(App):
 
         if self.exec_mode == AppExecMode.GR00T:
 
-            if self.g1_join_position and not self.gr00t_client.action_avaible():
-                with self.client_msg_lock:
+            with self.client_msg_lock:
+                if self.g1_join_position and not self.gr00t_client.action_avaible():
                     img = self.texture_data.copy()
                     state = copy.deepcopy(self.g1_join_position)
                     self.gr00t_client.update_state(img, state)
@@ -494,8 +494,8 @@ class FrankaVisionMission(App):
             cmd = G1StateConvert.isaac_to_cmd(
                 cycle_pose_list(
                     self.num_cmd_send,
-                    [G1_Pose.LEFT_HAND_FINGER_GRIP, G1_Pose.RIGHT_HAND_FINGER_GRIP],
-                    loop_step=30,
+                    [G1_Pose.LEFT_HAND_FINGER_GRIP, G1_Pose.ARM_STRAIGHT],
+                    loop_step=90,
                 )
             )
             message.g1_command.CopyFrom(cmd)
@@ -507,7 +507,7 @@ class FrankaVisionMission(App):
 
         self.last_command_time = datetime.now()
         self.num_cmd_send += 1
-        print(f"[{datetime.now().isoformat()}] command sended")
+        # print(f"[{datetime.now().isoformat()}] command sended")
         message.sys_time = time.time()
         self.last_server_msg = copy.deepcopy(message)
 
@@ -544,6 +544,7 @@ def run_app(app) -> None:
 
 if __name__ == "__main__":
     config = {
+        # 'exec_mode': AppExecMode.FIX_ACTION_LOOP,
         'exec_mode': AppExecMode.GR00T,
         'inference_host': '127.0.0.1',
         'inference_port': 5555,
