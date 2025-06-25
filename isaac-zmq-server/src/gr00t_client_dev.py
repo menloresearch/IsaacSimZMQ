@@ -135,45 +135,41 @@ class G1StateConvert:
     @staticmethod
     def cmd_to_gr00t(src: "client_stream_message_pb2.G1JoinState") -> Dict[str, np.ndarray]:
         state = {
-            "state.left_shoulder": [
+            "state.left_arm": [
                 src.left_shoulder_angle.y,  # NOTE: [roll, pitch, yaw] -> [pitch, roll, yaw]
                 src.left_shoulder_angle.x,
                 src.left_shoulder_angle.z,
-            ],
-            "state.right_shoulder": [
-                src.right_shoulder_angle.y,
-                src.right_shoulder_angle.x,
-                src.right_shoulder_angle.z,
-            ],
-            "state.left_elbow": [src.left_elbow],
-            "state.right_elbow": [src.right_elbow],
-            "state.left_wrist": [
+                src.left_elbow,
                 src.left_wrist_angle.y,
                 src.left_wrist_angle.x,
                 src.left_wrist_angle.z,
             ],
-            "state.right_wrist": [
+            "state.right_arm": [
+                src.right_shoulder_angle.y,  # NOTE: [roll, pitch, yaw] -> [pitch, roll, yaw]
+                src.right_shoulder_angle.x,
+                src.right_shoulder_angle.z,
+                src.right_elbow,
                 src.right_wrist_angle.y,
                 src.right_wrist_angle.x,
                 src.right_wrist_angle.z,
             ],
             "state.left_hand": [
-                src.left_hand.thumb_0,
-                src.left_hand.thumb_1,
-                src.left_hand.thumb_2,
                 src.left_hand.index_0,
                 src.left_hand.index_1,
                 src.left_hand.middle_0,
                 src.left_hand.middle_1,
+                src.left_hand.thumb_0,
+                src.left_hand.thumb_1,
+                src.left_hand.thumb_2,
             ],
             "state.right_hand": [
-                src.right_hand.thumb_0,
-                src.right_hand.thumb_1,
-                src.right_hand.thumb_2,
                 src.right_hand.index_0,
                 src.right_hand.index_1,
                 src.right_hand.middle_0,
                 src.right_hand.middle_1,
+                src.right_hand.thumb_0,
+                src.right_hand.thumb_1,
+                src.right_hand.thumb_2,
             ]
         }
         state = {
@@ -235,40 +231,40 @@ class G1StateConvert:
         for i in range(action_horizon):
             state = server_control_message_pb2.G1ActionCommand()
 
-            state.left_shoulder_angle.x = src['action.left_shoulder'][i][1] # roll
-            state.left_shoulder_angle.y = src['action.left_shoulder'][i][0] # picth
-            state.left_shoulder_angle.z = src['action.left_shoulder'][i][2] # yaw
+            state.left_shoulder_angle.x = src['action.left_arm'][i][1] # roll
+            state.left_shoulder_angle.y = src['action.left_arm'][i][0] # picth
+            state.left_shoulder_angle.z = src['action.left_arm'][i][2] # yaw
 
-            state.right_shoulder_angle.x = src['action.right_shoulder'][i][1]
-            state.right_shoulder_angle.y = src['action.right_shoulder'][i][0]
-            state.right_shoulder_angle.z = src['action.right_shoulder'][i][2]
+            state.right_shoulder_angle.x = src['action.right_arm'][i][1]
+            state.right_shoulder_angle.y = src['action.right_arm'][i][0]
+            state.right_shoulder_angle.z = src['action.right_arm'][i][2]
 
-            state.left_elbow = src['action.left_elbow'][i]
-            state.right_elbow = src['action.right_elbow'][i]
+            state.left_elbow = src['action.left_arm'][i][3]
+            state.right_elbow = src['action.right_arm'][i][3]
 
-            state.left_wrist_angle.x = src['action.left_wrist'][i][1]
-            state.left_wrist_angle.y = src['action.left_wrist'][i][0]
-            state.left_wrist_angle.z = src['action.left_wrist'][i][2]
+            state.left_wrist_angle.x = src['action.left_arm'][i][4]
+            state.left_wrist_angle.y = src['action.left_arm'][i][5]
+            state.left_wrist_angle.z = src['action.left_arm'][i][6]
 
-            state.right_wrist_angle.x = src['action.right_wrist'][i][1]
-            state.right_wrist_angle.y = src['action.right_wrist'][i][0]
-            state.right_wrist_angle.z = src['action.right_wrist'][i][2]
+            state.right_wrist_angle.x = src['action.right_arm'][i][4]
+            state.right_wrist_angle.y = src['action.right_arm'][i][5]
+            state.right_wrist_angle.z = src['action.right_arm'][i][6]
 
-            state.left_hand.thumb_0 = src['action.left_hand'][i][0]
-            state.left_hand.thumb_1 = src['action.left_hand'][i][1]
-            state.left_hand.thumb_2 = src['action.left_hand'][i][2]
-            state.left_hand.index_0 = src['action.left_hand'][i][3]
-            state.left_hand.index_1 = src['action.left_hand'][i][4]
-            state.left_hand.middle_0 = src['action.left_hand'][i][5]
-            state.left_hand.middle_1 = src['action.left_hand'][i][6]
+            state.left_hand.thumb_0 = src['action.left_hand'][i][4]
+            state.left_hand.thumb_1 = src['action.left_hand'][i][5]
+            state.left_hand.thumb_2 = src['action.left_hand'][i][6]
+            state.left_hand.index_0 = src['action.left_hand'][i][0]
+            state.left_hand.index_1 = src['action.left_hand'][i][1]
+            state.left_hand.middle_0 = src['action.left_hand'][i][2]
+            state.left_hand.middle_1 = src['action.left_hand'][i][3]
 
-            state.right_hand.thumb_0 = src['action.right_hand'][i][0]
-            state.right_hand.thumb_1 = src['action.right_hand'][i][1]
-            state.right_hand.thumb_2 = src['action.right_hand'][i][2]
-            state.right_hand.index_0 = src['action.right_hand'][i][3]
-            state.right_hand.index_1 = src['action.right_hand'][i][4]
-            state.right_hand.middle_0 = src['action.right_hand'][i][5]
-            state.right_hand.middle_1 = src['action.right_hand'][i][6]
+            state.right_hand.thumb_0 = src['action.right_hand'][i][4]
+            state.right_hand.thumb_1 = src['action.right_hand'][i][5]
+            state.right_hand.thumb_2 = src['action.right_hand'][i][6]
+            state.right_hand.index_0 = src['action.right_hand'][i][0]
+            state.right_hand.index_1 = src['action.right_hand'][i][1]
+            state.right_hand.middle_0 = src['action.right_hand'][i][2]
+            state.right_hand.middle_1 = src['action.right_hand'][i][3]
 
             predicts.append(state)
 
@@ -457,7 +453,8 @@ class GR00T_N1_Client(BaseInferenceClient):
         img_int = (img * 255).astype(np.uint8)[np.newaxis, ...]
         img_int = img_int[..., :3]
         observations = {
-            "video.ego_view": img_int,
+            "video.rs_view": img_int,
+            "annotation.human.task_description": ["Pick up the red apple and place it on the plate"],
         }
         observations.update(G1StateConvert.cmd_to_gr00t(state))
 

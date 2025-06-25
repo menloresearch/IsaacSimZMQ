@@ -106,12 +106,12 @@ class G1StateConvert:
         dst[21] = src.left_elbow
         dst[22] = src.right_elbow
 
-        dst[23] = src.left_wrist_angle.y
-        dst[25] = src.left_wrist_angle.x
-        dst[27] = src.left_wrist_angle.z
+        dst[23] = src.left_wrist_angle.x # roll
+        dst[25] = src.left_wrist_angle.y # pitch
+        dst[27] = src.left_wrist_angle.z # yaw
 
-        dst[24] = src.right_wrist_angle.y
-        dst[26] = src.right_wrist_angle.x
+        dst[24] = src.right_wrist_angle.x
+        dst[26] = src.right_wrist_angle.y
         dst[28] = src.right_wrist_angle.z
 
         dst[31] = src.left_hand.thumb_0
@@ -148,13 +148,13 @@ class G1StateConvert:
             "state.left_elbow": [src.left_elbow],
             "state.right_elbow": [src.right_elbow],
             "state.left_wrist": [
-                src.left_wrist_angle.y,
                 src.left_wrist_angle.x,
+                src.left_wrist_angle.y,
                 src.left_wrist_angle.z,
             ],
             "state.right_wrist": [
-                src.right_wrist_angle.y,
                 src.right_wrist_angle.x,
+                src.right_wrist_angle.y,
                 src.right_wrist_angle.z,
             ],
             "state.left_hand": [
@@ -200,12 +200,12 @@ class G1StateConvert:
         dst.left_elbow = src[21]
         dst.right_elbow = src[22]
 
-        dst.left_wrist_angle.y = src[23]
-        dst.left_wrist_angle.x = src[25]
+        dst.left_wrist_angle.x = src[23]
+        dst.left_wrist_angle.y = src[25]
         dst.left_wrist_angle.z = src[27]
 
-        dst.right_wrist_angle.y = src[24]
-        dst.right_wrist_angle.x = src[26]
+        dst.right_wrist_angle.x = src[24]
+        dst.right_wrist_angle.y = src[26]
         dst.right_wrist_angle.z = src[28]
 
         dst.left_hand.thumb_0 = src[31]
@@ -246,12 +246,12 @@ class G1StateConvert:
             state.left_elbow = src['action.left_elbow'][i]
             state.right_elbow = src['action.right_elbow'][i]
 
-            state.left_wrist_angle.x = src['action.left_wrist'][i][1]
-            state.left_wrist_angle.y = src['action.left_wrist'][i][0]
+            state.left_wrist_angle.x = src['action.left_wrist'][i][0]
+            state.left_wrist_angle.y = src['action.left_wrist'][i][1]
             state.left_wrist_angle.z = src['action.left_wrist'][i][2]
 
-            state.right_wrist_angle.x = src['action.right_wrist'][i][1]
-            state.right_wrist_angle.y = src['action.right_wrist'][i][0]
+            state.right_wrist_angle.x = src['action.right_wrist'][i][0]
+            state.right_wrist_angle.y = src['action.right_wrist'][i][1]
             state.right_wrist_angle.z = src['action.right_wrist'][i][2]
 
             state.left_hand.thumb_0 = src['action.left_hand'][i][0]

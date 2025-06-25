@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (1.2223691793850973, 0.6833573008658518, 1.5752389032860517)
-                double3 target = (-2.133891085836029, -1.3744166765191612, -0.28719195349810955)
+                double3 position = (2.2238157592442414, 0.5151367289352906, 1.8298287570794343)
+                double3 target = (-3.2216673711368853, -1.1415440925068325, -1.057234007382848)
             }
             dictionary Right = {
                 double3 position = (0, -5, 0)
@@ -19,6 +19,13 @@
                 double radius = 5
             }
             string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary metricsAssembler = {
+            dictionary "/World/apple" = {
+            }
+            dictionary "/World/scene" = {
+            }
+            int version = 1
         }
         dictionary omni_layer = {
             string authoring_layer = "./g1_world.usda"
@@ -114,7 +121,7 @@ def Xform "World"
                 custom token cameraProjectionType (
                     allowedTokens = ["pinhole", "fisheyeOrthographic", "fisheyeEquidistant", "fisheyeEquisolid", "fisheyePolynomial", "fisheyeSpherical", "fisheyeKannalaBrandtK3", "fisheyeRadTanThinPrism", "omniDirectionalStereo"]
                 )
-                float focalLength = 12
+                float focalLength = 10
                 float focusDistance = 200
                 custom float fthetaCx
                 custom float fthetaCy
@@ -127,9 +134,9 @@ def Xform "World"
                 custom float fthetaPolyE
                 custom float fthetaWidth
                 custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -191.65728077560658)
-                quatd xformOp:orient = (0.46621623635292053, -0.17108526825904846, 0.7537907361984253, 0.43031594157218933)
+                quatd xformOp:orient = (0.4540782570838928, -0.20209074020385742, 0.7236244678497314, 0.4788944721221924)
                 double3 xformOp:scale = (1, 1, 1)
-                double3 xformOp:translate = (-1.3419818878173828, 73.62095642089844, -123.56143188476562)
+                double3 xformOp:translate = (-1.3419389724731445, 69.17816162109375, -124.34469604492188)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
             }
         }
@@ -332,7 +339,7 @@ def Xform "World"
     {
         quatf xformOp:orient = (1, 0, 0, 0)
         float3 xformOp:scale = (0.010713063, 0.010713063, 0.008488671)
-        double3 xformOp:translate = (0.6519669636506823, 0, 0.0750696465038565)
+        double3 xformOp:translate = (0.5758549537156678, 0, -0.000035295748366609425)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         over "shop_table" (
@@ -353,7 +360,7 @@ def Xform "World"
         )
         quatd xformOp:orient = (1, 0, 0, 0)
         double3 xformOp:scale = (1, 1, 1)
-        double3 xformOp:translate = (0.379310293319649, 0.10041353106498718, 0.2888193726539612)
+        double3 xformOp:translate = (0.5705971544209665, -0.09677539432966839, 0.24206350603385468)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         def Mesh "Cube" (
@@ -381,7 +388,7 @@ def Xform "World"
             )
             uniform token subdivisionScheme = "none"
             quatd xformOp:orient = (0.9999999999977554, -6.549738823203365e-8, 0.000002107747019927388, 2.0593788988731598e-7)
-            double3 xformOp:scale = (0.06, 0.06, 0.06)
+            double3 xformOp:scale = (0.04, 0.04, 0.04)
             double3 xformOp:translate = (-0.007802482518021736, 0.17944993871712994, 0.5479808998868677)
             uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
         }
@@ -396,7 +403,7 @@ def Xform "World"
         )
         quatd xformOp:orient = (1, 0, 0, 0)
         double3 xformOp:scale = (1, 1, 1)
-        double3 xformOp:translate = (0.3234612874988202, 0.10041353106498718, 0.2888193726539612)
+        double3 xformOp:translate = (0.5832620592065126, 0.10041353106498718, 0.24265592799480373)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         def Mesh "Cube" (
@@ -424,7 +431,7 @@ def Xform "World"
             )
             uniform token subdivisionScheme = "none"
             quatd xformOp:orient = (0.9999999999977558, -6.549084696816668e-8, 0.0000021075365179548043, 2.0593789937716369e-7)
-            double3 xformOp:scale = (0.06, 0.06, 0.06)
+            double3 xformOp:scale = (0.04, 0.04, 0.04)
             double3 xformOp:translate = (-0.008628939056803286, -0.15072132383881628, 0.5479808998868667)
             uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
         }
@@ -434,7 +441,7 @@ def Xform "World"
     {
         quatd xformOp:orient = (1, 0, 0, 0)
         double3 xformOp:scale = (1, 1, 1)
-        double3 xformOp:translate = (0.393932940706139, 0.10041353106498718, 0.2888193726539612)
+        double3 xformOp:translate = (0.5825035055857045, 0.1996387541294098, 0.22287458955411116)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         def Mesh "Cube" (
@@ -462,9 +469,54 @@ def Xform "World"
             )
             uniform token subdivisionScheme = "none"
             quatd xformOp:orient = (0.9999999999977555, -6.54957529772112e-8, 0.0000021076943964019033, 2.059378922934882e-7)
-            double3 xformOp:scale = (0.06, 0.06, 0.06)
+            double3 xformOp:scale = (0.04, 0.04, 0.04)
             double3 xformOp:translate = (-0.04537628428377638, -0.012418232219436748, 0.5614779925444208)
             uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "small_KLT_visual_collision" (
+        prepend references = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Props/KLT_Bin/small_KLT_visual_collision.usd@
+    )
+    {
+        float3 xformOp:rotateXYZ = (0, 0, 0)
+        float3 xformOp:scale = (0.5, 0.5, 0.5)
+        double3 xformOp:translate = (1.2212393164361037, -0.21073211780720452, 0.06243017806910117)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def "apple" (
+        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI"]
+        prepend payload = @../../../Documents/Blender/Objects/apple (1)/scene.usd@
+    )
+    {
+        bool physics:kinematicEnabled = 0
+        bool physics:rigidBodyEnabled = 1
+        quatf xformOp:orient = (0.70710677, -0.70710677, 0, 0)
+        double xformOp:rotateX:unitsResolve = 90
+        float3 xformOp:scale = (0.001, 0.001, 0.001)
+        double3 xformOp:scale:unitsResolve = (0.008, 0.008, 0.008)
+        double3 xformOp:translate = (0.8945193703054997, 0.11033689709503834, 0.8434520444019865)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
+
+        over "node_274a4312ffa455f82f4da24abea47a9_fbx"
+        {
+            over "RootNode"
+            {
+                over "Apple"
+                {
+                    over "Apple_Apple_0"
+                    {
+                        over "Apple_Apple_0" (
+                            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMeshCollisionAPI"]
+                        )
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                }
+            }
         }
     }
 }
