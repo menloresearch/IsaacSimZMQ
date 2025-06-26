@@ -93,7 +93,7 @@ class Mission:
         """
         # Get the extension path to locate assets
         manager = omni.kit.app.get_app().get_extension_manager()
-        extension_path = manager.get_extension_path_by_module("isaacsim.zmq.bridge.examples")
+        extension_path = manager.get_extension_path_by_module("isaac_zmq_bridge")
         data_path = Path(extension_path).joinpath("data")
         assets_path = data_path.parent.parent.parent / "assets"
         source_usd = str(assets_path / cls.world_usd_path)

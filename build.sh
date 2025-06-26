@@ -8,7 +8,7 @@ bash "$SCRIPT_DIR/repo.sh" build --fetch-only || exit $?
 
 # Remove old build binaries
 rm -rf exts/isaacsim.zmq.bridge/bin
-rm -rf exts/isaacsim.zmq.bridge.examples/pip_prebundle
+rm -rf exts/isaac_zmq_bridge/pip_prebundle
 
 # Compile protobuf
 pushd proto
@@ -19,9 +19,9 @@ pushd proto
 cp client_stream_message.pb.h ../exts/isaacsim.zmq.bridge/plugins/nodes/client_stream_message.pb.h
 cp client_stream_message.pb.cc ../exts/isaacsim.zmq.bridge/plugins/nodes/client_stream_message.pb.cc
 cp client_stream_message_pb2.py ../isaac-zmq-server/src/client_stream_message_pb2.py
-cp client_stream_message_pb2.py ../exts/isaacsim.zmq.bridge.examples/isaacsim/zmq/bridge/examples/core/client_stream_message_pb2.py
+cp client_stream_message_pb2.py ../exts/isaac_zmq_bridge/isaacsim/zmq/bridge/examples/core/client_stream_message_pb2.py
 cp server_control_message_pb2.py ../isaac-zmq-server/src/server_control_message_pb2.py
-cp server_control_message_pb2.py ../exts/isaacsim.zmq.bridge.examples/isaacsim/zmq/bridge/examples/core/server_control_message_pb2.py
+cp server_control_message_pb2.py ../exts/isaac_zmq_bridge/isaacsim/zmq/bridge/examples/core/server_control_message_pb2.py
 
 rm client_stream_message.pb.h
 rm client_stream_message.pb.cc
@@ -35,9 +35,9 @@ bash "$SCRIPT_DIR/repo.sh" build -x -r || exit $?
 
 # Copy build artifacts into exts path for simplicity
 
-# isaacsim.zmq.bridge.examples
-cp -r _build/linux-x86_64/release/exts/isaacsim.zmq.bridge.examples/PACKAGE-LICENSES exts/isaacsim.zmq.bridge.examples/PACKAGE-LICENSES
-cp -rL _build/linux-x86_64/release/exts/isaacsim.zmq.bridge.examples/pip_prebundle exts/isaacsim.zmq.bridge.examples/pip_prebundle
+# isaac_zmq_bridge
+cp -r _build/linux-x86_64/release/exts/isaac_zmq_bridge/PACKAGE-LICENSES exts/isaac_zmq_bridge/PACKAGE-LICENSES
+cp -rL _build/linux-x86_64/release/exts/isaac_zmq_bridge/pip_prebundle exts/isaac_zmq_bridge/pip_prebundle
 
 # isaacsim.zmq.bridge
 cp -r _build/linux-x86_64/release/exts/isaacsim.zmq.bridge/bin exts/isaacsim.zmq.bridge/bin

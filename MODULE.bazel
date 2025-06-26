@@ -1,0 +1,40 @@
+bazel_dep(name = "rules_python", version = "1.0.0")
+bazel_dep(name = "rules_oci", version = "2.0.0")
+bazel_dep(name = "rules_pkg", version = "1.0.1")
+bazel_dep(name = "rules_proto", version = "7.1.0")
+bazel_dep(name = "rules_cc", version = "0.1.1")
+bazel_dep(name = "protobuf", version = "29.0", repo_name = "com_google_protobuf")
+
+pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+
+# pip.parse(
+#     hub_name = "pip",
+#     python_version = "3.10",
+#     requirements_lock = "//app:requirements_lock.txt",
+# )
+
+# Separate pip configuration for prebundle packages
+# pip.parse(
+#     hub_name = "pip_prebundle",
+#     python_version = "3.10",
+#     requirements_lock = "//exts:requirements_lock.txt",
+# )
+
+python = use_extension("@rules_python//python/extensions:python.bzl", "python")
+
+python.toolchain(
+    ignore_root_user_error = True,
+    is_default = True,
+    python_version = "3.10",
+)
+
+# use_repo(pip, "pip_prebundle")
+use_repo(python, "python_3_10")
+
+# Pull the Isaac Lab base image
+oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
+oci.pull(
+    name = "isaac_lab_image",
+    image = "nvcr.io/nvidia/isaac-lab:2.1.0",
+)
+use_repo(oci, "isaac_lab_image")

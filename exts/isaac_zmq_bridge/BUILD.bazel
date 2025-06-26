@@ -1,0 +1,111 @@
+load("@rules_python//python:defs.bzl", "py_library", "py_binary")
+
+# Requirements file for prebundling
+filegroup(
+    name = "requirements_lock_txt",
+    srcs = ["requirements_lock.txt"],
+    visibility = ["//visibility:public"],
+)
+
+
+# Prebundle pip packages target
+genrule(
+    name = "prebundle_pip_packages",
+    srcs = [":requirements_lock_txt"],
+    outs = ["pip_prebundle_complete.marker"],
+    cmd = """
+        set -e
+
+        # Get paths
+        WORKSPACE_ROOT=$$(pwd)
+        TEMP_DIR=$$(mktemp -d)
+        OUTPUT_DIR="$$WORKSPACE_ROOT/exts/isaac_zmq_bridge/pip_prebundle"
+        REQUIREMENTS_FILE="$(location //exts/isaac_zmq_bridge:requirements_lock_txt)"
+
+        echo "Installing packages from $$REQUIREMENTS_FILE to $$OUTPUT_DIR"
+
+        # Clean existing prebundle directory
+        rm -rf "$$OUTPUT_DIR"
+        mkdir -p "$$OUTPUT_DIR"
+
+        # Install packages to temporary directory
+        python3 -m pip install --target "$$TEMP_DIR" --no-deps --no-cache-dir -r "$$REQUIREMENTS_FILE"
+
+        # Copy all installed content to output directory
+        if [ "$$(ls -A $$TEMP_DIR)" ]; then
+            cp -r "$$TEMP_DIR"/* "$$OUTPUT_DIR"/
+        fi
+
+        # Clean up temporary directory
+        rm -rf "$$TEMP_DIR"
+
+        # Create completion marker
+        touch $@
+
+        echo "Prebundling complete - packages installed to $$OUTPUT_DIR"
+    """,
+    visibility = ["//visibility:public"],
+)
+
+# Extension configuration and data files
+filegroup(
+    name = "zmq_bridge_examples_config",
+    srcs = glob([
+        "config/*.toml",
+        # "*.toml",
+        "data/**/*",
+        "docs/**/*",
+    ]),
+    visibility = ["//visibility:public"],
+)
+
+
+# Python examples and core libraries
+py_library(
+    name = "zmq_bridge_examples_python",
+    srcs = glob([
+        "isaac_zmq_bridge/**/*.py",
+    ]),
+    deps = [
+        "//:client_stream_message_py_proto",
+        "//:server_control_message_py_proto",
+        # "//exts/isaacsim.zmq.bridge:zmq_bridge_python",
+        # "@pip//pyzmq",
+        # "@pip//numpy",
+        # "@pip//opencv-python",
+    ],
+    data = [
+        ":zmq_bridge_examples_config",
+        ":prebundle_pip_packages",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+# Headless example binary
+py_binary(
+    name = "example_headless",
+    srcs = ["isaac_zmq_bridge/example_headless.py"],
+    deps = [":zmq_bridge_examples_python"],
+    main = "isaac_zmq_bridge/example_headless.py",
+    visibility = ["//visibility:public"],
+)
+
+
+# # Pre-bundled pip dependencies (if they exist)
+# filegroup(
+#     name = "zmq_bridge_examples_pip_bundle",
+#     srcs = glob([
+#         "pip_prebundle/**/*",
+#     ]),
+#     visibility = ["//visibility:public"],
+# )
+
+# Complete examples extension package
+# filegroup(
+#     name = "zmq_bridge_examples_extension",
+#     srcs = [
+#         ":zmq_bridge_examples_python",
+#         ":zmq_bridge_examples_config",
+#     ],
+#     visibility = ["//visibility:public"],
+# )

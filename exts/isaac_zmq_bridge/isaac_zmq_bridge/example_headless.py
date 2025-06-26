@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 # to run this file:
-# ISAACSIM_PYTHON exts/isaacsim.zmq.bridge.examples/isaacsim/zmq/bridge/examples/example_headless.py --ext-folder ./exts
+# ISAACSIM_PYTHON exts/isaac_zmq_bridge/isaacsim/zmq/bridge/examples/example_headless.py --ext-folder ./exts
 
 import isaacsim
 from isaacsim.simulation_app import SimulationApp
@@ -15,11 +15,11 @@ import omni.kit.app
 
 # Get the extension manager and enable our extension
 manager = omni.kit.app.get_app().get_extension_manager()
-manager.set_extension_enabled_immediate("isaacsim.zmq.bridge.examples", True)
+manager.set_extension_enabled_immediate("isaac_zmq_bridge", True)
 
 
-from isaacsim.zmq.bridge.examples import EXT_NAME
-from isaacsim.zmq.bridge.examples.example_missions import (
+from isaac_zmq_bridge import EXT_NAME
+from isaac_zmq_bridge.example_missions import (
     FrankaMultiVisionMission,
     FrankaVisionMission,
 )

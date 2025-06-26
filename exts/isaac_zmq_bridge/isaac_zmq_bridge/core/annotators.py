@@ -58,7 +58,7 @@ class ZMQAnnotator:
             server_ip (str): The IP address of the ZMQ server
             port (int): The port to use for ZMQ communication
         """
-        self.use_ogn_nodes = use_ogn_nodes
+        self.use_ogn_nodes = False
         self.server_ip = server_ip
         self.port = port
         self.resolution = resolution

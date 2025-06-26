@@ -6,7 +6,7 @@
 
 A reference bridge implementation for bidirectional communication between NVIDIA Isaac Sim and external applications using [ZeroMQ](https://zeromq.org/) and [Protobuf](https://protobuf.dev/).
 
-![Architecture of the client-server](/exts/isaacsim.zmq.bridge.examples/data/arch.png)
+![Architecture of the client-server](/exts/isaac_zmq_bridge/data/arch.png)
 
 ## Table of Contents
 
@@ -46,7 +46,7 @@ The provided examples demonstrate:
 - Robot control commands
 - Auxiliary data exchange
 
-![Franka Mission Example](/exts/isaacsim.zmq.bridge.examples/data/franka_mission.png)
+![Franka Mission Example](/exts/isaac_zmq_bridge/data/franka_mission.png)
 
 ## Requirements
 
@@ -108,7 +108,7 @@ apt-get install -y libunwind8
 
 ### Client (Isaac Sim)
 
-<img src="exts/isaacsim.zmq.bridge.examples/data/ext.png" width="800">
+<img src="exts/isaac_zmq_bridge/data/ext.png" width="800">
 
 1. Launch Isaac Sim
 2. Open **Window -> Extensions** from the top menu
@@ -119,7 +119,7 @@ apt-get install -y libunwind8
 
 > **Note**: First load of the extension may fail due to missing imports. This should be resolved after restarting Isaac Sim.
 
-<img src="exts/isaacsim.zmq.bridge.examples/data/create_menu.png" width="450">
+<img src="exts/isaac_zmq_bridge/data/create_menu.png" width="450">
 
 ### Server (Python)
 
@@ -164,7 +164,7 @@ To start communication:
 1. In Isaac Sim, click the `Reset World` button on the toolbar
 2. Click the `Start Streaming` button
 
-<img src="exts/isaacsim.zmq.bridge.examples/data/buttons.png" width="500">
+<img src="exts/isaac_zmq_bridge/data/buttons.png" width="500">
 
 On the server side:
 - Use arrow keys + mousewheel to control the camera view / focal length
@@ -178,12 +178,12 @@ The bridge can work in [standalone](https://docs.isaacsim.omniverse.nvidia.com/l
 export ISAACSIM_PYTHON=<your isaac sim install path>/python.sh
 
 # from this repo root
-$ISAACSIM_PYTHON exts/isaacsim.zmq.bridge.examples/isaacsim/zmq/bridge/examples/example_headless.py --ext-folder ./exts
+$ISAACSIM_PYTHON exts/isaac_zmq_bridge/isaacsim/zmq/bridge/examples/example_headless.py --ext-folder ./exts
 ```
 
 To change the example in headless mode, edit:
 ```python
-# In exts/isaacsim.zmq.bridge.examples/isaacsim/zmq/bridge/examples/example_headless.py
+# In exts/isaac_zmq_bridge/isaacsim/zmq/bridge/examples/example_headless.py
 # select an example mission here
 mission = FrankaVisionMission()
 # mission = FrankaMultiVisionMission()
@@ -193,7 +193,7 @@ mission = FrankaVisionMission()
 
 The system follows a client-server architecture with specialized components on each side:
 
-![Multi-Camera Example](/exts/isaacsim.zmq.bridge.examples/data/multi.png)
+![Multi-Camera Example](/exts/isaac_zmq_bridge/data/multi.png)
 
 ### Client Implementation
 
@@ -201,9 +201,9 @@ The client side runs within Isaac Sim and consists of both Python and C++ compon
 
 #### Python Components
 
-- **[ZMQClient](exts/isaacsim.zmq.bridge.examples/isaacsim/zmq/bridge/examples/core/client.py)**: Manages ZMQ sockets for bidirectional communication with the server
-- **[ZMQAnnotator](exts/isaacsim.zmq.bridge.examples/isaacsim/zmq/bridge/examples/core/annotators.py)**: Configures Camera streaming
-- **[Mission](exts/isaacsim.zmq.bridge.examples/isaacsim/zmq/bridge/examples/mission.py)**: Base class for the examples, handles world management and communication
+- **[ZMQClient](exts/isaac_zmq_bridge/isaacsim/zmq/bridge/examples/core/client.py)**: Manages ZMQ sockets for bidirectional communication with the server
+- **[ZMQAnnotator](exts/isaac_zmq_bridge/isaacsim/zmq/bridge/examples/core/annotators.py)**: Configures Camera streaming
+- **[Mission](exts/isaac_zmq_bridge/isaacsim/zmq/bridge/examples/mission.py)**: Base class for the examples, handles world management and communication
 
 #### C++ Components
 
@@ -232,7 +232,7 @@ Protobuf is used for serialization of all messages between Isaac Sim and the ser
 To enable Python-only mode, modify the mission initialization:
 
 ```python
-# In exts/isaacsim.zmq.bridge.examples/isaacsim/zmq/bridge/examples/example_missions.py
+# In exts/isaac_zmq_bridge/isaacsim/zmq/bridge/examples/example_missions.py
 class FrankaVisionMission(Mission):
     def __init__(self,...):
         ...
@@ -243,7 +243,7 @@ The key difference between modes:
 - **C++ Mode**: Acquires sensor data directly as CUDA pointers, providing a pathway for high-performance processing before streaming when working with multiple sensors or high-resolution data
 - **Python Mode**: Simpler implementation without direct CUDA access, suitable for prototyping but with performance limitations for complex sensor configurations
 
-> **Note**: The camera message processing happens in different places depending on the mode: in Python-only mode, it occurs in the [`ZMQAnnotator.stream()`](exts/isaacsim.zmq.bridge.examples/isaacsim/zmq/bridge/examples/core/annotators.py#L250) method, while in C++ mode, it's handled during the [`OgnIsaacBridgeZMQNode::compute()`](exts/isaacsim.zmq.bridge/plugins/nodes/OgnIsaacBridgeZMQNode.cpp#L115) execution.
+> **Note**: The camera message processing happens in different places depending on the mode: in Python-only mode, it occurs in the [`ZMQAnnotator.stream()`](exts/isaac_zmq_bridge/isaacsim/zmq/bridge/examples/core/annotators.py#L250) method, while in C++ mode, it's handled during the [`OgnIsaacBridgeZMQNode::compute()`](exts/isaacsim.zmq.bridge/plugins/nodes/OgnIsaacBridgeZMQNode.cpp#L115) execution.
 
 ## Development
 

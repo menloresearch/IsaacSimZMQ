@@ -12,5 +12,5 @@ MSBUILD_VERSION = "Current"
 -- Execute the kit template premake configuration, which creates the solution, finds extensions, etc.
 dofile("_repo/deps/repo_kit_tools/kit-template/premake5.lua")
 
-include("exts/isaacsim.zmq.bridge.examples/premake5.lua")
+include("exts/isaac_zmq_bridge/premake5.lua")
 include("exts/isaacsim.zmq.bridge/premake5.lua")

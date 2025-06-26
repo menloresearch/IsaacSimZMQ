@@ -1,0 +1,56 @@
+load("@rules_python//python:defs.bzl", "py_library", "py_binary")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+
+# Server Python library
+py_library(
+    name = "isaac_zmq_server_lib",
+    srcs = glob([
+        "src/**/*.py",
+    ]),
+    deps = [
+        "//:client_stream_message_py_proto",
+        "//:server_control_message_py_proto", 
+        "@pip//pyzmq",
+        "@pip//numpy",
+        "@pip//opencv-python",
+        "@pip//dearpygui",
+        "@pip//protobuf",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+# Server main executable
+py_binary(
+    name = "server_binary",
+    srcs = ["src/example.py"],
+    deps = [":isaac_zmq_server_lib"],
+    main = "src/example.py",
+    visibility = ["//visibility:public"],
+)
+
+# Package server files for Docker
+pkg_tar(
+    name = "server_files",
+    srcs = [
+        ":isaac_zmq_server_lib",
+        ":server_binary",
+        "src/example.py",
+        "src/requirements.txt",
+    ] + glob([
+        "src/**/*.py",
+    ]),
+    package_dir = "/app",
+    visibility = ["//visibility:public"],
+)
+
+# Build script equivalent
+filegroup(
+    name = "build_scripts",
+    srcs = [
+        "build_server.sh",
+        "run_server.sh",
+        "Dockerfile", 
+    ],
+    visibility = ["//visibility:public"],
+)
+

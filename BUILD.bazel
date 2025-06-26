@@ -1,0 +1,86 @@
+load("@rules_proto//proto:defs.bzl", "proto_library")
+load("@rules_cc//cc:defs.bzl", "cc_proto_library")
+# load("@rules_proto//proto:defs.bzl", "py_proto_library")
+# load("@rules_python//python:py_proto_library.bzl", "py_proto_library")
+load("@com_google_protobuf//bazel:py_proto_library.bzl", "py_proto_library")
+load("@rules_python//python:defs.bzl", "py_binary")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_load")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
+
+# Proto definitions
+proto_library(
+    name = "client_stream_message_proto",
+    srcs = ["proto/client_stream_message.proto"],
+)
+
+proto_library(
+    name = "server_control_message_proto",
+    srcs = ["proto/server_control_message.proto"],
+)
+
+cc_proto_library(
+    name = "client_stream_message_cc_proto",
+    deps = [":client_stream_message_proto"],
+)
+
+cc_proto_library(
+    name = "server_control_message_cc_proto",
+    deps = [":server_control_message_proto"],
+)
+
+py_proto_library(
+    name = "client_stream_message_py_proto",
+    deps = [":client_stream_message_proto"],
+    visibility = ["//visibility:public"],
+)
+
+py_proto_library(
+    name = "server_control_message_py_proto",
+    deps = [":server_control_message_proto"],
+    visibility = ["//visibility:public"],
+)
+
+# Convenience target to build all extensions
+alias(
+    name = "extensions",
+    actual = "//exts:all_extensions",
+)
+
+# Server Docker image
+pkg_files(
+    name = "zmp_ext_tar_files",
+    srcs = ["//exts/isaac_zmq_bridge:zmq_bridge_examples_python"],
+    strip_prefix = "/",
+    prefix = "isaac_exts",
+)
+
+pkg_tar(
+    name = "zmp_ext_tar",
+    srcs = [":zmp_ext_tar_files"],
+    package_dir = "/isaac_exts",
+)
+
+oci_image(
+    name = "isaac_zmq_ext_image",
+    base = "@isaac_lab_image",
+    entrypoint = ["/bin/bash"],
+    tars = [":zmp_ext_tar"],
+)
+
+oci_load(
+    name = "isaac_zmq_ext_tarball",
+    image = ":isaac_zmq_ext_image",
+    repo_tags = ["isaac-zmq-ext:latest"],
+)
+
+# Main build target that mimics build.sh functionality
+filegroup(
+    name = "build_all",
+    srcs = [
+        ":extensions",
+        ":isaac_zmq_ext_tarball",
+        "//isaac-zmq-server:server_binary",
+        ":prebundle_pip_packages",
+    ],
+)

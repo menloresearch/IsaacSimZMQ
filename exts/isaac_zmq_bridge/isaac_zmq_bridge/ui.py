@@ -18,7 +18,7 @@ from .mission import Mission
 
 def get_data_path() -> Path:
     manager = omni.kit.app.get_app().get_extension_manager()
-    extension_path = manager.get_extension_path_by_module("isaacsim.zmq.bridge.examples")
+    extension_path = manager.get_extension_path_by_module("isaac_zmq_bridge")
     return Path(extension_path).joinpath("data")
 
 

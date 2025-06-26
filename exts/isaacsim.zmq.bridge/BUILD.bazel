@@ -1,0 +1,75 @@
+# load("@rules_cc//cc:defs.bzl", "cc_library")
+# load("@rules_python//python:defs.bzl", "py_library")
+
+# # C++ ZMQ Bridge Node Library
+# cc_library(
+#     name = "zmq_bridge_nodes",
+#     srcs = [
+#         "plugins/nodes/OgnIsaacBridgeZMQNode.cpp",
+#         "plugins/nodes/OgnIsaacBridgeZMQCamera.cpp",
+#         "plugins/isaacsim.zmq.bridge/OgnIsaacBridgeZMQNodeExtension.cpp",
+#     ],
+#     hdrs = glob([
+#         "plugins/**/*.h",
+#         "plugins/**/*.hpp",
+#         "plugins/**/*.cuh",
+#     ]) + [
+#         "plugins/nodes/client_stream_message.pb.h",  # Generated proto header
+#     ],
+#     deps = [
+#         "//:client_stream_message_cc_proto",
+#         "//:server_control_message_cc_proto",
+#         "@omni_isaac_deps//:zmq",
+#         "@omni_isaac_deps//:usd_libs",
+#         "@omni_isaac_deps//:python_dev",
+#     ],
+#     copts = [
+#         "-fexceptions",
+#         "-std=c++17",
+#     ],
+#     linkopts = [
+#         "-Wl,-rpath,$$ORIGIN/lib",
+#     ],
+#     alwayslink = True,
+#     visibility = ["//visibility:public"],
+# )
+
+# # Python bridge module
+# py_library(
+#     name = "zmq_bridge_python",
+#     srcs = glob([
+#         "isaacsim/**/*.py",
+#     ]),
+#     deps = [
+#         "//:client_stream_message_py_proto",
+#         "//:server_control_message_py_proto",
+#         "@pip//pyzmq",
+#     ],
+#     visibility = ["//visibility:public"],
+# )
+
+# # Extension configuration files
+# filegroup(
+#     name = "zmq_bridge_config",
+#     srcs = glob([
+#         "config/*.toml",
+#         "*.toml",
+#         "data/**/*",
+#         "docs/**/*",
+#         "ogn/**/*.py",
+#     ]) + [
+#         "extension.toml",
+#     ],
+#     visibility = ["//visibility:public"],
+# )
+
+# # Complete extension package
+# filegroup(
+#     name = "zmq_bridge_extension",
+#     srcs = [
+#         ":zmq_bridge_nodes",
+#         ":zmq_bridge_python",
+#         ":zmq_bridge_config",
+#     ],
+#     visibility = ["//visibility:public"],
+# )

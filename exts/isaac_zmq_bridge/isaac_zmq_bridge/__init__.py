@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2024 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 # SPDX-License-Identifier: MIT
 
-EXT_NAME = "isaacsim.zmq.bridge.examples"
+EXT_NAME = "isaac_zmq_bridge"
 
 from .core.proto_util import register_proto_modules
 

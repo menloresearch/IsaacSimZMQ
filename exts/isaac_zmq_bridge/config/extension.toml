@@ -14,11 +14,10 @@ icon = "data/icon.png"
 # Use omni.ui to build simple UI
 [dependencies]
 "omni.kit.uiapp" = {}
-"isaacsim.zmq.bridge" = {}
 
 # Main python module this extension provides, it will be publicly available as "import lbenhorin.nvidia.vision_pipeline".
 [[python.module]]
-name = "isaacsim.zmq.bridge.examples"
+name = "isaac_zmq_bridge"
 
 [[test]]
 # Extra dependencies only to be used during test run

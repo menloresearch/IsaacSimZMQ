@@ -1,0 +1,11 @@
+# Extensions directory BUILD file
+
+# Collect all extension targets
+filegroup(
+    name = "all_extensions",
+    srcs = [
+        # "//exts/isaacsim.zmq.bridge:zmq_bridge_extension",
+        "//exts/isaac_zmq_bridge:zmq_bridge_examples_extension",
+    ],
+    visibility = ["//visibility:public"],
+)

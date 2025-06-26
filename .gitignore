@@ -50,5 +50,6 @@ exts/isaacsim.zmq.bridge/ogn/
 exts/isaacsim.zmq.bridge/bin/
 
 
-exts/isaacsim.zmq.bridge.examples/pip_prebundle
-exts/isaacsim.zmq.bridge.examples/PACKAGE-LICENSES
+exts/isaac_zmq_bridge/pip_prebundle
+exts/isaac_zmq_bridge/PACKAGE-LICENSES
+/bazel-*
