@@ -19,7 +19,7 @@ manager.set_extension_enabled_immediate("isaac_zmq_bridge", True)
 
 
 from isaac_zmq_bridge import EXT_NAME
-from isaac_zmq_bridge.example_missions import (
+from exts.isaac_zmq_bridge.isaac_zmq_bridge.franka_missions import (
     FrankaMultiVisionMission,
     FrankaVisionMission,
 )
