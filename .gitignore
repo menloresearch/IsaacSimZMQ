@@ -44,10 +44,10 @@ _compiler
 .vscode/
 source/
 
-exts/isaacsim.zmq.bridge/isaacsim/zmq/bridge/ogn/
-exts/isaacsim.zmq.bridge/PACKAGE-LICENSES/
-exts/isaacsim.zmq.bridge/ogn/
-exts/isaacsim.zmq.bridge/bin/
+exts/omnigraph_zmq_bridge/omnigraph_zmq_bridge/ogn/
+exts/omnigraph_zmq_bridge/PACKAGE-LICENSES/
+exts/omnigraph_zmq_bridge/ogn/
+exts/omnigraph_zmq_bridge/bin/
 
 
 exts/isaac_zmq_bridge/pip_prebundle

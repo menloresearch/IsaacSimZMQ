@@ -16,7 +16,7 @@ repository="https://github.com/isaac-sim/IsaacSimZMQ"
 "omni.graph.tools" = {}
 
 [[python.module]]
-name = "isaacsim.zmq.bridge"
+name = "omnigraph_zmq_bridge"
 
 [[native.plugin]]
 path = "bin/*.plugin"
