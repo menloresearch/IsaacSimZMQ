@@ -13,7 +13,7 @@ from omni.kit.notification_manager import post_notification
 from omni.kit.widget.toolbar import get_instance
 
 from . import EXT_NAME
-from .example_missions import FrankaMultiVisionMission, FrankaVisionMission
+from .franka_missions import FrankaMultiVisionMission, FrankaVisionMission
 from .g1_missions import G1StackBlockMission
 from .ui import ZMQClientButtonGroup
 

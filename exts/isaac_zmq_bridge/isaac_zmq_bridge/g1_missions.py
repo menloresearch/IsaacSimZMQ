@@ -15,14 +15,8 @@ import omni.usd
 # enable_extension("omni.isaac.robot_assembler")
 from isaacsim.robot_setup.assembler import RobotAssembler
 from isaacsim.core.api.robots import Robot
-from isaacsim.core.prims import XFormPrim, Articulation
-from isaacsim.core.utils.rotations import euler_angles_to_quat
+from isaacsim.core.prims import XFormPrim
 from isaacsim.core.utils.types import ArticulationAction
-from isaacsim.robot.manipulators.examples.franka import Franka
-from isaacsim.robot.manipulators.examples.franka.controllers.rmpflow_controller import (
-    RMPFlowController,
-)
-from isaacsim.sensors.camera import Camera
 from isaacsim.storage.native import get_assets_root_path
 from isaacsim.util.debug_draw import _debug_draw
 from pxr import Gf, Sdf, Tf, Usd, UsdGeom, UsdPhysics, UsdShade
@@ -284,7 +278,6 @@ class G1StackBlockMission(Mission):
         self.franka = Robot(prim_path="/World/G1")
         self.franka.initialize()
         self.update_annotator()
-        self.rmpf_controller = RMPFlowController(name="target_follower_controller", robot_articulation=self.franka)
         self.franka_articulation_controller = self.franka.get_articulation_controller()
         self.target = XFormPrim(prim_paths_expr="/World/Target_R")
 
