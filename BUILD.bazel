@@ -50,7 +50,10 @@ alias(
 # Server Docker image
 pkg_files(
     name = "zmp_ext_tar_files",
-    srcs = ["//exts/isaac_zmq_bridge:zmq_bridge_examples_python"],
+    srcs = [
+        "//exts/isaac_zmq_bridge:zmq_bridge_examples_extension",
+        # "//exts/isaac_zmq_bridge:zmq_bridge_examples_python",
+    ],
     strip_prefix = "/",
     prefix = "",
 )

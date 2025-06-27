@@ -30,11 +30,6 @@ from omni.__proto__ import server_control_message_pb2
 from omni.isaac.core.articulations import ArticulationView
 
 
-
-# G1_USD = "/home/ron/Projects/unitree_ros/robots/g1_description/g1_29dof_with_hand_rev_1_0/g1_29dof_with_hand_rev_1_0.usd"
-G1_USD = "/home/ron/Downloads/g1_29dof_with_hand_rev_1_0.usd"
-
-
 class ActionQueue:
 
     def __init__(self, limit=128):
@@ -227,9 +222,6 @@ class G1StackBlockMission(Mission):
             proto_msg: ServerControlMessage containing a FrankaCommand
         """
         # print("joint_names: ", Articulation(prim_paths_expr='/World/G1').joint_names)
-
-        # Default position if no command is received
-        # new_effector_pos = [0, 0, 0]
         self.draw.clear_points()
 
         if self.world.is_playing():
@@ -301,17 +293,15 @@ class G1StackBlockMission(Mission):
         self.reset_franka_mission()
 
     @classmethod
-    def add_franka(cls) -> None:
+    def add_robot(cls) -> None:
         """Add a Franka robot to the scene."""
-        root = get_assets_root_path()
-        global G1_USD
-
         translate = [0.0, 0.0, 0.79]
+        g1_gsd = str(cls.asset_dir_path() / "g1_29dof_with_hand_rev_1_0.usd")
         omni.kit.commands.execute(
             "CreateReferenceCommand",
             usd_context=omni.usd.get_context(),
             path_to="/World/G1",
-            asset_path=G1_USD,
+            asset_path=g1_gsd,
             instanceable=False,
         )
         omni.kit.commands.execute(
@@ -325,8 +315,6 @@ class G1StackBlockMission(Mission):
         omni.kit.selection.SelectNoneCommand().do()
 
         # NOTE: fix pelvis joint position, so G1 won't sway around during operation.
-        # xform_pelvis = XFormPrim("/World/G1/pelvis")
-        # pelvis_translate = xform_pelvis.prims[0].GetAttribute("xformOp:translate").Get()
         robot_assembler = RobotAssembler()
         robot_assembler.create_fixed_joint(
             prim_path="/World/G1/pelvis",
@@ -334,15 +322,11 @@ class G1StackBlockMission(Mission):
             fixed_joint_offset=np.asarray(translate),
         )
 
-        # robot_view = ArticulationView(prim_paths_expr="/World/G1")
-        # robot_view.set_joint_positions(np.ones([43], dtype=np.float32))
-
-
     @classmethod
     async def _async_load(cls) -> None:
         """Load the mission asynchronously."""
         await Mission._async_load(cls.mission_usd_path())
-        cls.add_franka()
+        cls.add_robot()
         await asyncio.sleep(0.5)
         omni.kit.selection.SelectNoneCommand().do()
 
@@ -350,5 +334,5 @@ class G1StackBlockMission(Mission):
     def load_mission(cls) -> None:
         """Load the mission synchronously."""
         Mission.load_mission(cls.mission_usd_path())
-        cls.add_franka()
+        cls.add_robot()
         omni.kit.selection.SelectNoneCommand().do()

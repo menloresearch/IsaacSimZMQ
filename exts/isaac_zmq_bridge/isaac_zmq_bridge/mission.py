@@ -24,7 +24,7 @@ class Mission:
     """
 
     name = "Mission"
-    world_usd_path = None  # Should be set by derived classes to point to the USD world file
+    world_usd_path: str = None  # Should be set by derived classes to point to the USD world file
 
     def __init__(self, server_ip: str = "localhost"):
         self.zmq_client = ZMQClient(server_ip=server_ip)
@@ -87,7 +87,7 @@ class Mission:
         asyncio.ensure_future(_async_executor())
 
     @classmethod
-    def mission_usd_path(cls) -> str:
+    def asset_dir_path(cls) -> Path:
         """
         For the headless example, we need to import the stage progrematically.
         """
@@ -95,9 +95,17 @@ class Mission:
         manager = omni.kit.app.get_app().get_extension_manager()
         extension_path = manager.get_extension_path_by_module("isaac_zmq_bridge")
         data_path = Path(extension_path).joinpath("data")
-        assets_path = data_path.parent.parent.parent / "assets"
-        source_usd = str(assets_path / cls.world_usd_path)
+        assets_path = data_path.parent / "assets"
+        return assets_path
 
+    @classmethod
+    def mission_usd_path(cls) -> str:
+        """
+        For the headless example, we need to import the stage progrematically.
+        """
+        # Get the extension path to locate assets
+        assets_path = cls.asset_dir_path()
+        source_usd = str(assets_path / cls.world_usd_path)
         return source_usd
 
     @classmethod

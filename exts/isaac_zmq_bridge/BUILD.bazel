@@ -107,9 +107,9 @@ filegroup(
     name = "zmq_bridge_examples_config",
     srcs = glob([
         "config/*.toml",
-        # "*.toml",
         "data/**/*",
         "docs/**/*",
+        "assets/**/*",
     ]),
     visibility = ["//visibility:public"],
 )
