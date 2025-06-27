@@ -52,7 +52,7 @@ pkg_files(
     name = "zmp_ext_tar_files",
     srcs = ["//exts/isaac_zmq_bridge:zmq_bridge_examples_python"],
     strip_prefix = "/",
-    prefix = "isaac_exts",
+    prefix = "",
 )
 
 pkg_tar(
@@ -65,7 +65,10 @@ oci_image(
     name = "isaac_zmq_ext_image",
     base = "@isaac_lab_image",
     entrypoint = ["/bin/bash"],
-    tars = [":zmp_ext_tar"],
+    tars = [
+        ":zmp_ext_tar",
+        "//exts/isaac_zmq_bridge:prebundle_pip_packages",
+    ],
 )
 
 oci_load(

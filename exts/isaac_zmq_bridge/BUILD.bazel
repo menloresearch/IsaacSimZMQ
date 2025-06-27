@@ -7,42 +7,97 @@ filegroup(
     visibility = ["//visibility:public"],
 )
 
+# Copy py_proto to core folder
+genrule(
+    name = "copy_client_stream_message_py_proto",
+    srcs = ["//:client_stream_message_py_proto"],
+    outs = [
+        "isaac_zmq_bridge/core/client_stream_message_pb2.py",
+    ],
+    cmd = """
+        set -e
+
+        # Find the generated protobuf file in the source files
+        PROTO_FILE=""
+        for src in $(SRCS); do
+            if [[ "$$src" == *"client_stream_message_pb2.py" ]]; then
+                PROTO_FILE="$$src"
+                break
+            fi
+        done
+
+        if [[ -z "$$PROTO_FILE" ]]; then
+            echo "Error: client_stream_message_pb2.py not found in sources"
+            exit 1
+        fi
+
+        # Copy the file to the output location
+        cp "$$PROTO_FILE" "$@"
+
+        echo "Copied client_stream_message_pb2.py to exts/isaac_zmq_bridge/isaac_zmq_bridge/core/"
+    """,
+    visibility = ["//visibility:public"],
+)
 
 # Prebundle pip packages target
 genrule(
     name = "prebundle_pip_packages",
     srcs = [":requirements_lock_txt"],
-    outs = ["pip_prebundle_complete.marker"],
+    outs = ["pip_prebundle.tar"],
     cmd = """
         set -e
 
         # Get paths
         WORKSPACE_ROOT=$$(pwd)
         TEMP_DIR=$$(mktemp -d)
-        OUTPUT_DIR="$$WORKSPACE_ROOT/exts/isaac_zmq_bridge/pip_prebundle"
+
+        OUTPUT_DIR="isaac_exts/exts/isaac_zmq_bridge/pip_prebundle"
         REQUIREMENTS_FILE="$(location //exts/isaac_zmq_bridge:requirements_lock_txt)"
 
         echo "Installing packages from $$REQUIREMENTS_FILE to $$OUTPUT_DIR"
 
         # Clean existing prebundle directory
         rm -rf "$$OUTPUT_DIR"
+        mkdir -p "$$TEMP_DIR"
         mkdir -p "$$OUTPUT_DIR"
 
-        # Install packages to temporary directory
-        python3 -m pip install --target "$$TEMP_DIR" --no-deps --no-cache-dir -r "$$REQUIREMENTS_FILE"
+        # Normalize for filesystem and import
+        normalize_name() {
+            echo "$$1" | tr '[:upper:]' '[:lower:]' | tr '-' '_'
+        }
 
-        # Copy all installed content to output directory
-        if [ "$$(ls -A $$TEMP_DIR)" ]; then
-            cp -r "$$TEMP_DIR"/* "$$OUTPUT_DIR"/
-        fi
+        while IFS= read -r line; do
+            # Skip empty/comment lines
+            [[ -z "$$line" || "$$line" == \\#* ]] && continue
+
+            # Extract package name (no version, extras, etc)
+            pkg=$$(echo "$$line" | sed -E 's/^\\s*([a-zA-Z0-9_.\\-]+).*$$/\\1/')
+            norm_pkg=$$(normalize_name "$$pkg")
+            echo "Installing $$pkg..."
+
+            # Install just this package into temp dir
+            python3 -m pip install --target "$$TEMP_DIR" --no-deps --no-cache-dir "$$line"
+
+            # Create destination folder
+            PKG_OUT_DIR="$$OUTPUT_DIR/$$norm_pkg"
+            mkdir -p "$$PKG_OUT_DIR"
+
+            # Move all contents of temp dir into this subfolder
+            shopt -s dotglob  # include hidden files
+            mv "$$TEMP_DIR"/* "$$PKG_OUT_DIR/" || true
+
+            # Clean temp dir for next round
+            rm -rf "$$TEMP_DIR"/*
+        done < "$$REQUIREMENTS_FILE"
+
 
         # Clean up temporary directory
         rm -rf "$$TEMP_DIR"
 
-        # Create completion marker
-        touch $@
+        # Create tar archive of the prebundled packages
+        tar -cf "$@" -C . "$$OUTPUT_DIR"
 
-        echo "Prebundling complete - packages installed to $$OUTPUT_DIR"
+        echo "Prebundling complete - packages archived to $@"
     """,
     visibility = ["//visibility:public"],
 )
@@ -65,7 +120,10 @@ py_library(
     name = "zmq_bridge_examples_python",
     srcs = glob([
         "isaac_zmq_bridge/**/*.py",
-    ]),
+    ]) + [
+        ":copy_client_stream_message_py_proto",
+        # ":prebundle_pip_packages",
+    ],
     deps = [
         "//:client_stream_message_py_proto",
         "//:server_control_message_py_proto",
@@ -76,7 +134,6 @@ py_library(
     ],
     data = [
         ":zmq_bridge_examples_config",
-        ":prebundle_pip_packages",
     ],
     visibility = ["//visibility:public"],
 )
@@ -101,11 +158,11 @@ py_binary(
 # )
 
 # Complete examples extension package
-# filegroup(
-#     name = "zmq_bridge_examples_extension",
-#     srcs = [
-#         ":zmq_bridge_examples_python",
-#         ":zmq_bridge_examples_config",
-#     ],
-#     visibility = ["//visibility:public"],
-# )
+filegroup(
+    name = "zmq_bridge_examples_extension",
+    srcs = [
+        ":zmq_bridge_examples_python",
+        ":zmq_bridge_examples_config",
+    ],
+    visibility = ["//visibility:public"],
+)
