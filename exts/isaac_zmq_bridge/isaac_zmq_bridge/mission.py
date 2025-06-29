@@ -116,9 +116,6 @@ class Mission:
         print(f"[{EXT_NAME}] loading mission")
         stage_utils.open_stage(source_usd)
 
-    def reset_world_async(self) -> None:
-        carb.log_warn(f"[{EXT_NAME}] reset world async: NOT IMPLEMENTED")
-
     @classmethod
     async def _async_load(cls, source_usd: str) -> None:
         await stage_utils.open_stage_async(source_usd)

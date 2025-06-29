@@ -10,14 +10,21 @@ import argparse
 # from omni.isaac.core.utils.extensions import enable_extension
 from isaaclab.app import AppLauncher
 
-
-custom_ext_folder_1 = os.path.abspath("/home/ron/Projects/IsaacSimZMQ/exts")
+here = os.path.dirname(__file__)
+# custom_ext_folder_1 = os.path.abspath("/home/ron/Projects/IsaacSimZMQ/exts")
+custom_ext_folder_1 = os.path.abspath(os.path.join(here, "../exts"))
 extension_to_enable = 'isaac_zmq_bridge'
 # extension_to_enable = 'isaacsim.zmq.bridge'
 
 kit_arguments = (
     f"--ext-folder {custom_ext_folder_1} "
     f"--enable isaacsim.robot.manipulators.examples "
+    f"--enable isaacsim.robot_setup.assembler "
+    f"--enable isaacsim.sensors.camera "
+    f"--enable omni.isaac.core "
+    f"--enable omni.kit.widget.toolbar "
+    f"--enable isaacsim.util.debug_draw "
+    f"--enable omni.kit.selection "
     f"--enable {extension_to_enable} " # Explicitly enable the specified extension
 )
 
@@ -26,7 +33,7 @@ parser = argparse.ArgumentParser(description="Tutorial on creating an empty stag
 AppLauncher.add_app_launcher_args(parser)
 args_cli = parser.parse_args()
 
-app_launcher = AppLauncher(headless=False, kit_args=kit_arguments)
+app_launcher = AppLauncher(headless=True, kit_args=kit_arguments)
 # app_launcher = AppLauncher(args_cli)
 simulation_app = app_launcher.app
 
