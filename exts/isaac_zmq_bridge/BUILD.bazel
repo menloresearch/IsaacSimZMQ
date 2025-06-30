@@ -7,34 +7,45 @@ filegroup(
     visibility = ["//visibility:public"],
 )
 
-# Copy py_proto to core folder
+# Copy py_proto files to core folder
 genrule(
     name = "copy_client_stream_message_py_proto",
-    srcs = ["//:client_stream_message_py_proto"],
+    srcs = [
+        "//:client_stream_message_py_proto",
+        "//:server_control_message_py_proto",
+    ],
     outs = [
         "isaac_zmq_bridge/core/client_stream_message_pb2.py",
+        "isaac_zmq_bridge/core/server_control_message_pb2.py",
     ],
     cmd = """
         set -e
 
-        # Find the generated protobuf file in the source files
-        PROTO_FILE=""
-        for src in $(SRCS); do
-            if [[ "$$src" == *"client_stream_message_pb2.py" ]]; then
-                PROTO_FILE="$$src"
-                break
+        # Define the proto files we want to copy
+        declare -A PROTO_FILES=(
+            ["client_stream_message_pb2.py"]="$(location isaac_zmq_bridge/core/client_stream_message_pb2.py)"
+            ["server_control_message_pb2.py"]="$(location isaac_zmq_bridge/core/server_control_message_pb2.py)"
+        )
+
+        # Find and copy each proto file
+        for proto_name in "$${!PROTO_FILES[@]}"; do
+            PROTO_FILE=""
+            for src in $(SRCS); do
+                if [[ "$$src" == *"$$proto_name" ]]; then
+                    PROTO_FILE="$$src"
+                    break
+                fi
+            done
+
+            if [[ -z "$$PROTO_FILE" ]]; then
+                echo "Error: $$proto_name not found in sources"
+                exit 1
             fi
+
+            # Copy the file to the output location
+            cp "$$PROTO_FILE" "$${PROTO_FILES[$$proto_name]}"
+            echo "Copied $$proto_name to exts/isaac_zmq_bridge/isaac_zmq_bridge/core/"
         done
-
-        if [[ -z "$$PROTO_FILE" ]]; then
-            echo "Error: client_stream_message_pb2.py not found in sources"
-            exit 1
-        fi
-
-        # Copy the file to the output location
-        cp "$$PROTO_FILE" "$@"
-
-        echo "Copied client_stream_message_pb2.py to exts/isaac_zmq_bridge/isaac_zmq_bridge/core/"
     """,
     visibility = ["//visibility:public"],
 )
